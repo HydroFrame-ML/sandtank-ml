@@ -1,5 +1,5 @@
-import Vue from 'vue';
-import Vuetify from 'vuetify';
+import Vue from "vue";
+import Vuetify from "vuetify";
 
 Vue.use(Vuetify, {
   // Config for components to keep during treeshaking
@@ -7,5 +7,10 @@ Vue.use(Vuetify, {
 });
 
 export default new Vuetify({
-  // Config for icons
+  icons: {
+    iconfont: "mdi",
+    values: {
+      compare: "mdi-scale-balance"
+    }
+  }
 });
