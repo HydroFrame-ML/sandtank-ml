@@ -1,6 +1,8 @@
 import { mapGetters, mapActions } from "vuex";
 import logo from "compare-sandtank-ai/src/assets/logo.png";
 import RemoteRenderingView from "compare-sandtank-ai/src/components/widgets/RemoteRenderingView";
+import Comparisons from "compare-sandtank-ai/src/components/core/Comparisons";
+import Candidates from "compare-sandtank-ai/src/components/core/Candidates";
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -9,7 +11,9 @@ import RemoteRenderingView from "compare-sandtank-ai/src/components/widgets/Remo
 export default {
   name: "App",
   components: {
-    RemoteRenderingView
+    RemoteRenderingView,
+    Comparisons,
+    Candidates
   },
   data() {
     return {
