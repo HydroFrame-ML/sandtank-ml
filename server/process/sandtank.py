@@ -81,24 +81,13 @@ class Float32_clamp_scaling_x_bc:
 
 
 class SandtankEngine:
-    def __init__(self, data_dir):
-        self.data_dir = data_dir
-        self.time = 0  # Use initial pressure (25/25)
+    def __init__(self):
         self.press_transform = Float32_clamp_scaling_x_bc(
             src_range=[-30, 50], dst_range=[-1, 1], height=50
         )
         self.perm_transform = Float32_clamp_scaling_x_bc(
             src_range=[0, 1], dst_range=[-1, 1], height=50
         )
-
-    def get_sandtank(self, left, right):
-        l = "{:0>2d}".format(left)
-        r = "{:0>2d}".format(right)
-        sandtank_path = f"{self.data_dir}/{l}/{r}/"
-        if os.path.exists(f"{sandtank_path}/"):
-            pass
-        else:
-            return run_sandtank(left, right)
 
     def run_sandtank(self, left, right):
         with TemporaryDirectory() as run_directory:
@@ -122,7 +111,7 @@ class SandtankEngine:
             inputs["size"] = (height, width)
 
             # Add data channels to inputs
-            data.time = 0
+            data.time = 0  # Use initial pressure (25/25)
             perm = self.perm_transform.convert(data.computed_permeability_x)
             press = self.press_transform.convert(data.pressure)
             inputs["channels"] = [array.flatten().tolist() for array in [perm, press]]
@@ -131,6 +120,5 @@ class SandtankEngine:
 
 
 if __name__ == "__main__":
-    data_dir = "."
-    s = SandtankEngine(data_dir)
+    s = SandtankEngine()
     print(s.run_sandtank(32, 68))
