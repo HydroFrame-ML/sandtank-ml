@@ -1,5 +1,5 @@
 <div :class="$style.container">
-  <v-slider vertical v-model="leftSlider" :class="$style.slider" class="px-16">
+  <v-slider vertical v-model="leftSlider" :class="$style.slider" class="px-4">
     <template v-slot:append>
       <div :class="$style.labelWrapper" class="text-h6">
         {{leftSlider}}
@@ -7,13 +7,7 @@
     </template>
   </v-slider>
   <ComputedImage :scale="3" :size="[102, 50]" />
-  <v-slider
-    v-model="rightSlider"
-    vertical
-    value="10"
-    :class="$style.slider"
-    class="px-16"
-  >
+  <v-slider vertical v-model="rightSlider" :class="$style.slider" class="px-4">
     <template v-slot:append>
       <div :class="$style.labelWrapper" class="text-h6">
         {{rightSlider}}

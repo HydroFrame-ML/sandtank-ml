@@ -3,7 +3,7 @@ import logo from "compare-sandtank-ai/src/assets/logo.png";
 import RemoteRenderingView from "compare-sandtank-ai/src/components/widgets/RemoteRenderingView";
 import Comparisons from "compare-sandtank-ai/src/components/core/Comparisons";
 import Candidates from "compare-sandtank-ai/src/components/core/Candidates";
-import Case from "compare-sandtank-ai/src/components/core/Case";
+import Conditions from "compare-sandtank-ai/src/components/core/Conditions";
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -15,7 +15,7 @@ export default {
     RemoteRenderingView,
     Comparisons,
     Candidates,
-    Case
+    Conditions
   },
   data() {
     return {
