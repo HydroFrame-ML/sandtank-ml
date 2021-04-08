@@ -109,7 +109,10 @@ class SandtankEngine:
             sandtank.Patch.x_lower.BCPressure.alltime.Value = left
             sandtank.Patch.x_upper.BCPressure.alltime.Value = right
             sandtank.dist("SandTank_Indicator.pfb")
-            sandtank.run(working_directory=run_directory)
+            sandtank.run()
+            parflow.tools.settings.set_working_directory(
+                run_directory
+            )  # get_absolute_path forgets tempdir after run
 
             # Collect inputs for web client
             inputs = dict()
@@ -120,7 +123,6 @@ class SandtankEngine:
 
             # Add data channels to inputs
             data.time = 0
-            parflow.tools.settings.set_working_directory(run_directory)
             perm = self.perm_transform.convert(data.computed_permeability_x)
             press = self.press_transform.convert(data.pressure)
             inputs["channels"] = [array.flatten().tolist() for array in [perm, press]]
