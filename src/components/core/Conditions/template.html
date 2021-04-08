@@ -1,17 +1,29 @@
-<div :class="$style.container">
-  <v-slider vertical v-model="leftSlider" :class="$style.slider" class="px-4">
-    <template v-slot:append>
-      <div :class="$style.labelWrapper" class="text-h6">
-        {{leftSlider}}
-      </div>
-    </template>
-  </v-slider>
-  <ComputedImage :scale="3" :size="[102, 50]" />
-  <v-slider vertical v-model="rightSlider" :class="$style.slider" class="px-4">
-    <template v-slot:append>
-      <div :class="$style.labelWrapper" class="text-h6">
-        {{rightSlider}}
-      </div>
-    </template>
-  </v-slider>
+<div>
+  <div :class="$style.container">
+    <v-slider vertical v-model="leftSlider" :class="$style.slider" class="px-4">
+      <template v-slot:append>
+        <div :class="$style.labelWrapper" class="text-h6">
+          {{leftSlider}}
+        </div>
+      </template>
+    </v-slider>
+    <ComputedImage :scale="3" :size="[102, 50]" />
+    <v-slider
+      vertical
+      v-model="rightSlider"
+      :class="$style.slider"
+      class="px-4"
+    >
+      <template v-slot:append>
+        <div :class="$style.labelWrapper" class="text-h6">
+          {{rightSlider}}
+        </div>
+      </template>
+    </v-slider>
+  </div>
+  <div :class="$style.container">
+    <v-btn :loading="runLoading" class="ma-2" color="primary">
+      <v-icon v-text="`$run`" /> Run Models
+    </v-btn>
+  </div>
 </div>

@@ -10,7 +10,8 @@ export default new Vuetify({
   icons: {
     iconfont: "mdi",
     values: {
-      compare: "mdi-scale-balance"
+      compare: "mdi-scale-balance",
+      run: "mdi-run"
     }
   }
 });
