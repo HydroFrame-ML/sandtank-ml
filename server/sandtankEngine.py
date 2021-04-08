@@ -1,9 +1,19 @@
 import os
 import numpy as np
-from parflow import Run
+import parflow
+
+from shutil import copyfile
+from tempfile import TemporaryDirectory
+
 
 base_path = os.path.dirname(os.path.abspath(__file__))
 refs_path = os.path.join(base_path, "refs")
+
+
+def copy_refs(dest):
+    for name in ["run.yaml", "SandTank_Indicator.pfb", "SandTank.pfsol"]:
+        copyfile(os.path.join(refs_path, name), os.path.join(dest, name))
+
 
 ###############################################################################
 
@@ -91,25 +101,29 @@ class SandtankEngine:
             return run_sandtank(left, right)
 
     def run_sandtank(self, left, right):
-        sandtank = Run.from_definition(f"{refs_path}/run.yaml")
-        sandtank.Patch.x_lower.BCPressure.alltime.Value = left
-        sandtank.Patch.x_upper.BCPressure.alltime.Value = right
-        sandtank.dist("SandTank_Indicator.pfb")
+        with TemporaryDirectory() as run_directory:
 
-        # Collect inputs for web client
-        inputs = dict()
-        data = sandtank.data_accessor
-        (shape_height, _, shape_width) = data.shape
-        (height, width) = (shape_height + 2, shape_width)
-        inputs["size"] = (height, width)
+            # Run sandtank
+            copy_refs(run_directory)
+            sandtank = parflow.Run.from_definition(f"{run_directory}/run.yaml")
+            sandtank.Patch.x_lower.BCPressure.alltime.Value = left
+            sandtank.Patch.x_upper.BCPressure.alltime.Value = right
+            sandtank.dist("SandTank_Indicator.pfb")
+            sandtank.run(working_directory=run_directory)
 
-        # Add data channels to inputs
-        data.time = 0
-        perm = self.perm_transform.convert(data.computed_permeability_x)
-        press = self.press_transform.convert(data.pressure)
-        inputs["channels"] = [array.flatten().tolist() for array in [perm, press]]
+            # Collect inputs for web client
+            inputs = dict()
+            data = sandtank.data_accessor
+            (shape_height, _, shape_width) = data.shape
+            (height, width) = (shape_height + 2, shape_width)
+            inputs["size"] = (height, width)
 
-        sandtank.run()
+            # Add data channels to inputs
+            data.time = 0
+            parflow.tools.settings.set_working_directory(run_directory)
+            perm = self.perm_transform.convert(data.computed_permeability_x)
+            press = self.press_transform.convert(data.pressure)
+            inputs["channels"] = [array.flatten().tolist() for array in [perm, press]]
 
         return inputs
 
