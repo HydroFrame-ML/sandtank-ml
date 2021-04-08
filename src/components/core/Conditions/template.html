@@ -1,6 +1,12 @@
 <div>
   <div :class="$style.container">
-    <v-slider vertical v-model="leftSlider" :class="$style.slider" class="px-4">
+    <v-slider
+      vertical
+      v-model="leftSlider"
+      :class="$style.slider"
+      class="px-4"
+      @change="setLeftSlider"
+    >
       <template v-slot:append>
         <div :class="$style.labelWrapper" class="text-h6">
           {{leftSlider}}
@@ -13,6 +19,7 @@
       v-model="rightSlider"
       :class="$style.slider"
       class="px-4"
+      @change="setRightSlider"
     >
       <template v-slot:append>
         <div :class="$style.labelWrapper" class="text-h6">
@@ -22,7 +29,7 @@
     </v-slider>
   </div>
   <div :class="$style.container">
-    <v-btn :loading="runLoading" class="ma-2" color="primary">
+    <v-btn :loading="loading" class="ma-2" color="primary" @click="run">
       <v-icon v-text="`$run`" /> Run Models
     </v-btn>
   </div>

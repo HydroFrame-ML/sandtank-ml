@@ -1,4 +1,4 @@
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import ComputedImage from "compare-sandtank-ai/src/components/widgets/ComputedImage";
 
 // ----------------------------------------------------------------------------
@@ -10,9 +10,15 @@ export default {
   components: { ComputedImage },
   data: () => ({ leftSlider: 23, rightSlider: 68 }),
   computed: {
-    ...mapGetters({})
+    ...mapGetters({
+      loading: "COND_IS_RUNNING"
+    })
   },
   methods: {
-    ...mapActions({})
+    ...mapActions({ run: "COND_RUN_MODELS" }),
+    ...mapMutations({
+      setLeftSlider: "COND_LEFT_SET",
+      setRightSlider: "COND_RIGHT_SET"
+    })
   }
 };

@@ -1,9 +1,9 @@
-import vtkWSLinkClient from 'vtk.js/Sources/IO/Core/WSLinkClient';
-import SmartConnect from 'wslink/src/SmartConnect';
+import vtkWSLinkClient from "vtk.js/Sources/IO/Core/WSLinkClient";
+import SmartConnect from "wslink/src/SmartConnect";
 
-import protocols from 'compare-sandtank-ai/src/protocols';
+import protocols from "compare-sandtank-ai/src/protocols";
 
-import { connectImageStream } from 'vtk.js/Sources/Rendering/Misc/RemoteView';
+import { connectImageStream } from "vtk.js/Sources/Rendering/Misc/RemoteView";
 
 // Bind vtkWSLinkClient to our SmartConnect
 vtkWSLinkClient.setSmartConnectClass(SmartConnect);
@@ -12,7 +12,7 @@ export default {
   state: {
     client: null,
     config: null,
-    busy: false,
+    busy: false
   },
   getters: {
     WS_CLIENT(state) {
@@ -23,7 +23,7 @@ export default {
     },
     WS_BUSY(state) {
       return !!state.busy;
-    },
+    }
   },
   mutations: {
     WS_CLIENT_SET(state, client) {
@@ -34,15 +34,15 @@ export default {
     },
     WS_BUSY_SET(state, busy) {
       state.busy = busy;
-    },
+    }
   },
   actions: {
     WS_CONNECT({ state, commit, dispatch }) {
       // Initiate network connection
-      const config = { application: 'cone' };
+      const config = { application: "cone" };
 
       // Custom setup for development (http:8080 / ws:1234)
-      if (location.port === '8080') {
+      if (location.port === "8080") {
         // We suppose that we have dev server and that ParaView/VTK is running on port 1234
         config.sessionURL = `ws://${location.hostname}:1234/ws`;
       }
@@ -57,13 +57,13 @@ export default {
       }
 
       // Connect to busy store
-      clientToConnect.onBusyChange((count) => {
-        commit('WS_BUSY_SET', count);
+      clientToConnect.onBusyChange(count => {
+        commit("WS_BUSY_SET", count);
       });
       clientToConnect.beginBusy();
 
       // Error
-      clientToConnect.onConnectionError((httpReq) => {
+      clientToConnect.onConnectionError(httpReq => {
         const message =
           (httpReq && httpReq.response && httpReq.response.error) ||
           `Connection error`;
@@ -72,7 +72,7 @@ export default {
       });
 
       // Close
-      clientToConnect.onConnectionClose((httpReq) => {
+      clientToConnect.onConnectionClose(httpReq => {
         const message =
           (httpReq && httpReq.response && httpReq.response.error) ||
           `Connection close`;
@@ -83,15 +83,15 @@ export default {
       // Connect
       clientToConnect
         .connect(config)
-        .then((validClient) => {
+        .then(validClient => {
           connectImageStream(validClient.getConnection().getSession());
-          commit('WS_CLIENT_SET', validClient);
+          commit("WS_CLIENT_SET", validClient);
           clientToConnect.endBusy();
 
           // Now that the client is ready let's setup the server for us
-          dispatch('WS_INITIALIZE_SERVER');
+          dispatch("WS_INITIALIZE_SERVER");
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(error);
         });
     },
@@ -119,5 +119,14 @@ export default {
           .catch(console.error);
       }
     },
-  },
+    async WS_RUN_MODELS({ state, commit }, run) {
+      if (state.client) {
+        await state.client
+          .getRemote()
+          .Parflow.runModels(run)
+          .catch(console.error);
+        commit("COND_MODELS_RAN");
+      }
+    }
+  }
 };
