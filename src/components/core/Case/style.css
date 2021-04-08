@@ -1,4 +1,13 @@
-.parflowSlider {
-  display: inline-block;
-  height: 150px;
+.slider {
+  flex-grow: 0 !important;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.labelWrapper {
+  width: 3em;
+  padding-left: 1em;
 }
