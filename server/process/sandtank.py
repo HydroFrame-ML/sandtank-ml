@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import parflow
+import argparse
 
 from shutil import copyfile
 from tempfile import TemporaryDirectory
@@ -120,5 +121,12 @@ class SandtankEngine:
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="SandTank Boundary Condition Runner")
+
+    # Add arguments
+    parser.add_argument("--left", type=float)
+    parser.add_argument("--right", type=float)
+    args = parser.parse_args()
+
     s = SandtankEngine()
-    print(s.run_sandtank(32, 68))
+    print(s.run_sandtank(args.left, args.right))
