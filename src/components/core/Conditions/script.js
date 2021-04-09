@@ -11,7 +11,9 @@ export default {
   data: () => ({ leftSlider: 23, rightSlider: 68 }),
   computed: {
     ...mapGetters({
-      loading: "COND_IS_RUNNING"
+      loading: "COND_IS_RUNNING",
+      channels: "COND_CHANNELS",
+      size: "COND_SIZE"
     })
   },
   methods: {

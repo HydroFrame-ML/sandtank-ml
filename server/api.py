@@ -26,6 +26,4 @@ class Parflow(LinkProtocol):
         return None
 
     def runCallback(self, inputs):
-        print("API Recieved", inputs)
-        print("</API Recieved>")
-        return {"inputs": inputs, "outputs": None}
+        self.publish("parflow.results", {"inputs": inputs, "outputs": None})

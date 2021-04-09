@@ -37,7 +37,7 @@ export default {
     }
   },
   actions: {
-    WS_CONNECT({ state, commit }) {
+    WS_CONNECT({ state, commit, dispatch }) {
       // Initiate network connection
       const config = { application: "compareSandtank" };
 
@@ -89,18 +89,22 @@ export default {
           clientToConnect.endBusy();
 
           // Now that the client is ready let's setup the server for us
+          clientToConnect
+            .getRemote()
+            .Parflow.subscribe("parflow.results", inputs => {
+              dispatch("COND_MODELS_RESULTS", inputs);
+            });
         })
         .catch(error => {
           console.error(error);
         });
     },
-    async WS_RUN_MODELS({ state, commit }, run) {
+    async WS_RUN_MODELS({ state }, run) {
       if (state.client) {
         await state.client
           .getRemote()
           .Parflow.runModels(run)
           .catch(console.error);
-        commit("COND_MODELS_RAN");
       }
     }
   }
