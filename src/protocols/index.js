@@ -1,5 +1,5 @@
-import Cone from './Cone';
+import Parflow from "./Parflow";
 
 export default {
-  Cone,
+  Parflow
 };

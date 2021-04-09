@@ -37,9 +37,9 @@ export default {
     }
   },
   actions: {
-    WS_CONNECT({ state, commit, dispatch }) {
+    WS_CONNECT({ state, commit }) {
       // Initiate network connection
-      const config = { application: "cone" };
+      const config = { application: "compareSandtank" };
 
       // Custom setup for development (http:8080 / ws:1234)
       if (location.port === "8080") {
@@ -89,35 +89,10 @@ export default {
           clientToConnect.endBusy();
 
           // Now that the client is ready let's setup the server for us
-          dispatch("WS_INITIALIZE_SERVER");
         })
         .catch(error => {
           console.error(error);
         });
-    },
-    WS_INITIALIZE_SERVER({ state }) {
-      if (state.client) {
-        state.client
-          .getRemote()
-          .Cone.createVisualization()
-          .catch(console.error);
-      }
-    },
-    WS_UPDATE_RESOLUTION({ state }, resolution) {
-      if (state.client) {
-        state.client
-          .getRemote()
-          .Cone.updateResolution(resolution)
-          .catch(console.error);
-      }
-    },
-    WS_RESET_CAMERA({ state }) {
-      if (state.client) {
-        state.client
-          .getRemote()
-          .Cone.resetCamera()
-          .catch(console.error);
-      }
     },
     async WS_RUN_MODELS({ state, commit }, run) {
       if (state.client) {
