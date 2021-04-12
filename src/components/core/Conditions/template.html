@@ -6,13 +6,7 @@
       :class="$style.slider"
       class="px-4"
       @change="setLeftSlider"
-    >
-      <template v-slot:append>
-        <div :class="$style.labelWrapper" class="text-h6">
-          {{leftSlider}}
-        </div>
-      </template>
-    </v-slider>
+    />
     <ComputedImage
       :scale="3"
       :size="size"
@@ -26,17 +20,19 @@
       :class="$style.slider"
       class="px-4"
       @change="setRightSlider"
-    >
-      <template v-slot:append>
-        <div :class="$style.labelWrapper" class="text-h6">
-          {{rightSlider}}
-        </div>
-      </template>
-    </v-slider>
+    />
   </div>
   <div :class="$style.container">
+    <div :class="$style.labelWrapper" class="text-h6 my-3 mx-12">
+      {{leftSlider}}
+    </div>
+
     <v-btn :loading="loading" class="ma-2" color="primary" @click="run">
       <v-icon v-text="`$run`" /> Run Models
     </v-btn>
+
+    <div :class="$style.labelWrapper" class="text-h6 my-3 mx-12">
+      {{rightSlider}}
+    </div>
   </div>
 </div>
