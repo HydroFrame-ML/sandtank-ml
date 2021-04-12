@@ -49,8 +49,8 @@ class SandtankEngine:
         inputs = dict()
         data = sandtank.data_accessor
         (shape_height, _, shape_width) = data.shape
-        (height, width) = (shape_height + 2, shape_width)
-        inputs["size"] = (height, width)
+        (width, height) = (shape_width + 2, shape_height)
+        inputs["size"] = (width, height)
 
         # Add data channels to inputs
         data.time = 0  # Use initial pressure (25/25)
@@ -66,6 +66,14 @@ class SandtankEngine:
         self.callback = None
 
     def run(self, left, right, callback):
+
+        # Set right and left for adding boundary conditions to image
+        self.perm_transform.set_right(right)
+        self.perm_transform.set_left(left)
+        self.press_transform.set_right(right)
+        self.perm_transform.set_left(left)
+
+        # Spawn parflow runner
         self.callback = callback
         self.run_directory = TemporaryDirectory()
         self.process = subprocess.Popen(

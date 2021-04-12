@@ -3,7 +3,7 @@ export default {
     left: 0,
     right: 0,
     channels: [],
-    size: null,
+    size: [100, 50],
     running: false
   },
   getters: {
@@ -46,8 +46,9 @@ export default {
       const run = { left: state.left, right: state.right };
       dispatch("WS_RUN_MODELS", run);
     },
-    COND_MODELS_RESULTS({ commit }, { channels, size }) {
-      commit("COND_CHANNELS_SET", channels);
+    COND_MODELS_RESULTS({ commit }, [{ inputs }]) {
+      const { channels, size } = inputs;
+      commit("COND_CHANNELS_SET", channels[0]);
       commit("COND_SIZE_SET", size);
 
       commit("COND_MODELS_RAN");

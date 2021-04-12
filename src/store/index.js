@@ -5,6 +5,7 @@ import wslink from "compare-sandtank-ai/src/store/wslink";
 import candidates from "compare-sandtank-ai/src/store/candidates";
 import comparisons from "compare-sandtank-ai/src/store/comparisons";
 import conditions from "compare-sandtank-ai/src/store/conditions";
+import transform from "compare-sandtank-ai/src/store/transform";
 
 /* eslint-enable no-param-reassign */
 
@@ -14,7 +15,8 @@ function createStore() {
       wslink,
       candidates,
       comparisons,
-      conditions
+      conditions,
+      transform
     }
   });
 }

@@ -13,7 +13,13 @@
         </div>
       </template>
     </v-slider>
-    <ComputedImage :scale="3" :size="size" :channels="channels" />
+    <ComputedImage
+      :scale="3"
+      :size="size"
+      :values="channels"
+      :convert="inputConvert(0)"
+      :rgb="inputRGB(0)"
+    />
     <v-slider
       vertical
       v-model="rightSlider"

@@ -13,7 +13,11 @@ export default {
     ...mapGetters({
       loading: "COND_IS_RUNNING",
       channels: "COND_CHANNELS",
-      size: "COND_SIZE"
+      size: "COND_SIZE",
+      inputRGB: "TRAN_INPUT_RGB",
+      inputConvert: "TRAN_INPUT_CONVERT",
+      outputRGB: "TRAN_OUTPUT_RGB",
+      outputConvert: "TRAN_OUTPUT_CONVERT"
     })
   },
   methods: {

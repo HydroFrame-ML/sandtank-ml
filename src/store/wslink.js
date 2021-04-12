@@ -84,16 +84,15 @@ export default {
       clientToConnect
         .connect(config)
         .then(validClient => {
-          connectImageStream(validClient.getConnection().getSession());
+          const session = validClient.getConnection().getSession();
+          connectImageStream(session);
           commit("WS_CLIENT_SET", validClient);
           clientToConnect.endBusy();
 
-          // Now that the client is ready let's setup the server for us
-          clientToConnect
-            .getRemote()
-            .Parflow.subscribe("parflow.results", inputs => {
-              dispatch("COND_MODELS_RESULTS", inputs);
-            });
+          // Setup Pubsub endpoints
+          session.subscribe("parflow.results", inputs => {
+            dispatch("COND_MODELS_RESULTS", inputs);
+          });
         })
         .catch(error => {
           console.error(error);
