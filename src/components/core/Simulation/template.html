@@ -2,10 +2,10 @@
   <div>
     <v-slider
       vertical
-      v-model="leftSlider"
+      :value="leftSlider"
       :class="$style.slider"
       class="px-4"
-      @change="setLeftSlider"
+      @input="setLeftSlider"
       max="50"
     />
 
@@ -31,10 +31,10 @@
   <div style="fle">
     <v-slider
       vertical
-      v-model="rightSlider"
+      :value="rightSlider"
       :class="$style.slider"
       class="px-4"
-      @change="setRightSlider"
+      @input="setRightSlider"
       max="50"
     />
     <div :class="$style.labelWrapper" class="text-h6">

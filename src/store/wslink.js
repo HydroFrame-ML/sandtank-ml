@@ -91,7 +91,7 @@ export default {
 
           // Setup Pubsub endpoints
           session.subscribe("parflow.results", inputs => {
-            dispatch("COND_MODELS_RESULTS", inputs);
+            dispatch("SIM_MODELS_RESULTS", inputs);
           });
         })
         .catch(error => {

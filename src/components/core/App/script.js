@@ -1,9 +1,6 @@
 import { mapGetters, mapActions } from "vuex";
 import logo from "compare-sandtank-ai/src/assets/logo.png";
-import RemoteRenderingView from "compare-sandtank-ai/src/components/widgets/RemoteRenderingView";
-import Comparisons from "compare-sandtank-ai/src/components/core/Comparisons";
-import Candidates from "compare-sandtank-ai/src/components/core/Candidates";
-import Conditions from "compare-sandtank-ai/src/components/core/Conditions";
+import Simulation from "compare-sandtank-ai/src/components/core/Simulation";
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -12,10 +9,7 @@ import Conditions from "compare-sandtank-ai/src/components/core/Conditions";
 export default {
   name: "App",
   components: {
-    RemoteRenderingView,
-    Comparisons,
-    Candidates,
-    Conditions
+    Simulation
   },
   data() {
     return {
@@ -25,14 +19,11 @@ export default {
   computed: {
     ...mapGetters({
       client: "WS_CLIENT",
-      busy: "WS_BUSY",
-      resolution: "CONE_RESOLUTION"
+      busy: "WS_BUSY"
     })
   },
   methods: {
     ...mapActions({
-      setResolution: "CONE_RESOLUTION_UPDATE",
-      resetCamera: "WS_RESET_CAMERA",
       connect: "WS_CONNECT"
     })
   },
