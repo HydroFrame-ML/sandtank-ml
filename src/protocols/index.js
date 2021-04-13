@@ -1,5 +1,5 @@
-import Parflow from "./Parflow";
+import Parflow from './Parflow';
 
 export default {
-  Parflow
+  Parflow,
 };

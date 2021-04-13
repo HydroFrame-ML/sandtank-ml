@@ -1,30 +1,30 @@
 export default {
-  name: "ComputedImage",
+  name: 'ComputedImage',
   props: {
     config: {
       type: String,
-      default: ""
+      default: '',
     },
     scale: {
       type: Number,
-      default: 10
+      default: 10,
     },
     size: {
       type: Array,
-      default: () => [10, 10]
+      default: () => [10, 10],
     },
     values: {
       type: Array,
-      default: () => []
+      default: () => [],
     },
     convert: {
       type: Function,
-      default: v => v
+      default: (v) => v,
     },
     rgb: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   computed: {
     width() {
@@ -32,7 +32,7 @@ export default {
     },
     height() {
       return this.size[1];
-    }
+    },
   },
   watch: {
     size() {
@@ -46,14 +46,14 @@ export default {
     },
     config() {
       this.$nextTick(this.render);
-    }
+    },
   },
   mounted() {
     this.$nextTick(this.render);
   },
   methods: {
     render() {
-      const ctx = this.$el.getContext("2d");
+      const ctx = this.$el.getContext('2d');
       ctx.clearRect(0, 0, this.width, this.height);
       const rawPixels = ctx.createImageData(this.width, this.height);
       for (let j = 0; j < this.height; j++) {
@@ -87,6 +87,6 @@ export default {
         this.width * this.scale,
         this.height * this.scale
       );
-    }
-  }
+    },
+  },
 };

@@ -1,5 +1,5 @@
-import vtkColorTransferFunction from "vtk.js/Sources/Rendering/Core/ColorTransferFunction";
-import vtkColorMaps from "vtk.js/Sources/Rendering/Core/ColorTransferFunction/ColorMaps";
+import vtkColorTransferFunction from 'vtk.js/Sources/Rendering/Core/ColorTransferFunction';
+import vtkColorMaps from 'vtk.js/Sources/Rendering/Core/ColorTransferFunction/ColorMaps';
 
 // ----------------------------------------------------------------------------
 // Helpers
@@ -17,12 +17,12 @@ const CAT6_COLORS = [
   [255 * 0.858824, 255 * 0.623529, 255 * 0.352941],
   [255 * 1, 255 * 0.945098, 255 * 0.580392],
   [255 * 0.666667, 255 * 0.901961, 255 * 0.670588],
-  [255 * 0.494118, 255 * 0.741176, 255 * 0.768627]
+  [255 * 0.494118, 255 * 0.741176, 255 * 0.768627],
 ];
 
 // Common functions
 function toCategorical(colors, cuts = []) {
-  return v => {
+  return (v) => {
     let index = 0;
     while (index < cuts.length) {
       const cut = cuts[index];
@@ -40,11 +40,11 @@ export function toColorMap(min, max) {
   const color = [0, 0, 0, 0];
   const lookupTable = vtkColorTransferFunction.newInstance();
   lookupTable.applyColorMap(
-    vtkColorMaps.getPresetByName("erdc_rainbow_bright")
+    vtkColorMaps.getPresetByName('erdc_rainbow_bright')
   );
   lookupTable.setMappingRange(min, max);
   lookupTable.updateRange();
-  return v => {
+  return (v) => {
     lookupTable.getColor(v, color);
     color[0] *= 255;
     color[1] *= 255;
@@ -56,7 +56,7 @@ export function toColorMap(min, max) {
 function toGrayScale(min, max) {
   const clampValue = new Uint8ClampedArray(1);
   const delta = max - min;
-  return v => {
+  return (v) => {
     clampValue[0] = (255 * (v - min)) / delta;
     return clampValue[0];
   };
@@ -65,7 +65,7 @@ function toGrayScale(min, max) {
 export function rangeMonitor(fn) {
   let min = Number.MAX_VALUE;
   let max = -Number.MAX_VALUE;
-  return v => {
+  return (v) => {
     let change = false;
     if (v < min) {
       min = v;
@@ -109,60 +109,60 @@ const COLOR_CAT_PRESS = toCategorical(CAT6_COLORS, [
   0,
   0.25,
   0.5,
-  0.75
+  0.75,
 ]);
 const GRAY_0_1 = toGrayScale(0, 1);
 const GRAY_N1_1 = toGrayScale(-1, 1);
 const GRAY_N50_50 = toGrayScale(-50, 50);
-const SAME = v => v;
+const SAME = (v) => v;
 const CONVERT_SAME = () => SAME;
 const COLOR_OFF = () => false;
 const COLOR_ON = () => true;
 
 const DEFAULT_HANDLER = {
   convert: CONVERT_SAME,
-  hasRGB: COLOR_OFF
+  hasRGB: COLOR_OFF,
 };
 
 const DEFAULT = {
   inputs: DEFAULT_HANDLER,
-  outputs: DEFAULT_HANDLER
+  outputs: DEFAULT_HANDLER,
 };
 
 const ML_TRANSFORMS = {
   RegressionPressureEngine: {
     inputs: {
       convert: toCategorical([GRAY_N1_1, COLOR_CAT_PRESS], [1]),
-      hasRGB: toCategorical([false, true], [1])
+      hasRGB: toCategorical([false, true], [1]),
     },
     outputs: {
       convert: toCategorical([COLOR_CAT_PRESS]),
-      hasRGB: COLOR_ON
+      hasRGB: COLOR_ON,
     },
     xai: {
       // convert: toCategorical([rangeMonitor(GRAY_0_1)]),
-      hasRGB: COLOR_ON
-    }
+      hasRGB: COLOR_ON,
+    },
   },
   LabelSaturationEngine: {
     inputs: {
       convert: toCategorical([GRAY_0_1]),
-      hasRGB: COLOR_OFF
+      hasRGB: COLOR_OFF,
     },
     outputs: {
       convert: toCategorical([GRAY_N50_50]),
-      hasRGB: COLOR_OFF
+      hasRGB: COLOR_OFF,
     },
     xai: {
-      hasRGB: COLOR_ON
-    }
-  }
+      hasRGB: COLOR_ON,
+    },
+  },
 };
 
 export default {
   state: {
     cutoff: 20,
-    brightness: 3
+    brightness: 3,
   },
   getters: {
     TRAN_CUT_OFF(state) {
@@ -172,7 +172,7 @@ export default {
       return state.brightness;
     },
     TRAN_ALL() {
-      return ML_TRANSFORMS["RegressionPressureEngine"] || DEFAULT;
+      return ML_TRANSFORMS['RegressionPressureEngine'] || DEFAULT;
     },
     TRAN_INPUT_RGB(state, getters) {
       return getters.TRAN_ALL.inputs.hasRGB;
@@ -187,7 +187,7 @@ export default {
     },
     TRAN_OUTPUT_CONVERT(state, getters) {
       return getters.TRAN_ALL.outputs.convert;
-    }
+    },
   },
   mutations: {
     TRAN_CUT_OFF_SET(state, value) {
@@ -197,6 +197,6 @@ export default {
     TRAN_BRIGHTNESS_SET(state, value) {
       state.brightness = value;
       // BRIGTNESS = value;
-    }
-  }
+    },
+  },
 };

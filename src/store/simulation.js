@@ -4,7 +4,7 @@ export default {
     right: 29,
     channels: [],
     size: [102, 50],
-    running: false
+    running: false,
   },
   getters: {
     SIM_LEFT(state) {
@@ -21,7 +21,7 @@ export default {
     },
     SIM_IS_RUNNING(state) {
       return state.running;
-    }
+    },
   },
   mutations: {
     SIM_LEFT_SET(state, left) {
@@ -38,20 +38,20 @@ export default {
     },
     SIM_MODELS_RAN(state) {
       state.running = false;
-    }
+    },
   },
   actions: {
     SIM_RUN_MODELS({ state, dispatch }) {
       state.running = true;
       const run = { left: state.left, right: state.right };
-      dispatch("WS_RUN_MODELS", run);
+      dispatch('WS_RUN_MODELS', run);
     },
     SIM_MODELS_RESULTS({ commit }, [{ inputs }]) {
       const { channels, size } = inputs;
-      commit("SIM_CHANNELS_SET", channels[0]);
-      commit("SIM_SIZE_SET", size);
+      commit('SIM_CHANNELS_SET', channels[0]);
+      commit('SIM_SIZE_SET', size);
 
-      commit("SIM_MODELS_RAN");
-    }
-  }
+      commit('SIM_MODELS_RAN');
+    },
+  },
 };

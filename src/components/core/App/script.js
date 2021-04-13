@@ -1,33 +1,33 @@
-import { mapGetters, mapActions } from "vuex";
-import logo from "compare-sandtank-ai/src/assets/logo.png";
-import Simulation from "compare-sandtank-ai/src/components/core/Simulation";
+import { mapGetters, mapActions } from 'vuex';
+import logo from 'compare-sandtank-ai/src/assets/logo.png';
+import Simulation from 'compare-sandtank-ai/src/components/core/Simulation';
 
 // ----------------------------------------------------------------------------
 // Component API
 // ----------------------------------------------------------------------------
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    Simulation
+    Simulation,
   },
   data() {
     return {
-      logo
+      logo,
     };
   },
   computed: {
     ...mapGetters({
-      client: "WS_CLIENT",
-      busy: "WS_BUSY"
-    })
+      client: 'WS_CLIENT',
+      busy: 'WS_BUSY',
+    }),
   },
   methods: {
     ...mapActions({
-      connect: "WS_CONNECT"
-    })
+      connect: 'WS_CONNECT',
+    }),
   },
   mounted() {
     this.connect();
-  }
+  },
 };
