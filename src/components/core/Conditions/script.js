@@ -8,7 +8,11 @@ import ComputedImage from "compare-sandtank-ai/src/components/widgets/ComputedIm
 export default {
   name: "Conditions",
   components: { ComputedImage },
-  data: () => ({ leftSlider: 23, rightSlider: 68 }),
+  data: () => ({ leftSlider: null, rightSlider: null }),
+  mounted() {
+    this.leftSlider = this.$store.state.conditions.left;
+    this.rightSlider = this.$store.state.conditions.right;
+  },
   computed: {
     ...mapGetters({
       loading: "COND_IS_RUNNING",

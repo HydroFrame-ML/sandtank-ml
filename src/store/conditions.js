@@ -1,9 +1,9 @@
 export default {
   state: {
-    left: 0,
-    right: 0,
+    left: 9,
+    right: 29,
     channels: [],
-    size: [100, 50],
+    size: [102, 50],
     running: false
   },
   getters: {

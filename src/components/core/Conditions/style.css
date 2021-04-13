@@ -8,6 +8,10 @@
 }
 
 .labelWrapper {
-  width: 3em;
-  padding-left: 1em;
+  text-align: center;
+}
+
+.modelContainer {
+  display: flex;
+  flex-direction: column;
 }

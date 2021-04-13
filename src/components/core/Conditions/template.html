@@ -1,12 +1,20 @@
-<div>
-  <div :class="$style.container">
+<div :class="$style.container">
+  <div>
     <v-slider
       vertical
       v-model="leftSlider"
       :class="$style.slider"
       class="px-4"
       @change="setLeftSlider"
+      max="50"
     />
+
+    <div :class="$style.labelWrapper" class="text-h6">
+      {{leftSlider}}
+    </div>
+  </div>
+
+  <div :class="$style.modelContainer" class="ma-3">
     <ComputedImage
       :scale="3"
       :size="size"
@@ -14,24 +22,22 @@
       :convert="inputConvert(0)"
       :rgb="inputRGB(0)"
     />
+
+    <v-btn :loading="loading" class="my-2" color="primary" @click="run">
+      <v-icon v-text="`$run`" /> Run Models
+    </v-btn>
+  </div>
+
+  <div style="fle">
     <v-slider
       vertical
       v-model="rightSlider"
       :class="$style.slider"
       class="px-4"
       @change="setRightSlider"
+      max="50"
     />
-  </div>
-  <div :class="$style.container">
-    <div :class="$style.labelWrapper" class="text-h6 my-3 mx-12">
-      {{leftSlider}}
-    </div>
-
-    <v-btn :loading="loading" class="ma-2" color="primary" @click="run">
-      <v-icon v-text="`$run`" /> Run Models
-    </v-btn>
-
-    <div :class="$style.labelWrapper" class="text-h6 my-3 mx-12">
+    <div :class="$style.labelWrapper" class="text-h6">
       {{rightSlider}}
     </div>
   </div>
