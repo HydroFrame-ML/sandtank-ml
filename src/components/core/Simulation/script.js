@@ -22,7 +22,9 @@ export default {
     }),
   },
   methods: {
-    ...mapActions({ run: 'SIM_RUN_MODELS' }),
+    ...mapActions({
+      run: 'SIM_RUN_MODELS',
+    }),
     ...mapMutations({
       setLeftSlider: 'SIM_LEFT_SET',
       setRightSlider: 'SIM_RIGHT_SET',

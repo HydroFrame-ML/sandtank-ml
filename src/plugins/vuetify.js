@@ -12,6 +12,7 @@ export default new Vuetify({
     values: {
       compare: 'mdi-scale-balance',
       run: 'mdi-run',
+      results: 'mdi-arrow-right-bold',
     },
   },
 });
