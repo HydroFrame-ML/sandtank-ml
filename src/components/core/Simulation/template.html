@@ -1,5 +1,5 @@
 <div>
-  <v-row class="align-center">
+  <v-row class="align-center ma-4 ">
     <v-col class="flex-grow-0 pa-0">
       <v-slider
         vertical
@@ -16,11 +16,18 @@
 
     <v-col class="flex-grow-0">
       <ComputedImage
+        v-if="size"
         :scale="3"
         :size="size"
         :values="channels"
         :convert="inputConvert(0)"
         :rgb="inputRGB(0)"
+      />
+      <v-skeleton-loader
+        v-show="!size"
+        type="image"
+        width="308"
+        height="152px"
       />
       <v-row class="text-h6 justify-center pa-2"> Soil </v-row>
     </v-col>
@@ -41,20 +48,28 @@
     <v-spacer />
 
     <v-btn :loading="loading" class="my-2" color="primary" @click="run">
-      <v-icon v-text="`$results`" /> Run Simulation
+      <v-icon v-text="`$results`" /> Simulate
     </v-btn>
 
     <v-spacer />
 
     <v-col class="flex-grow-0">
+      <!--        :values="pressureOutput" -->
       <ComputedImage
+        v-if="size"
         :scale="3"
         :size="size"
-        :values="pressureOutput"
         :convert="outputConvert(0)"
         :rgb="outputRGB(0)"
       />
+      <v-skeleton-loader
+        v-show="!size"
+        type="image"
+        width="308"
+        height="152px"
+      />
       <v-row class="text-h6 justify-center pa-2"> Pressure </v-row>
     </v-col>
+    <v-divider />
   </v-row>
 </div>
