@@ -90,9 +90,11 @@ export default {
           clientToConnect.endBusy();
 
           // Setup Pubsub endpoints
-          session.subscribe('parflow.results', (inputs) => {
+          session.subscribe('parflow.results', ([inputs]) => {
             dispatch('SIM_MODELS_RESULTS', inputs);
           });
+
+          dispatch('WS_INITIAL_RUN');
         })
         .catch((error) => {
           console.error(error);
