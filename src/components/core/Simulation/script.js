@@ -1,5 +1,5 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import ComputedImage from 'compare-sandtank-ai/src/components/widgets/ComputedImage';
+import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 
 // ----------------------------------------------------------------------------
 // Component API

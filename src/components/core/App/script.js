@@ -1,7 +1,7 @@
 import { mapGetters, mapActions } from 'vuex';
-import logo from 'compare-sandtank-ai/src/assets/logo.png';
-import Simulation from 'compare-sandtank-ai/src/components/core/Simulation';
-import Comparison from 'compare-sandtank-ai/src/components/core/Comparison';
+import logo from 'sandtank-ml/src/assets/logo.png';
+import Simulation from 'sandtank-ml/src/components/core/Simulation';
+import Comparison from 'sandtank-ml/src/components/core/Comparison';
 
 // ----------------------------------------------------------------------------
 // Component API

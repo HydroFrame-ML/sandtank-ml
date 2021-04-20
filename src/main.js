@@ -5,9 +5,9 @@ import 'core-js/modules/web.immediate';
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import App from 'compare-sandtank-ai/src/components/core/App';
-import vuetify from 'compare-sandtank-ai/src/plugins/vuetify.js';
-import store from 'compare-sandtank-ai/src/store';
+import App from 'sandtank-ml/src/components/core/App';
+import vuetify from 'sandtank-ml/src/plugins/vuetify.js';
+import store from 'sandtank-ml/src/store';
 
 /* eslint-disable-next-line import/extensions */
 import 'typeface-roboto';

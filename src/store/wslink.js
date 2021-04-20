@@ -1,7 +1,7 @@
 import vtkWSLinkClient from 'vtk.js/Sources/IO/Core/WSLinkClient';
 import SmartConnect from 'wslink/src/SmartConnect';
 
-import protocols from 'compare-sandtank-ai/src/protocols';
+import protocols from 'sandtank-ml/src/protocols';
 
 import { connectImageStream } from 'vtk.js/Sources/Rendering/Misc/RemoteView';
 
