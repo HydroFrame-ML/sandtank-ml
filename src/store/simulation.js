@@ -46,10 +46,12 @@ export default {
       const run = { left: state.left, right: state.right };
       dispatch('WS_RUN_MODELS', run);
     },
-    SIM_MODELS_RESULTS({ commit }, { inputs, left, right }) {
+    SIM_MODELS_RESULTS({ commit }, { outputs, inputs, left, right }) {
       const { channels, size } = inputs;
       commit('SIM_CHANNELS_SET', channels[0]);
       commit('SIM_SIZE_SET', size);
+      console.log('outputs', outputs);
+      console.log('inputs', inputs);
 
       if (left) {
         commit('SIM_LEFT_SET', left);

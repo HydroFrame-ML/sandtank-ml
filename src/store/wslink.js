@@ -90,9 +90,12 @@ export default {
           clientToConnect.endBusy();
 
           // Setup Pubsub endpoints
-          session.subscribe('parflow.results', ([inputs]) => {
-            dispatch('SIM_MODELS_RESULTS', inputs);
-          });
+          validClient
+            .getRemote()
+            .Parflow
+            .subscribeToParflowOutput(([results]) => {
+              dispatch('SIM_MODELS_RESULTS', results);
+            });
 
           dispatch('WS_INITIAL_RUN');
         })

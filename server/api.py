@@ -35,10 +35,9 @@ class Parflow(LinkProtocol):
     @exportRpc("parflow.run")
     def run(self, run):
         self.sandtankEngine.run(run["left"], run["right"], self.run_callback)
-        return None
 
-    def run_callback(self, inputs):
-        self.publish("parflow.results", {"inputs": inputs, "outputs": None})
+    def run_callback(self, inputs, outputs=None):
+        self.publish("parflow.results", {"inputs": inputs, "outputs": outputs})
 
     def set_initial_run(self, inputs):
         self.initial_run = {
