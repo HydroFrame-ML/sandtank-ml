@@ -1,9 +1,9 @@
 export default {
   state: {
-    left: 9,
-    right: 29,
-    channels: [],
-    size: [102, 50],
+    left: null,
+    right: null,
+    channels: null,
+    size: null,
     running: false,
   },
   getters: {
@@ -46,10 +46,17 @@ export default {
       const run = { left: state.left, right: state.right };
       dispatch('WS_RUN_MODELS', run);
     },
-    SIM_MODELS_RESULTS({ commit }, { inputs }) {
+    SIM_MODELS_RESULTS({ commit }, { inputs, left, right }) {
       const { channels, size } = inputs;
       commit('SIM_CHANNELS_SET', channels[0]);
       commit('SIM_SIZE_SET', size);
+
+      if (left) {
+        commit('SIM_LEFT_SET', left);
+      }
+      if (right) {
+        commit('SIM_RIGHT_SET', right);
+      }
 
       commit('SIM_MODELS_RAN');
     },

@@ -108,5 +108,16 @@ export default {
           .catch(console.error);
       }
     },
+    async WS_INITIAL_RUN({ state, dispatch }) {
+      if (state.client) {
+        const initialRun = await state.client
+          .getRemote()
+          .Parflow.initialRun()
+          .catch(console.error);
+        if (initialRun) {
+          dispatch('SIM_MODELS_RESULTS', initialRun);
+        }
+      }
+    },
   },
 };
