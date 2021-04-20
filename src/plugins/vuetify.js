@@ -13,6 +13,8 @@ export default new Vuetify({
       compare: 'mdi-scale-balance',
       run: 'mdi-run',
       results: 'mdi-arrow-right-bold',
+      water: 'mdi-water',
+      add: 'mdi-plus',
     },
   },
 });

@@ -11,6 +11,15 @@
   <v-main :class="$style.appContent">
     <v-container fluid>
       <simulation />
+      <v-divider />
+      <v-row class="ma-4">
+        <v-btn icon class="mx-1"> <v-icon v-text="`$add`" /> </v-btn>
+        <v-text class="title"> AI Models </v-text>
+        <v-spacer />
+        <v-btn> Run Models </v-btn>
+      </v-row>
+      <v-divider />
+      <comparison />
     </v-container>
   </v-main>
 </v-app>
