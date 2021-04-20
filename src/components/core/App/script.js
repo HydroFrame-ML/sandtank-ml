@@ -1,4 +1,4 @@
-import { mapGetters, mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 import logo from 'sandtank-ml/src/assets/logo.png';
 import Simulation from 'sandtank-ml/src/components/core/Simulation';
 import Comparison from 'sandtank-ml/src/components/core/Comparison';
@@ -17,12 +17,6 @@ export default {
     return {
       logo,
     };
-  },
-  computed: {
-    ...mapGetters({
-      client: 'WS_CLIENT',
-      busy: 'WS_BUSY',
-    }),
   },
   methods: {
     ...mapActions({

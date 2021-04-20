@@ -1,10 +1,6 @@
 <v-app>
   <v-app-bar app>
-    <v-icon
-      v-text="`$compare`"
-      :class="$style.logo"
-      v-on:click="resetCamera()"
-    />
+    <v-icon v-text="`$compare`" :class="$style.logo" />
     <span class="title">Compare Sandtank AI</span>
   </v-app-bar>
 
@@ -13,8 +9,10 @@
       <simulation />
       <v-divider />
       <v-row class="ma-4">
-        <v-btn icon class="mx-1"> <v-icon v-text="`$add`" /> </v-btn>
-        <v-text class="title"> AI Models </v-text>
+        <v-btn icon class="mx-1">
+          <v-icon v-text="`$add`" />
+        </v-btn>
+        <div class="title"> AI Models </div>
         <v-spacer />
         <v-btn> Run Models </v-btn>
       </v-row>

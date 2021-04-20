@@ -15,12 +15,11 @@
 
   <v-col class="flex-grow-0">
     <ComputedImage
-      v-if="size"
+      v-if="permeability"
       :scale="3"
       :size="size"
-      :values="channels"
-      :convert="inputConvert(0)"
-      :rgb="inputRGB(0)"
+      :values="permeability"
+      :convert="permeabilityToColor"
     />
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />
     <v-row class="text-h6 justify-center pa-2"> Soil </v-row>
@@ -50,11 +49,12 @@
   <v-col class="flex-grow-0">
     <!--        :values="pressureOutput" -->
     <ComputedImage
-      v-if="size"
+      v-if="pressure"
       :scale="3"
       :size="size"
-      :convert="outputConvert(0)"
-      :rgb="outputRGB(0)"
+      :values="pressure"
+      :convert="pressureToColor"
+      rgb
     />
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />
     <v-row class="text-h6 justify-center pa-2"> Pressure </v-row>

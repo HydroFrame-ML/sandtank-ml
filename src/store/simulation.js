@@ -2,7 +2,9 @@ export default {
   state: {
     left: null,
     right: null,
-    channels: null,
+    permeability: null,
+    pressure: null,
+    saturation: null,
     size: null,
     running: false,
   },
@@ -13,8 +15,14 @@ export default {
     SIM_RIGHT(state) {
       return state.right;
     },
-    SIM_CHANNELS(state) {
-      return state.channels;
+    SIM_PERMEABILITY(state) {
+      return state.permeability;
+    },
+    SIM_PRESSURE(state) {
+      return state.pressure;
+    },
+    SIM_SATURATION(state) {
+      return state.saturation;
     },
     SIM_SIZE(state) {
       return state.size;
@@ -30,8 +38,14 @@ export default {
     SIM_RIGHT_SET(state, right) {
       state.right = right;
     },
-    SIM_CHANNELS_SET(state, channels) {
-      state.channels = channels;
+    SIM_PERMEABILITY_SET(state, value) {
+      state.permeability = value;
+    },
+    SIM_PRESSURE_SET(state, value) {
+      state.pressure = value;
+    },
+    SIM_SATURATION_SET(state, value) {
+      state.saturation = value;
     },
     SIM_SIZE_SET(state, size) {
       state.size = size;
@@ -46,20 +60,16 @@ export default {
       const run = { left: state.left, right: state.right };
       dispatch('WS_RUN_MODELS', run);
     },
-    SIM_MODELS_RESULTS({ commit }, { outputs, inputs, left, right }) {
-      const { channels, size } = inputs;
-      commit('SIM_CHANNELS_SET', channels[0]);
+    SIM_MODELS_RESULTS(
+      { commit },
+      { size, permeability, pressure, saturation, left, right },
+    ) {
       commit('SIM_SIZE_SET', size);
-      console.log('outputs', outputs);
-      console.log('inputs', inputs);
-
-      if (left) {
-        commit('SIM_LEFT_SET', left);
-      }
-      if (right) {
-        commit('SIM_RIGHT_SET', right);
-      }
-
+      commit('SIM_PERMEABILITY_SET', permeability);
+      commit('SIM_PRESSURE_SET', pressure);
+      commit('SIM_SATURATION_SET', saturation);
+      commit('SIM_LEFT_SET', left);
+      commit('SIM_RIGHT_SET', right);
       commit('SIM_MODELS_RAN');
     },
   },

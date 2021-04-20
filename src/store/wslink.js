@@ -92,8 +92,7 @@ export default {
           // Setup Pubsub endpoints
           validClient
             .getRemote()
-            .Parflow
-            .subscribeToParflowOutput(([results]) => {
+            .Parflow.subscribeToParflowOutput(([results]) => {
               dispatch('SIM_MODELS_RESULTS', results);
             });
 

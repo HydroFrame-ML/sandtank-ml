@@ -21,28 +21,19 @@ class Parflow(LinkProtocol):
         self.sandtankEngine = SandtankEngine()
 
         # Run on start
-        self.initial_run = None
-        self.initial_left = 9
-        self.initial_right = 29
-        self.sandtankEngine.run(
-            self.initial_left, self.initial_right, self.set_initial_run
-        )
+        self.results = None
+        self.left = 9
+        self.right = 29
+        self.sandtankEngine.run(self.left, self.right, self.publish_results)
 
     @exportRpc("parflow.initial")
     def initial(self):
-        return self.initial_run
+        return self.results
 
     @exportRpc("parflow.run")
     def run(self, run):
-        self.sandtankEngine.run(run["left"], run["right"], self.run_callback)
+        self.sandtankEngine.run(run["left"], run["right"], self.publish_results)
 
-    def run_callback(self, inputs, outputs=None):
-        self.publish("parflow.results", {"inputs": inputs, "outputs": outputs})
-
-    def set_initial_run(self, inputs):
-        self.initial_run = {
-            "inputs": inputs,
-            "outputs": None,
-            "left": self.initial_left,
-            "right": self.initial_right,
-        }
+    def publish_results(self, results):
+        self.results = results
+        self.publish("parflow.results", results)

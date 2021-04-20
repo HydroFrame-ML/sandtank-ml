@@ -20,16 +20,10 @@ class SandtankEngine:
     def __init__(self):
         self.process = None
         self.callback = None
-
-        self.press_transform = Float32_clamp_scaling_x_bc(
-            src_range=[-30, 50], dst_range=[-1, 1], height=50
-        )
-        self.perm_transform = Float32_clamp_scaling_x_bc(
-            src_range=[0, 1], dst_range=[-1, 1], height=50
-        )
-
         self.processPoll = task.LoopingCall(self.pollProcess)
         self.processPoll.start(0.5)
+        self.left = 25
+        self.right = 25
 
     def pollProcess(self):
         if self.process is None:
@@ -41,24 +35,22 @@ class SandtankEngine:
 
         # Respond with run info
         sandtank = parflow.Run.from_definition(f"{self.run_directory.name}/run.yaml")
-        parflow.tools.settings.set_working_directory(
-            self.run_directory.name
-        )  # get_absolute_path forgets tempdir after run
 
         # Collect inputs for web client
-        inputs = dict()
+        results = {}
         data = sandtank.data_accessor
-        (shape_height, _, shape_width) = data.shape
-        (width, height) = (shape_width + 2, shape_height)
-        inputs["size"] = (width, height)
+        (height, _, width) = data.shape
+        results["size"] = (width, height)
+        results["left"] = self.left
+        results["right"] = self.right
 
         # Add data channels to inputs
-        data.time = 0  # Use initial pressure (25/25)
-        perm = self.perm_transform.convert(data.computed_permeability_x)
-        press = self.press_transform.convert(data.pressure)
-        inputs["channels"] = [array.flatten().tolist() for array in [perm, press]]
+        data.time = 50  # Use stable pressure after 50 timesteps
+        results["permeability"] = data.computed_permeability_x.flatten().tolist()
+        results["pressure"] = data.pressure.flatten().tolist()
+        results["saturation"] = data.saturation.flatten().tolist()
 
-        self.callback(inputs)
+        self.callback(results)
 
         # Trigger tempfile cleanup
         del self.run_directory
@@ -66,12 +58,8 @@ class SandtankEngine:
         self.callback = None
 
     def run(self, left, right, callback):
-
-        # Set right and left for adding boundary conditions to image
-        self.perm_transform.set_right(right)
-        self.perm_transform.set_left(left)
-        self.press_transform.set_right(right)
-        self.perm_transform.set_left(left)
+        self.left = left
+        self.right = right
 
         # Spawn parflow runner
         self.callback = callback

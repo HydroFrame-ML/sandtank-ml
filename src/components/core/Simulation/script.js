@@ -11,14 +11,17 @@ export default {
   computed: {
     ...mapGetters({
       loading: 'SIM_IS_RUNNING',
-      channels: 'SIM_CHANNELS',
-      size: 'SIM_SIZE',
-      inputRGB: 'TRAN_INPUT_RGB',
-      inputConvert: 'TRAN_INPUT_CONVERT',
-      outputRGB: 'TRAN_OUTPUT_RGB',
-      outputConvert: 'TRAN_OUTPUT_CONVERT',
       leftSlider: 'SIM_LEFT',
       rightSlider: 'SIM_RIGHT',
+      size: 'SIM_SIZE',
+      permeability: 'SIM_PERMEABILITY',
+      pressure: 'SIM_PRESSURE',
+      permeabilityToColor: 'TRAN_PERMABILITY',
+      pressureToColor: 'TRAN_PRESSURE',
+      // inputRGB: 'TRAN_INPUT_RGB',
+      // inputConvert: 'TRAN_INPUT_CONVERT',
+      // outputRGB: 'TRAN_OUTPUT_RGB',
+      // outputConvert: 'TRAN_OUTPUT_CONVERT',
     }),
   },
   methods: {
