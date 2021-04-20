@@ -16,8 +16,6 @@ def copy_refs(dest):
 
 class SandtankRunner:
     def run_sandtank(self, left, right, run_directory):
-        print("hit run_sandtank", left, right, run_directory)
-
         # Run sandtank
         copy_refs(run_directory)
         sandtank = parflow.Run.from_definition(f"{run_directory}/run.yaml")
