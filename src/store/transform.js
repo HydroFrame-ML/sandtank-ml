@@ -40,7 +40,7 @@ export function toColorMap(min, max) {
   const color = [0, 0, 0, 0];
   const lookupTable = vtkColorTransferFunction.newInstance();
   lookupTable.applyColorMap(
-    vtkColorMaps.getPresetByName('erdc_rainbow_bright')
+    vtkColorMaps.getPresetByName('erdc_rainbow_bright'),
   );
   lookupTable.setMappingRange(min, max);
   lookupTable.updateRange();

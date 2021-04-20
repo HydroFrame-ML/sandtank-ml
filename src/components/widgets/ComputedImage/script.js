@@ -85,7 +85,7 @@ export default {
         0,
         0,
         this.width * this.scale,
-        this.height * this.scale
+        this.height * this.scale,
       );
     },
   },
