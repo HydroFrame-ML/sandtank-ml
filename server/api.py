@@ -40,7 +40,7 @@ class Parflow(LinkProtocol):
         self.publish("parflow.results", results)
 
 class AI(LinkProtocol):
-    def __init__(self, models_basepath, **kwargs)
+    def __init__(self, models_basepath, **kwargs):
         super(AI, self).__init__()
         self.basepath = models_basepath
         self.loaded_models = {}
@@ -48,7 +48,7 @@ class AI(LinkProtocol):
     def get_model(self, model_uri):
         model_type, model_path = model_uri.split('://')
         if model_path not in self.loaded_models:
-            model = load_ml_model(model_type, os.path.join(self.basepath, model_path))
+            model = load_ml_model(model_type, os.path.abspath(os.path.join(self.basepath, model_path)))
             self.loaded_models[model_path] = model
 
         return self.loaded_models[model_path]
@@ -56,13 +56,14 @@ class AI(LinkProtocol):
 
     @exportRpc("parflow.ai.predict")
     def predict(self, model_uri, left, right):
+        print(f'api::predict({model_uri}, {left}, {right}')
         model = self.get_model(model_uri)
         result = {
             'left': left,
             'right': right,
             'id': model_uri,
         }
-        result.extend(model.predict(left, right))
+        result.update(model.predict(left, right))
         return result
 
 
@@ -70,5 +71,5 @@ class AI(LinkProtocol):
     def explain(self, model_uri, method, xy):
         model = self.get_model(model_uri)
         result = { 'id': model_uri }
-        result.extend(model.explain(method, xy))
+        result.update(model.explain(method, xy))
         return result

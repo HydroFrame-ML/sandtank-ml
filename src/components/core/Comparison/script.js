@@ -8,12 +8,24 @@ import Selector from 'sandtank-ml/src/components/core/Selector';
 
 export default {
   name: 'Comparison',
+  props: {
+    model: {
+      type: Object,
+      default: null,
+    },
+  },
   data: () => ({
     size: [102, 50],
   }),
   components: { ComputedImage, Selector },
   computed: {
-    ...mapGetters({}),
+    ...mapGetters({
+      pressureToColor: 'TRAN_PRESSURE',
+      aiToPress: 'TRAN_AI_TO_PRESS',
+    }),
+    pressure() {
+      return this.model.values.map(this.aiToPress);
+    }
   },
   methods: {
     ...mapActions({}),

@@ -14,10 +14,14 @@
         </v-btn>
         <div class="title"> AI Models </div>
         <v-spacer />
-        <v-btn> Run Models </v-btn>
+        <v-btn @click="runAI"> Run Models </v-btn>
       </v-row>
       <v-divider />
-      <comparison />
+      <comparison
+        v-for="model, idx in aiModels"
+        :key="idx"
+        :model="model"
+      />
     </v-container>
   </v-main>
 </v-app>

@@ -5,7 +5,7 @@ import argparse
 from wslink.websocket import ServerProtocol
 from wslink import server
 
-from api import Parflow
+from api import Parflow, AI
 
 # -----------------------------------------------------------------------------
 # source /home/seb/Documents/code/AI/parflow/full/opt/setup.sh

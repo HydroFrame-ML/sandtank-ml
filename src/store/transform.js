@@ -38,16 +38,35 @@ const PRESSURE_COLORS = toCategorical(
     [21, 101, 192], // water +++++++
     [13, 71, 161], // water +++++++
   ],
-  [-100, 0, 1, 5, 10, 15, 20, 30, 40],
+  [-20, 0, 1, 5, 10, 15, 20, 30, 40],
 );
 
 export default {
+  state: {
+    srcRange: [-1, 1],
+    dstRange: [-30, 50],
+  },
   getters: {
     TRAN_PERMABILITY() {
       return GRAY_0_1;
     },
     TRAN_PRESSURE() {
       return PRESSURE_COLORS;
+    },
+    TRAN_AI_TO_PRESS(state) {
+      const [s0, s1] = state.srcRange;
+      const [d0, d1] = state.dstRange;
+      const sd = s1 - s0;
+      const dd = d1 - d0;
+      return (v) => {
+        if (v < s0) {
+          return d0;
+        }
+        if (v > s1) {
+          return d1;
+        }
+        return dd * (v - s0) / sd + d0;
+      }
     },
   },
 };

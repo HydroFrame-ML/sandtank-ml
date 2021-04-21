@@ -5,10 +5,17 @@
   <v-col cols="12" sm="8">
     <v-row>
       <v-col cols="12" sm="6">
-        <ComputedImage :size="size" :scale="3" />
+        <ComputedImage
+          v-if="model.values"
+          :values="pressure"
+          :size="model.size"
+          :scale="3"
+          :convert="pressureToColor"
+          rgb
+        />
       </v-col>
       <v-col cols="12" sm="6">
-        <ComputedImage :size="size" :scale="3" />
+        <ComputedImage v-if="false" :size="size" :scale="3" />
       </v-col>
     </v-row>
   </v-col>
