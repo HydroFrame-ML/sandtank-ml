@@ -26,6 +26,7 @@ export default {
   methods: {
     ...mapActions({
       connect: 'WS_CONNECT',
+      addAI: 'AI_ADD_ENTRY',
       runAI: 'AI_RUN',
     }),
   },

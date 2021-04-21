@@ -65,8 +65,8 @@ export default {
         if (v > s1) {
           return d1;
         }
-        return dd * (v - s0) / sd + d0;
-      }
+        return (dd * (v - s0)) / sd + d0;
+      };
     },
   },
 };

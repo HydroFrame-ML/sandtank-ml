@@ -6,7 +6,12 @@ import { mapGetters, mapMutations, mapActions } from 'vuex';
 
 export default {
   name: 'Selector',
-  components: {},
+  props: {
+    definition: {
+      type: Object,
+      default: null,
+    },
+  },
   computed: {
     ...mapGetters({}),
   },

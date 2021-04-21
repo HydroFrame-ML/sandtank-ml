@@ -1,5 +1,19 @@
-<div>
-  <v-select />
-  <v-select />
-  <v-select />
-</div>
+<v-container class="flex-row flex-wrap" v-if="definition">
+  <v-row>
+    <v-col
+      cols="6"
+      v-for="name in definition.getKeyNames()"
+      :key="name"
+      v-show="definition.getItems(name).length > 1"
+    >
+      <v-select
+        :label="definition.getLabel(name)"
+        :items="definition.getItems(name)"
+        :value="definition.getValue(name)"
+        @input="definition.setValue(name, $event)"
+        dense
+        hide-details
+      />
+    </v-col>
+  </v-row>
+</v-container>

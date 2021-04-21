@@ -25,7 +25,7 @@ export default {
     }),
     pressure() {
       return this.model.values.map(this.aiToPress);
-    }
+    },
   },
   methods: {
     ...mapActions({}),

@@ -1,6 +1,7 @@
-<v-row class="align-center ma-4 ">
+<v-card>
+<v-row class="align-center ma-4 ml-0">
   <v-col cols="12" sm="4">
-    <Selector />
+    <Selector :definition="model.modelSelector" />
   </v-col>
   <v-col cols="12" sm="8">
     <v-row>
@@ -20,3 +21,4 @@
     </v-row>
   </v-col>
 </v-row>
+</v-card>
