@@ -31,7 +31,6 @@ export default {
       const right = getters.SIM_RIGHT;
       commit('AI_LEFT_SET', left);
       commit('AI_RIGHT_SET', right);
-      console.log(state.models);
       const responses = await Promise.all(
         state.models.map(({ modelSelector }) =>
           dispatch('WS_PREDICT', { uri: modelSelector.getURI(), left, right }),

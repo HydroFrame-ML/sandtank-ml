@@ -39,7 +39,7 @@ export const DEFAULT_MODEL = {
     },
   },
   uriPattern:
-    '${model}://models/press-${training}-${learningRate}-${dropOut}-${epoch}',
+    '${model}://models/${model}Engine/press-${training}-${learningRate}-${dropOut}-${epoch}',
 };
 
 export default class ModelSelector {

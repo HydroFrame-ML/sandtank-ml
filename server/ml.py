@@ -171,7 +171,6 @@ class Float32_clamp_scaling_x_bc:
 # -----------------------------------------------------------------------------
 
 def load_ml_model(model_type, model_filepath):
-    print('load_ml_model', model_type, model_filepath)
     if model_type in AI_MAP:
         return AI_MAP[model_type](model_filepath)
 
@@ -318,7 +317,6 @@ class RegressionPressure():
         self.inputs = None
         # XAI
         self.xai = XAI(self.model)
-        print('new RegressionPressure')
 
 
     def predict(self, left, right):

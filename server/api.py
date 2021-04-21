@@ -56,7 +56,6 @@ class AI(LinkProtocol):
 
     @exportRpc("parflow.ai.predict")
     def predict(self, model_uri, left, right):
-        print(f'api::predict({model_uri}, {left}, {right}')
         model = self.get_model(model_uri)
         result = {
             'left': left,
