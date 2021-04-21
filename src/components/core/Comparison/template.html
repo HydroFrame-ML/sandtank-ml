@@ -16,7 +16,14 @@
         />
       </v-col>
       <v-col cols="12" sm="6">
-        <ComputedImage v-if="false" :size="size" :scale="3" />
+        <ComputedImage
+          v-if="model.values"
+          :size="model.size"
+          :scale="3"
+          :values="delta"
+          :convert="deltaToColor"
+          rgb
+        />
       </v-col>
     </v-row>
   </v-col>

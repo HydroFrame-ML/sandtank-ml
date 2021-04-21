@@ -41,6 +41,19 @@ const PRESSURE_COLORS = toCategorical(
   [-20, 0, 1, 5, 10, 15, 20, 30, 40],
 );
 
+const DIFF_COLORS = toCategorical(
+  [
+    [213, 0, 0],
+    [244, 81, 30],
+    [255, 183, 77],
+    [105, 240, 174], // perfect
+    [255, 183, 77],
+    [244, 81, 30],
+    [213, 0, 0],
+  ],
+  [-20, -10, -2, 2, 10],
+);
+
 export default {
   state: {
     srcRange: [-1, 1],
@@ -67,6 +80,9 @@ export default {
         }
         return (dd * (v - s0)) / sd + d0;
       };
+    },
+    TRAN_DIFF_COLOR() {
+      return DIFF_COLORS;
     },
   },
 };
