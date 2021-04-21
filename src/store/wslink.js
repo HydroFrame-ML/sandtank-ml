@@ -121,5 +121,17 @@ export default {
         }
       }
     },
+    WS_PREDICT({ state }, { uri, left, right }) {
+      return state.client
+        .getRemote()
+        .AI.predict(uri, left, right)
+        .catch(console.error);
+    },
+    WS_EXPLAIN({ state }, { uri, method, xy }) {
+      return state.client
+        .getRemote()
+        .AI.explain(uri, method, xy)
+        .catch(console.error);
+    },
   },
 };

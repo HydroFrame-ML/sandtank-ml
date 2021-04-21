@@ -33,6 +33,7 @@ class WebServer(ServerProtocol):
 
     def initialize(self):
         self.registerLinkProtocol(Parflow())
+        self.registerLinkProtocol(AI(WebServer.working_directory))
 
         # Update authentication key to use
         self.updateSecret(WebServer.authKey)
@@ -44,7 +45,7 @@ class WebServer(ServerProtocol):
 
 if __name__ == "__main__":
     # Create argument parser
-    parser = argparse.ArgumentParser(description="Compare Sandtank AI - Server")
+    parser = argparse.ArgumentParser(description="Sandtank ML")
 
     # Add arguments
     server.add_arguments(parser)
