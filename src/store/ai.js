@@ -33,11 +33,17 @@ export default {
     async AI_RUN({ state, getters, commit, dispatch }) {
       const left = getters.SIM_LEFT;
       const right = getters.SIM_RIGHT;
+      const time = getters.SIM_RUN_TIMESTEP;
       commit('AI_LEFT_SET', left);
       commit('AI_RIGHT_SET', right);
       const responses = await Promise.all(
         state.models.map(({ modelSelector }) =>
-          dispatch('WS_PREDICT', { uri: modelSelector.getURI(), left, right }),
+          dispatch('WS_PREDICT', {
+            uri: modelSelector.getURI(),
+            left,
+            right,
+            time,
+          }),
         ),
       );
       const newModels = [];

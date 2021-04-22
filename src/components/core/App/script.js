@@ -21,6 +21,7 @@ export default {
   computed: {
     ...mapGetters({
       aiModels: 'AI_MODELS',
+      simulationTime: 'SIM_RUN_TIMESTEP',
     }),
   },
   methods: {
@@ -28,6 +29,7 @@ export default {
       connect: 'WS_CONNECT',
       addAI: 'AI_ADD_ENTRY',
       runAI: 'AI_RUN',
+      updateSimulationTime: 'SIM_UPDATE_RUN_TIME',
     }),
   },
   mounted() {

@@ -6,6 +6,9 @@ export default function createMethods(session) {
     initialRun() {
       return session.call('parflow.initial', []);
     },
+    getResults(time = 1) {
+      return session.call('parflow.get', [time]);
+    },
     subscribeToParflowOutput(callback) {
       return session.subscribe('parflow.results', callback);
     },

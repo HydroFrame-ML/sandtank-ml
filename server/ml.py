@@ -319,7 +319,7 @@ class RegressionPressure():
         self.xai = XAI(self.model)
 
 
-    def predict(self, left, right):
+    def predict(self, left, right, time):
         self.press_transform.set_left(left)
         self.perm_transform.set_left(left)
 
@@ -330,8 +330,17 @@ class RegressionPressure():
         perm = self.perm_transform.convert(INPUT_SOIL)
         press = self.press_transform.convert(INPUT_PRESSURE)
 
-        self.inputs = torch.tensor(np.concatenate((perm, press), axis=None).reshape((1, 2, shape[0], shape[2] + 2)), dtype=torch.float)
-        output = self.model(self.inputs)
+        if time == 0:
+            return {
+                'values': press.flatten().tolist(),
+                'range': [float(torch.min(press)), float(torch.max(press))],
+                'size': [shape[2] + 2, shape[0]],
+            }
+
+        for t in range(time):
+            self.inputs = torch.tensor(np.concatenate((perm, press), axis=None).reshape((1, 2, shape[0], shape[2] + 2)), dtype=torch.float)
+            output = self.model(self.inputs)
+            press = output
 
         return {
             'values': output.flatten().tolist(),

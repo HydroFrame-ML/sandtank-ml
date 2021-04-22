@@ -18,12 +18,18 @@ script = os.path.join(root_path, "runner", "sandtankRunner.py")
 
 class SandtankEngine:
     def __init__(self):
+        self.run_directory = None
         self.process = None
         self.callback = None
         self.processPoll = task.LoopingCall(self.pollProcess)
         self.processPoll.start(0.5)
+        self.time = 0
         self.left = 25
         self.right = 25
+
+    def __del__(self):
+        if self.run_directory:
+            del self.run_directory
 
     def pollProcess(self):
         if self.process is None:
@@ -32,6 +38,19 @@ class SandtankEngine:
         status = self.process.poll()
         if status is None:  # Process still running
             return
+
+        # Push results
+        self.callback(self.get_results(self.time))
+
+        # Trigger tempfile cleanup
+        self.process = None
+        self.callback = None
+
+    def get_results(self, time):
+        self.time = time
+
+        if self.run_directory is None:
+            return {}
 
         # Respond with run info
         sandtank = parflow.Run.from_definition(f"{self.run_directory.name}/run.yaml")
@@ -45,21 +64,20 @@ class SandtankEngine:
         results["right"] = self.right
 
         # Add data channels to inputs
-        data.time = 50  # Use stable pressure after 50 timesteps
+        data.time = time
         results["permeability"] = data.computed_permeability_x.flatten().tolist()
         results["pressure"] = data.pressure.flatten().tolist()
         results["saturation"] = data.saturation.flatten().tolist()
 
-        self.callback(results)
-
-        # Trigger tempfile cleanup
-        del self.run_directory
-        self.process = None
-        self.callback = None
+        return results
 
     def run(self, left, right, callback):
         self.left = left
         self.right = right
+
+        # Delete previous run if any
+        if self.run_directory:
+            del self.run_directory
 
         # Spawn parflow runner
         self.callback = callback

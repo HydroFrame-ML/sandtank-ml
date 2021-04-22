@@ -1,3 +1,6 @@
+let BUSY = false;
+let PENDING_REQUEST = 0;
+
 export default {
   state: {
     left: null,
@@ -7,6 +10,8 @@ export default {
     saturation: null,
     size: null,
     running: false,
+    runTimeStep: 1,
+    busy: false,
   },
   getters: {
     SIM_LEFT(state) {
@@ -29,6 +34,9 @@ export default {
     },
     SIM_IS_RUNNING(state) {
       return state.running;
+    },
+    SIM_RUN_TIMESTEP(state) {
+      return state.runTimeStep;
     },
   },
   mutations: {
@@ -53,11 +61,18 @@ export default {
     SIM_MODELS_RAN(state) {
       state.running = false;
     },
+    SIM_RUN_TIMESTEP_SET(state, value) {
+      state.runTimeStep = value;
+    },
   },
   actions: {
     SIM_RUN_MODELS({ state, dispatch }) {
       state.running = true;
-      const run = { left: state.left, right: state.right };
+      const run = {
+        left: state.left,
+        right: state.right,
+        time: state.runTimeStep,
+      };
       dispatch('WS_RUN_MODELS', run);
     },
     SIM_MODELS_RESULTS(
@@ -71,6 +86,22 @@ export default {
       commit('SIM_LEFT_SET', left);
       commit('SIM_RIGHT_SET', right);
       commit('SIM_MODELS_RAN');
+    },
+    SIM_UPDATE_RUN_TIME({ commit, dispatch, state }, time) {
+      commit('SIM_RUN_TIMESTEP_SET', Number(time));
+      if (BUSY) {
+        PENDING_REQUEST++;
+        return;
+      }
+
+      BUSY = true;
+      dispatch('WS_RUN_RESULTS', Number(time)).finally(() => {
+        BUSY = false;
+        if (PENDING_REQUEST) {
+          PENDING_REQUEST = 0;
+          dispatch('SIM_UPDATE_RUN_TIME', state.runTimeStep);
+        }
+      });
     },
   },
 };

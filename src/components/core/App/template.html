@@ -2,6 +2,20 @@
   <v-app-bar app>
     <v-icon v-text="`$compare`" :class="$style.logo" />
     <span class="title">Compare Sandtank AI</span>
+    <v-spacer />
+    <v-slider
+      label="Timestep"
+      :value="simulationTime"
+      @input="updateSimulationTime"
+      dense
+      hide-details
+      min="0"
+      max="50"
+      step="1"
+      thumb-label
+      thumb-size="16"
+      style="max-width: 300px;"
+    />
   </v-app-bar>
 
   <v-main :class="$style.appContent">

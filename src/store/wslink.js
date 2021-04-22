@@ -46,6 +46,10 @@ export default {
         // We suppose that we have dev server and that ParaView/VTK is running on port 1234
         config.sessionURL = `ws://${location.hostname}:1234/ws`;
       }
+      if (location.port === '8081') {
+        // We suppose that we have dev server and that ParaView/VTK is running on port 2345
+        config.sessionURL = `ws://${location.hostname}:2345/ws`;
+      }
 
       const { client } = state;
       if (client && client.isConnected()) {
@@ -121,10 +125,16 @@ export default {
         }
       }
     },
-    WS_PREDICT({ state }, { uri, left, right }) {
+    async WS_RUN_RESULTS({ state }, time) {
       return state.client
         .getRemote()
-        .AI.predict(uri, left, right)
+        .Parflow.getResults(time)
+        .catch(console.error);
+    },
+    WS_PREDICT({ state }, { uri, left, right, time }) {
+      return state.client
+        .getRemote()
+        .AI.predict(uri, left, right, time)
         .catch(console.error);
     },
     WS_EXPLAIN({ state }, { uri, method, xy }) {

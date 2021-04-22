@@ -18,10 +18,6 @@ export default {
       pressure: 'SIM_PRESSURE',
       permeabilityToColor: 'TRAN_PERMABILITY',
       pressureToColor: 'TRAN_PRESSURE',
-      // inputRGB: 'TRAN_INPUT_RGB',
-      // inputConvert: 'TRAN_INPUT_CONVERT',
-      // outputRGB: 'TRAN_OUTPUT_RGB',
-      // outputConvert: 'TRAN_OUTPUT_CONVERT',
     }),
   },
   methods: {

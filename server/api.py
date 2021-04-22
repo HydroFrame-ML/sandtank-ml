@@ -33,7 +33,12 @@ class Parflow(LinkProtocol):
 
     @exportRpc("parflow.run")
     def run(self, run):
+        self.sandtankEngine.time = run["time"]
         self.sandtankEngine.run(run["left"], run["right"], self.publish_results)
+
+    @exportRpc("parflow.get")
+    def get_results(self, time=0):
+        self.publish_results(self.sandtankEngine.get_results(time))
 
     def publish_results(self, results):
         self.results = results
@@ -55,14 +60,14 @@ class AI(LinkProtocol):
 
 
     @exportRpc("parflow.ai.predict")
-    def predict(self, model_uri, left, right):
+    def predict(self, model_uri, left, right, time):
         model = self.get_model(model_uri)
         result = {
             'left': left,
             'right': right,
             'id': model_uri,
         }
-        result.update(model.predict(left, right))
+        result.update(model.predict(left, right, time))
         return result
 
 
