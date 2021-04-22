@@ -44,6 +44,9 @@ export default {
     scale() {
       this.$nextTick(this.render);
     },
+    convert() {
+      this.$nextTick(this.render);
+    },
     config() {
       this.$nextTick(this.render);
     },

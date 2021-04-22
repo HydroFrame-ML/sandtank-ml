@@ -6,5 +6,8 @@ export default function createMethods(session) {
     explain(uri, method, xy) {
       return session.call('parflow.ai.explain', [uri, method, xy]);
     },
+    fetchConfig(name) {
+      return session.call('parflow.ai.config', [name]);
+    },
   };
 }

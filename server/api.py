@@ -15,7 +15,6 @@ from ml import load_ml_model
 # Local setup
 # -----------------------------------------------------------------------------
 
-
 class Parflow(LinkProtocol):
     def __init__(self, **kwargs):
         super(Parflow, self).__init__()
@@ -77,3 +76,16 @@ class AI(LinkProtocol):
         result = { 'id': model_uri }
         result.update(model.explain(method, xy))
         return result
+
+    @exportRpc("parflow.ai.config")
+    def get_config(self, name=''):
+        file_path = os.path.join(self.basepath, f'{name}.json')
+        if os.path.exists(file_path):
+            with open(file_path, 'r') as f:
+                return json.loads(f.read())
+        elif name != 'default':
+            return self.get_config('default')
+
+        print('!!! No config found...', file_path)
+
+        return {}

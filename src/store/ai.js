@@ -2,16 +2,23 @@ import ModelSelector from 'sandtank-ml/src/utils/ModelSelector';
 
 export default {
   state: {
+    config: {},
     models: [],
     left: 0,
     right: 0,
   },
   getters: {
+    AI_CONFIG(state) {
+      return state.config;
+    },
     AI_MODELS(state) {
       return state.models;
     },
   },
   mutations: {
+    AI_CONFIG_SET(state, value) {
+      state.config = value;
+    },
     AI_LEFT_SET(state, value) {
       state.left = value;
     },
@@ -20,14 +27,17 @@ export default {
     },
   },
   actions: {
+    async AI_FETCH_CONFIG({ commit, dispatch }, name) {
+      const newConfig = await dispatch('WS_FETCH_CONFIG', name);
+      commit('AI_CONFIG_SET', newConfig);
+    },
     AI_ADD_ENTRY({ state }) {
       // FIXME should provide the definition at build time
       state.models = state.models.concat({
-        modelSelector: new ModelSelector(),
+        modelSelector: new ModelSelector(state.config),
       });
     },
     AI_REMOVE_ENTRY({ state }, index) {
-      console.log(index);
       state.models.splice(index, 1);
     },
     async AI_RUN({ state, getters, commit, dispatch }) {

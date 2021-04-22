@@ -17,6 +17,7 @@ export default {
   },
   data: () => ({
     size: [102, 50],
+    colorMode: false,
   }),
   components: { ComputedImage, Selector },
   computed: {
@@ -25,6 +26,7 @@ export default {
       deltaToColor: 'TRAN_DIFF_COLOR',
       computedPressure: 'SIM_PRESSURE',
       normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
+      catColor: 'TRAN_CAT_PRESS',
     }),
     pressure() {
       return this.model.values;
@@ -48,6 +50,9 @@ export default {
         }
       }
       return out;
+    },
+    currentColorConvert() {
+      return this.colorMode ? this.normPressureToColor : this.catColor;
     },
   },
   methods: {

@@ -160,6 +160,19 @@ class Float32_clamp_scaling_x_bc:
 
         return out
 
+def clean_pressure(array):
+    shape = array.shape
+    for j in range(shape[0]):
+        for i in range(1, shape[1] - 1):
+            array[j, i] = min(1, max(-1, array[j, i]))
+            v = array[j, i]
+            if INPUT_PRESSURE[j, 0, i - 1] < -100:
+                array[j, i] = -1
+            elif v > -0.9 and v < -0.75:
+                array[j, i] = -0.75
+
+    return array
+
 # -----------------------------------------------------------------------------
 # Public API
 # -----------------------------------------------------------------------------
@@ -333,7 +346,7 @@ class RegressionPressure():
 
         for t in range(time):
             self.inputs = torch.tensor(np.concatenate((perm, press), axis=None).reshape((1, 2, shape[0], shape[2] + 2)), dtype=torch.float)
-            output = self.model(self.inputs).view((shape[0], shape[2] + 2))
+            output = clean_pressure(self.model(self.inputs).view((shape[0], shape[2] + 2)))
 
             # Override BC
             for j in range(shape[0]):

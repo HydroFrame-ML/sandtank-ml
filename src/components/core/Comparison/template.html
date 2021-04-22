@@ -1,6 +1,7 @@
 <v-card>
   <v-row class="align-center ma-4 ml-0">
     <v-col cols="12" sm="4">
+      <v-switch v-model="colorMode" />
       <Selector :definition="model.modelSelector" :id="id" />
     </v-col>
     <v-col cols="12" sm="8">
@@ -11,7 +12,7 @@
             :values="pressure"
             :size="model.size"
             :scale="3"
-            :convert="normPressureToColor"
+            :convert="currentColorConvert"
             rgb
           />
         </v-col>

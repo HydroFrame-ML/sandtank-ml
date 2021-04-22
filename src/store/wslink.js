@@ -37,7 +37,7 @@ export default {
     },
   },
   actions: {
-    WS_CONNECT({ state, commit, dispatch }) {
+    async WS_CONNECT({ state, commit, dispatch }) {
       // Initiate network connection
       const config = { application: 'compareSandtank' };
 
@@ -85,7 +85,7 @@ export default {
       });
 
       // Connect
-      clientToConnect
+      return clientToConnect
         .connect(config)
         .then((validClient) => {
           const session = validClient.getConnection().getSession();
@@ -113,6 +113,12 @@ export default {
           .Parflow.runModels(run)
           .catch(console.error);
       }
+    },
+    async WS_FETCH_CONFIG({ state }, name) {
+      return state.client
+        .getRemote()
+        .AI.fetchConfig(name)
+        .catch(console.error);
     },
     async WS_INITIAL_RUN({ state, dispatch }) {
       if (state.client) {

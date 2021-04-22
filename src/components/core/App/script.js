@@ -2,6 +2,10 @@ import { mapActions, mapGetters } from 'vuex';
 import logo from 'sandtank-ml/src/assets/logo.png';
 import Simulation from 'sandtank-ml/src/components/core/Simulation';
 import Comparison from 'sandtank-ml/src/components/core/Comparison';
+import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
+
+// Process arguments from URL
+const userParams = vtkURLExtract.extractURLParameters();
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -35,6 +39,7 @@ export default {
   methods: {
     ...mapActions({
       connect: 'WS_CONNECT',
+      fetchConfig: 'AI_FETCH_CONFIG',
       addAI: 'AI_ADD_ENTRY',
       runAI: 'AI_RUN',
       updateSimulationTime: 'SIM_UPDATE_RUN_TIME',
@@ -45,7 +50,8 @@ export default {
       }
     },
   },
-  mounted() {
-    this.connect();
+  async mounted() {
+    await this.connect();
+    this.fetchConfig(userParams.name);
   },
 };
