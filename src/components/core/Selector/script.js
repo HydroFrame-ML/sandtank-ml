@@ -11,12 +11,15 @@ export default {
       type: Object,
       default: null,
     },
+    id: {},
   },
   computed: {
     ...mapGetters({}),
   },
   methods: {
-    ...mapActions({}),
+    ...mapActions({
+      removeAI: 'AI_REMOVE_ENTRY',
+    }),
     ...mapMutations({}),
   },
 };

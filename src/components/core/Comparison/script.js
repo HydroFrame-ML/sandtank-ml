@@ -13,6 +13,7 @@ export default {
       type: Object,
       default: null,
     },
+    id: {},
   },
   data: () => ({
     size: [102, 50],

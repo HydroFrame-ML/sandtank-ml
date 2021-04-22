@@ -12,7 +12,7 @@
         <v-btn icon class="mx-1" @click="addAI">
           <v-icon v-text="`$add`" />
         </v-btn>
-        <div class="title"> AI Models </div>
+        <div class="title">AI Models</div>
         <v-spacer />
         <v-btn @click="runAI"> Run Models </v-btn>
       </v-row>
@@ -21,6 +21,7 @@
         v-for="model, idx in aiModels"
         :key="idx"
         :model="model"
+        :id="idx"
       />
     </v-container>
   </v-main>

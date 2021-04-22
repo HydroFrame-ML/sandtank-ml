@@ -26,6 +26,10 @@ export default {
         modelSelector: new ModelSelector(),
       });
     },
+    AI_REMOVE_ENTRY({ state }, index) {
+      console.log(index);
+      state.models.splice(index, 1);
+    },
     async AI_RUN({ state, getters, commit, dispatch }) {
       const left = getters.SIM_LEFT;
       const right = getters.SIM_RIGHT;

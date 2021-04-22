@@ -15,6 +15,7 @@ export default new Vuetify({
       results: 'mdi-arrow-right-bold',
       water: 'mdi-water',
       add: 'mdi-plus',
+      trash: 'mdi-delete',
     },
   },
 });
