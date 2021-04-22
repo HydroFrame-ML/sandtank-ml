@@ -11,7 +11,7 @@
             :values="pressure"
             :size="model.size"
             :scale="3"
-            :convert="pressureToColor"
+            :convert="normPressureToColor"
             rgb
           />
         </v-col>
@@ -22,7 +22,6 @@
             :scale="3"
             :values="delta"
             :convert="deltaToColor"
-            rgb
           />
         </v-col>
       </v-row>

@@ -21,13 +21,13 @@ export default {
   components: { ComputedImage, Selector },
   computed: {
     ...mapGetters({
-      pressureToColor: 'TRAN_PRESSURE',
-      aiToPress: 'TRAN_AI_TO_PRESS',
+      toNormPress: 'TRAN_PRESS_TO_NORM',
       deltaToColor: 'TRAN_DIFF_COLOR',
       computedPressure: 'SIM_PRESSURE',
+      normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
     }),
     pressure() {
-      return this.model.values.map(this.aiToPress);
+      return this.model.values;
     },
     delta() {
       const out = [];
@@ -41,7 +41,9 @@ export default {
           if (i == 0 || i == 101) {
             out[dstIdx] = 0;
           } else {
-            out[dstIdx] = ref[srcIdx] - press[dstIdx];
+            out[dstIdx] = Math.abs(
+              this.toNormPress(ref[srcIdx]) - press[dstIdx],
+            );
           }
         }
       }

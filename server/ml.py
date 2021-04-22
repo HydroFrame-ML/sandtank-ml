@@ -333,7 +333,13 @@ class RegressionPressure():
 
         for t in range(time):
             self.inputs = torch.tensor(np.concatenate((perm, press), axis=None).reshape((1, 2, shape[0], shape[2] + 2)), dtype=torch.float)
-            output = self.model(self.inputs)
+            output = self.model(self.inputs).view((shape[0], shape[2] + 2))
+
+            # Override BC
+            for j in range(shape[0]):
+                output[j, 0] = 1 if j < left else -1
+                output[j, shape[2] + 2 - 1] = 1 if j < right else -1
+
             press = output
 
         return {

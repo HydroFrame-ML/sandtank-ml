@@ -17,8 +17,12 @@ export default {
       permeability: 'SIM_PERMEABILITY',
       pressure: 'SIM_PRESSURE',
       permeabilityToColor: 'TRAN_PERMABILITY',
-      pressureToColor: 'TRAN_PRESSURE',
+      normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
+      toNormPress: 'TRAN_PRESS_TO_NORM',
     }),
+    normPressure() {
+      return this.pressure.map(this.toNormPress);
+    },
   },
   methods: {
     ...mapActions({

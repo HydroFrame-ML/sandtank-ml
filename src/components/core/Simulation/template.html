@@ -52,8 +52,8 @@
       v-if="pressure"
       :scale="3"
       :size="size"
-      :values="pressure"
-      :convert="pressureToColor"
+      :values="normPressure"
+      :convert="normPressureToColor"
       rgb
     />
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />
