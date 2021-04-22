@@ -16,7 +16,15 @@ export default {
   data() {
     return {
       logo,
+      autoRun: false,
     };
+  },
+  watch: {
+    autoRun(v) {
+      if (v) {
+        this.runAI();
+      }
+    },
   },
   computed: {
     ...mapGetters({
@@ -31,6 +39,11 @@ export default {
       runAI: 'AI_RUN',
       updateSimulationTime: 'SIM_UPDATE_RUN_TIME',
     }),
+    autoRunModels() {
+      if (this.autoRun) {
+        this.runAI();
+      }
+    },
   },
   mounted() {
     this.connect();

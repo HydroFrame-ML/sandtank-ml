@@ -31,18 +31,12 @@ def pfb2np(file_path):
     pfb_data.loadData()
     return pfb_data.moveDataArray()
 
-def initpressure(press, height=25):
-    shape = press.shape
-    for k in range(shape[0]):
-        for j in range(shape[1]):
-            for i in range(shape[2]):
-                press[k, j, i] = height - k
-    return press
-
-_indicator_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'runner/refs/SandTank_Indicator.pfb')
+_ref_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'runner/refs')
+_indicator_file_path = os.path.join(_ref_directory, 'SandTank_Indicator.pfb')
+_init_press_file_path = os.path.join(_ref_directory, 'Init_press.pfb')
 
 INPUT_SOIL = pfb2np(_indicator_file_path)
-INPUT_PRESSURE = initpressure(INPUT_SOIL.astype(np.float32))
+INPUT_PRESSURE = pfb2np(_init_press_file_path)
 
 AI_MAP = {}
 
@@ -333,7 +327,7 @@ class RegressionPressure():
         if time == 0:
             return {
                 'values': press.flatten().tolist(),
-                'range': [float(torch.min(press)), float(torch.max(press))],
+                'range': [float(np.amin(press)), float(np.amax(press))],
                 'size': [shape[2] + 2, shape[0]],
             }
 

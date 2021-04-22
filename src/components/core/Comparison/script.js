@@ -30,7 +30,8 @@ export default {
       return this.model.values.map(this.aiToPress);
     },
     delta() {
-      const out = new Float32Array(102 * 50);
+      const out = [];
+      out.length = 102 * 50;
       const press = this.pressure;
       const ref = this.computedPressure;
       for (let j = 0; j < 50; j++) {

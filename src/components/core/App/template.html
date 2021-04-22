@@ -7,6 +7,7 @@
       label="Timestep"
       :value="simulationTime"
       @input="updateSimulationTime"
+      @change="autoRunModels"
       dense
       hide-details
       min="0"
@@ -15,6 +16,12 @@
       thumb-label
       thumb-size="16"
       style="max-width: 300px;"
+    />
+    <v-switch
+      label="Auto run"
+      dense
+      hide-details
+      v-model="autoRun"
     />
   </v-app-bar>
 
@@ -28,7 +35,7 @@
         </v-btn>
         <div class="title">AI Models</div>
         <v-spacer />
-        <v-btn @click="runAI"> Run Models </v-btn>
+        <v-btn @click="runAI" :disabled="autoRun"> Run Models </v-btn>
       </v-row>
       <v-divider />
       <comparison

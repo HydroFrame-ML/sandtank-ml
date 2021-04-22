@@ -23,7 +23,7 @@ class SandtankEngine:
         self.callback = None
         self.processPoll = task.LoopingCall(self.pollProcess)
         self.processPoll.start(0.5)
-        self.time = 0
+        self.time = 1
         self.left = 25
         self.right = 25
 
