@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t compare ..
+docker build -f Dockerfile -t sandtank-ml ..

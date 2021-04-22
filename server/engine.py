@@ -84,7 +84,7 @@ class SandtankEngine:
         self.run_directory = TemporaryDirectory()
         self.process = subprocess.Popen(
             [
-                "python",
+                "python3",
                 script,
                 "--left",
                 str(left),
