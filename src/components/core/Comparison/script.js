@@ -27,6 +27,8 @@ export default {
       computedPressure: 'SIM_PRESSURE',
       normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
       catColor: 'TRAN_CAT_PRESS',
+      simulationTime: 'SIM_RUN_TIMESTEP',
+      permeabilityToColor: 'TRAN_PERMABILITY_AI',
     }),
     pressure() {
       return this.model.values;
@@ -52,6 +54,9 @@ export default {
       return out;
     },
     currentColorConvert() {
+      if (this.simulationTime == -1) {
+        return this.permeabilityToColor;
+      }
       return this.colorMode ? this.normPressureToColor : this.catColor;
     },
   },

@@ -37,6 +37,8 @@ class Parflow(LinkProtocol):
 
     @exportRpc("parflow.get")
     def get_results(self, time=0):
+        if time < 0:
+            time = 0
         self.publish_results(self.sandtankEngine.get_results(time))
 
     def publish_results(self, results):

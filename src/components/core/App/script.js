@@ -32,6 +32,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      busy: 'WS_BUSY',
       aiModels: 'AI_MODELS',
       simulationTime: 'SIM_RUN_TIMESTEP',
     }),

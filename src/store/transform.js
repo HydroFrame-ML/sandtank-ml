@@ -34,7 +34,8 @@ function toInvGrayScale(min, max) {
 
 // Generated
 const GRAY_0_1 = toGrayScale(0, 1);
-const INV_GRAY_0_2 = toInvGrayScale(0, 2);
+const GRAY_n1_1 = toGrayScale(-1, 1);
+const INV_GRAY_0_1 = toInvGrayScale(0, 0.5);
 const PRESSURE_COLORS = toCategorical(
   [
     [0, 0, 0], // cut-off: -inf
@@ -107,6 +108,9 @@ export default {
     TRAN_PERMABILITY() {
       return GRAY_0_1;
     },
+    TRAN_PERMABILITY_AI() {
+      return GRAY_n1_1;
+    },
     TRAN_PRESSURE() {
       return PRESSURE_COLORS;
     },
@@ -144,7 +148,7 @@ export default {
       };
     },
     TRAN_DIFF_COLOR() {
-      return INV_GRAY_0_2;
+      return INV_GRAY_0_1;
     },
     TRAN_CAT_PRESS() {
       return COLOR_CAT_PRESS;

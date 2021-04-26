@@ -32,10 +32,10 @@ def pfb2np(file_path):
     return pfb_data.moveDataArray()
 
 _ref_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'runner/refs')
-_indicator_file_path = os.path.join(_ref_directory, 'SandTank_Indicator.pfb')
+_perm_file_path = os.path.join(_ref_directory, 'perm.pfb')
 _init_press_file_path = os.path.join(_ref_directory, 'Init_press.pfb')
 
-INPUT_SOIL = pfb2np(_indicator_file_path)
+INPUT_PERM = pfb2np(_perm_file_path)
 INPUT_PRESSURE = pfb2np(_init_press_file_path)
 
 AI_MAP = {}
@@ -333,9 +333,16 @@ class RegressionPressure():
         self.press_transform.set_right(right)
         self.perm_transform.set_right(right)
 
-        shape = INPUT_SOIL.shape
-        perm = self.perm_transform.convert(INPUT_SOIL)
+        shape = INPUT_PERM.shape
+        perm = self.perm_transform.convert(INPUT_PERM)
         press = self.press_transform.convert(INPUT_PRESSURE)
+
+        if time == -1:
+            return {
+                'values': perm.flatten().tolist(),
+                'range': [float(np.amin(perm)), float(np.amax(perm))],
+                'size': [shape[2] + 2, shape[0]],
+            }
 
         if time == 0:
             return {
@@ -343,6 +350,8 @@ class RegressionPressure():
                 'range': [float(np.amin(press)), float(np.amax(press))],
                 'size': [shape[2] + 2, shape[0]],
             }
+
+
 
         for t in range(time):
             self.inputs = torch.tensor(np.concatenate((perm, press), axis=None).reshape((1, 2, shape[0], shape[2] + 2)), dtype=torch.float)
