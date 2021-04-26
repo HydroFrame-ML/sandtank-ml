@@ -4,7 +4,7 @@
     "port": 9000,
     "endpoint": "paraview",
     "proxy_file": "/opt/launcher/proxy-mapping.txt",
-    "sessionURL": "ws://${host}:${port}/ws/proxy?sessionId=${id}&path=ws",
+    "sessionURL": "SESSION_URL_ROOT/proxy?sessionId=${id}&path=ws",
     "timeout": 5,
     "log_dir": "/logs",
     "fields": [
@@ -29,6 +29,10 @@
   "apps": {
     "sandtank-ml": {
       "cmd": [
+        "runuser",
+        "-u",
+        "ubuntu",
+        "--",
         "${python_exec}",
         "/home/ubuntu/sandtank/server/server.py",
         "--port",
