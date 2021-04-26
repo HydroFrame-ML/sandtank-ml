@@ -51,15 +51,42 @@
         </v-btn>
         <div class="title">AI Models</div>
         <v-spacer />
+        <v-btn-toggle
+          v-model="visibleModules"
+          dense
+          multiple
+        >
+          <v-btn value="selection"><v-icon v-text="`$showSelection`"/></v-btn>
+          <v-btn value="prediction"><v-icon v-text="`$showPrediction`"/></v-btn>
+          <v-btn value="diff"><v-icon v-text="`$showDiff`"/></v-btn>
+          <v-btn value="stats"><v-icon v-text="`$showLearnStats`"/></v-btn>
+        </v-btn-toggle>
+
+        <v-spacer />
         <v-btn @click="runAI" :disabled="autoRun"> Run Models </v-btn>
       </v-row>
-      <v-divider />
-      <comparison
+      <v-divider class="mb-3" />
+      <div
         v-for="model, idx in aiModels"
         :key="idx"
-        :model="model"
-        :id="idx"
-      />
+        style="position: relative;"
+        class="mr-2 pt-1"
+      >
+        <comparison :model="model" />
+        <v-btn
+          absolute
+          fab
+          elevation="2"
+          @click="removeAI(idx)"
+          style="right: -14px; top: -4px;"
+          color="blue-grey lighten-5"
+          width="25px"
+          height="25px"
+        >
+          <v-icon small v-text="`$closeComparison`" />
+        </v-btn>
+      </div>
+
     </v-container>
   </v-main>
 </v-app>

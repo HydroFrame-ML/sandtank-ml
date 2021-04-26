@@ -6,6 +6,7 @@ export default {
     models: [],
     left: 0,
     right: 0,
+    modulesVisibility: ['selection', 'prediction', 'diff', 'stats'],
   },
   getters: {
     AI_CONFIG(state) {
@@ -13,6 +14,21 @@ export default {
     },
     AI_MODELS(state) {
       return state.models;
+    },
+    AI_MODULE_VISIBILITY(state) {
+      return state.modulesVisibility;
+    },
+    AI_SHOW_SELECTION(state) {
+      return state.modulesVisibility.includes('selection');
+    },
+    AI_SHOW_PREDICTION(state) {
+      return state.modulesVisibility.includes('prediction');
+    },
+    AI_SHOW_DIFF(state) {
+      return state.modulesVisibility.includes('diff');
+    },
+    AI_SHOW_STATS(state) {
+      return state.modulesVisibility.includes('stats');
     },
   },
   mutations: {
@@ -24,6 +40,9 @@ export default {
     },
     AI_RIGHT_SET(state, value) {
       state.right = value;
+    },
+    AI_MODULE_VISIBILITY_SET(state, value) {
+      state.modulesVisibility = value;
     },
   },
   actions: {

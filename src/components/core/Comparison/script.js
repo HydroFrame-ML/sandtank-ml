@@ -1,4 +1,4 @@
-import { mapGetters, mapMutations, mapActions } from 'vuex';
+import { mapGetters } from 'vuex';
 import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 import Selector from 'sandtank-ml/src/components/core/Selector';
 
@@ -13,7 +13,6 @@ export default {
       type: Object,
       default: null,
     },
-    id: {},
   },
   data: () => ({
     size: [102, 50],
@@ -27,6 +26,11 @@ export default {
       normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
       simulationTime: 'SIM_RUN_TIMESTEP',
       permeabilityToColor: 'TRAN_PERMABILITY_AI',
+      //
+      showSelection: 'AI_SHOW_SELECTION',
+      showPrediction: 'AI_SHOW_PREDICTION',
+      showDiff: 'AI_SHOW_DIFF',
+      showStats: 'AI_SHOW_STATS',
     }),
     pressure() {
       return this.model.values;
@@ -57,9 +61,5 @@ export default {
       }
       return this.normPressureToColor;
     },
-  },
-  methods: {
-    ...mapActions({}),
-    ...mapMutations({}),
   },
 };

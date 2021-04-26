@@ -1,30 +1,33 @@
-<v-card>
-  <v-row class="align-center ma-4 ml-0">
-    <v-col cols="12" sm="4">
-      <Selector :definition="model.modelSelector" :id="id" />
-    </v-col>
-    <v-col cols="12" sm="8">
-      <v-row>
-        <v-col cols="12" sm="6">
-          <ComputedImage
-            v-if="model.values"
-            :values="pressure"
-            :size="model.size"
-            :scale="3"
-            :convert="currentColorConvert"
-            :rgb="simulationTime !== -1"
-          />
-        </v-col>
-        <v-col cols="12" sm="6">
-          <ComputedImage
-            v-if="model.values"
-            :size="model.size"
-            :scale="3"
-            :values="delta"
-            :convert="deltaToColor"
-          />
-        </v-col>
-      </v-row>
-    </v-col>
+<v-card style="min-height: 175px;">
+  <v-row class="my-2 mx-1 pa-2 justify-space-between d-flex">
+    <div v-if="showSelection">
+      <Selector
+        :definition="model.modelSelector"
+        style="max-width: 300px;"
+      />
+    </div>
+    <div v-if="showPrediction" class="d-flex align-items-center">
+      <ComputedImage
+        v-if="model.values"
+        :values="pressure"
+        :size="model.size"
+        :scale="3"
+        :convert="currentColorConvert"
+        :rgb="simulationTime !== -1"
+      />
+    </div>
+    <div v-if="showDiff" class="d-flex align-items-center">
+      <ComputedImage
+        v-show="showDiff"
+        v-if="model.values"
+        :size="model.size"
+        :scale="3"
+        :values="delta"
+        :convert="deltaToColor"
+      />
+    </div>
+    <div v-if="showStats">
+      Stats...
+    </div>
   </v-row>
 </v-card>

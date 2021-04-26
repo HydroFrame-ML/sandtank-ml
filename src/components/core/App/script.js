@@ -41,11 +41,21 @@ export default {
       timeRange: 'SIM_TIME_RANGE',
       simulationTime: 'SIM_RUN_TIMESTEP',
       showAutoRun: 'SIM_AUTO_RUN_ENABLE',
+      visibility: 'AI_MODULE_VISIBILITY',
     }),
+    visibleModules: {
+      get() {
+        return this.visibility;
+      },
+      set(v) {
+        this.updateVisibility(v);
+      },
+    },
   },
   methods: {
     ...mapMutations({
       setUseGradientColor: 'TRAN_PRESS_USE_GRADIENT_SET',
+      updateVisibility: 'AI_MODULE_VISIBILITY_SET',
     }),
     ...mapActions({
       connect: 'WS_CONNECT',
@@ -53,6 +63,7 @@ export default {
       addAI: 'AI_ADD_ENTRY',
       runAI: 'AI_RUN',
       updateSimulationTime: 'SIM_UPDATE_RUN_TIME',
+      removeAI: 'AI_REMOVE_ENTRY',
     }),
     autoRunModels() {
       if (this.autoRun) {

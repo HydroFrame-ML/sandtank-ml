@@ -16,6 +16,12 @@ export default new Vuetify({
       water: 'mdi-water',
       add: 'mdi-plus',
       trash: 'mdi-delete',
+      // comparison icons
+      closeComparison: 'mdi-close',
+      showSelection: 'mdi-format-list-checks',
+      showPrediction: 'mdi-auto-fix',
+      showDiff: 'mdi-vector-difference',
+      showLearnStats: 'mdi-school-outline',
     },
   },
 });
