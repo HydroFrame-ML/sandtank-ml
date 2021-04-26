@@ -4,20 +4,23 @@
     <span class="title">Compare Sandtank AI</span>
     <v-spacer />
     <v-slider
+      v-show="timeRange[1] - timeRange[0] > 1"
       label="Timestep"
       :value="simulationTime"
       @input="updateSimulationTime"
       @change="autoRunModels"
       dense
       hide-details
-      min="0"
-      max="50"
+      :min="timeRange[0]"
+      :max="timeRange[1]"
       step="1"
       thumb-label
       thumb-size="16"
       style="max-width: 300px;"
     />
     <v-switch
+      class="ml-4"
+      v-if="showAutoRun"
       label="Auto run"
       dense
       hide-details

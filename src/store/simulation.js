@@ -38,6 +38,14 @@ export default {
     SIM_RUN_TIMESTEP(state) {
       return state.runTimeStep;
     },
+    SIM_TIME_RANGE(state, getters) {
+      const { ui } = getters.AI_CONFIG || {};
+      return (ui && ui.time) || [0, 10];
+    },
+    SIM_AUTO_RUN_ENABLE(state, getters) {
+      const { ui } = getters.AI_CONFIG || {};
+      return !!(ui && ui.autoRun);
+    },
   },
   mutations: {
     SIM_LEFT_SET(state, left) {

@@ -17,7 +17,6 @@ export default {
   },
   data: () => ({
     size: [102, 50],
-    colorMode: false,
   }),
   components: { ComputedImage, Selector },
   computed: {
@@ -26,7 +25,6 @@ export default {
       deltaToColor: 'TRAN_DIFF_COLOR',
       computedPressure: 'SIM_PRESSURE',
       normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
-      catColor: 'TRAN_CAT_PRESS',
       simulationTime: 'SIM_RUN_TIMESTEP',
       permeabilityToColor: 'TRAN_PERMABILITY_AI',
     }),
@@ -57,7 +55,7 @@ export default {
       if (this.simulationTime == -1) {
         return this.permeabilityToColor;
       }
-      return this.colorMode ? this.normPressureToColor : this.catColor;
+      return this.normPressureToColor;
     },
   },
   methods: {

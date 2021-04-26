@@ -34,7 +34,9 @@ export default {
     ...mapGetters({
       busy: 'WS_BUSY',
       aiModels: 'AI_MODELS',
+      timeRange: 'SIM_TIME_RANGE',
       simulationTime: 'SIM_RUN_TIMESTEP',
+      showAutoRun: 'SIM_AUTO_RUN_ENABLE',
     }),
   },
   methods: {
