@@ -68,6 +68,15 @@ const NORM_PRESSURE_COLORS = toCategorical(
   [-0.8, -0.25, 0, 0.25, 0.5, 0.75],
 );
 
+const NORM_PRESSURE_COLOR = toCategorical(
+  [
+    [0, 0, 0], // cut-off: -inf
+    [180, 180, 180], // dry region: 0
+    [187, 222, 251], // water +
+  ],
+  [-0.8, -0.25],
+);
+
 const CAT6_COLORS = [
   [255, 255, 255],
   [255 * 0.760784, 255 * 0.8, 255 * 0.721569],
@@ -103,8 +112,12 @@ export default {
   state: {
     srcRange: [-1, 1],
     dstRange: [-30, 50],
+    pressureGradient: true,
   },
   getters: {
+    TRAN_PRESS_USE_GRADIENT(state) {
+      return state.pressureGradient;
+    },
     TRAN_PERMABILITY() {
       return GRAY_0_1;
     },
@@ -114,8 +127,10 @@ export default {
     TRAN_PRESSURE() {
       return PRESSURE_COLORS;
     },
-    TRAN_NORM_PRESSURE_TO_COLOR() {
-      return NORM_PRESSURE_COLORS;
+    TRAN_NORM_PRESSURE_TO_COLOR(state) {
+      return state.pressureGradient
+        ? NORM_PRESSURE_COLORS
+        : NORM_PRESSURE_COLOR;
     },
     TRAN_PRESS_TO_NORM(state) {
       const [s0, s1] = state.dstRange;
@@ -152,6 +167,11 @@ export default {
     },
     TRAN_CAT_PRESS() {
       return COLOR_CAT_PRESS;
+    },
+  },
+  mutations: {
+    TRAN_PRESS_USE_GRADIENT_SET(state, value) {
+      state.pressureGradient = value;
     },
   },
 };

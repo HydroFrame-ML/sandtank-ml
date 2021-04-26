@@ -26,6 +26,13 @@
       hide-details
       v-model="autoRun"
     />
+    <v-switch
+      class="ml-4"
+      label="Use gradient"
+      dense
+      hide-details
+      v-model="gradientColor"
+    />
     <v-progress-linear
       :active="busy"
       :indeterminate="busy"

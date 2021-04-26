@@ -1,4 +1,4 @@
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
 import logo from 'sandtank-ml/src/assets/logo.png';
 import Simulation from 'sandtank-ml/src/components/core/Simulation';
 import Comparison from 'sandtank-ml/src/components/core/Comparison';
@@ -21,6 +21,7 @@ export default {
     return {
       logo,
       autoRun: false,
+      gradientColor: true,
     };
   },
   watch: {
@@ -28,6 +29,9 @@ export default {
       if (v) {
         this.runAI();
       }
+    },
+    gradientColor(v) {
+      this.setUseGradientColor(v);
     },
   },
   computed: {
@@ -40,6 +44,9 @@ export default {
     }),
   },
   methods: {
+    ...mapMutations({
+      setUseGradientColor: 'TRAN_PRESS_USE_GRADIENT_SET',
+    }),
     ...mapActions({
       connect: 'WS_CONNECT',
       fetchConfig: 'AI_FETCH_CONFIG',
