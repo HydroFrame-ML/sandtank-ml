@@ -6,7 +6,7 @@
     "proxy_file": "/opt/launcher/proxy-mapping.txt",
     "sessionURL": "ws://${host}:${port}/ws/proxy?sessionId=${id}&path=ws",
     "timeout": 5,
-    "log_dir": "/home/ubuntu/",
+    "log_dir": "/logs",
     "fields": [
       "file",
       "host",
@@ -24,14 +24,13 @@
     }
   ],
   "properties": {
-    "python_exec": "/opt/paraview/bin/pvpython"
+    "python_exec": "/usr/bin/python3"
   },
   "apps": {
-    "visualizer": {
+    "sandtank-ml": {
       "cmd": [
         "${python_exec}",
-        "-dr",
-        "${visualizer_path}/server/server.py",
+        "/home/ubuntu/sandtank/server/server.py",
         "--port",
         "${port}",
         "--data",
