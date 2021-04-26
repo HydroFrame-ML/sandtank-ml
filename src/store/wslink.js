@@ -39,7 +39,7 @@ export default {
   actions: {
     async WS_CONNECT({ state, commit, dispatch }) {
       // Initiate network connection
-      const config = { application: 'compareSandtank' };
+      const config = { application: 'sandtank-ml' };
 
       // Custom setup for development (http:8080 / ws:1234)
       if (location.port === '8080') {

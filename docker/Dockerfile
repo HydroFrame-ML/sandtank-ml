@@ -6,8 +6,6 @@ USER ubuntu
 COPY ./server/requirements.txt server/requirements.txt
 RUN python3 -m pip install -r server/requirements.txt
 
-COPY ./ sandtank/
-
 # Install Apache
 USER root
 
@@ -16,6 +14,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         apache2 \
         libapr1-dev \
         apache2-utils \
+        nodejs \
+        npm \
         sudo && \
     rm -rf /var/lib/apt/lists/*
 
@@ -46,15 +46,19 @@ RUN a2enmod vhost_alias && \
     a2ensite 001-pvw && \
     a2dismod autoindex -f
 
+
 # Install Paraview
 RUN mkdir -p /opt/paraview && chown -R ubuntu:ubuntu /opt/paraview
-USER ubuntu
 RUN cd /opt/paraview && \
     curl -L https://www.paraview.org/files/v5.7/ParaView-5.7.0-osmesa-MPI-Linux-Python3.7-64bit.tar.gz | tar --strip-components=1 -xzv
 
 # Copy paraviewweb scripts into place
 COPY ./docker/scripts/start.sh /opt/paraviewweb/scripts/start.sh
 
-USER root
+# Build web client
+COPY ./ sandtank/
+WORKDIR sandtank
+RUN npm i && npm run build
+
 
 ENTRYPOINT ["/bin/bash", "/opt/paraviewweb/scripts/start.sh"]

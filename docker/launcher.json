@@ -1,14 +1,12 @@
 {
   "configuration": {
     "host": "localhost",
-    "port": 8080,
+    "port": 9000,
     "endpoint": "paraview",
-    "content": "/.../www",
-    "proxy_file": "<MAPPING-FILE-DIR>/proxy.txt",
-    "sessionURL": "ws://${host}:${port}/ws",
+    "proxy_file": "/opt/launcher/proxy-mapping.txt",
+    "sessionURL": "ws://${host}:${port}/ws/proxy?sessionId=${id}&path=ws",
     "timeout": 5,
     "log_dir": "/home/ubuntu/",
-    "upload_dir": "/home/ubuntu/",
     "fields": [
       "file",
       "host",
@@ -26,10 +24,7 @@
     }
   ],
   "properties": {
-    "build_dir": "/.../build",
-    "python_exec": "/.../build/bin/vtkpython",
-    "WWW": "/.../build/www",
-    "source_dir": "/.../src"
+    "python_exec": "/opt/paraview/bin/pvpython"
   },
   "apps": {
     "visualizer": {
