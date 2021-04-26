@@ -38,7 +38,7 @@
         "--port",
         "${port}",
         "--data",
-        "${dataDir}"
+        "/home/ubuntu/sandtank/"
       ],
       "ready_line": "Starting factory"
     }
