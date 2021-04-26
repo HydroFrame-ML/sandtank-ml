@@ -54,6 +54,7 @@ RUN cd /opt/paraview && \
 
 # Copy paraviewweb scripts into place
 COPY ./docker/scripts/start.sh /opt/paraviewweb/scripts/start.sh
+COPY ./docker/launcher.json /opt/launcher/config-template.json 
 
 # Build web client
 COPY ./ sandtank/
