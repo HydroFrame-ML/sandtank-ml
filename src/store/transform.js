@@ -35,7 +35,7 @@ function toInvGrayScale(min, max) {
 // Generated
 const GRAY_0_1 = toGrayScale(0, 1);
 const GRAY_n1_1 = toGrayScale(-1, 1);
-const INV_GRAY_0_1 = toInvGrayScale(0, 0.5);
+// const INV_GRAY_0_1 = toInvGrayScale(0, 0.5);
 const PRESSURE_COLORS = toCategorical(
   [
     [0, 0, 0], // cut-off: -inf
@@ -113,6 +113,7 @@ export default {
     srcRange: [-1, 1],
     dstRange: [-30, 50],
     pressureGradient: true,
+    diffScale: 0.5,
   },
   getters: {
     TRAN_PRESS_USE_GRADIENT(state) {
@@ -162,16 +163,22 @@ export default {
         return (dd * (v - s0)) / sd + d0;
       };
     },
-    TRAN_DIFF_COLOR() {
-      return INV_GRAY_0_1;
+    TRAN_DIFF_COLOR(state) {
+      return toInvGrayScale(0, state.diffScale);
     },
     TRAN_CAT_PRESS() {
       return COLOR_CAT_PRESS;
+    },
+    TRAN_DIFF_SCALE(state) {
+      return state.diffScale;
     },
   },
   mutations: {
     TRAN_PRESS_USE_GRADIENT_SET(state, value) {
       state.pressureGradient = value;
+    },
+    TRAN_DIFF_SCALE_SET(state, value) {
+      state.diffScale = value;
     },
   },
 };

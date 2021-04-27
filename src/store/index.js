@@ -5,6 +5,7 @@ import ai from './ai';
 import wslink from './wslink';
 import simulation from './simulation';
 import transform from './transform';
+import ui from './ui';
 
 /* eslint-enable no-param-reassign */
 
@@ -15,6 +16,7 @@ function createStore() {
       wslink,
       simulation,
       transform,
+      ui,
     },
   });
 }

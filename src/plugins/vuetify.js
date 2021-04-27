@@ -22,6 +22,8 @@ export default new Vuetify({
       showPrediction: 'mdi-auto-fix',
       showDiff: 'mdi-vector-difference',
       showLearnStats: 'mdi-school-outline',
+      //
+      diffContrast: 'mdi-contrast-box',
     },
   },
 });

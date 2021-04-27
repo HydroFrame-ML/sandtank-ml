@@ -33,15 +33,29 @@ export default {
     gradientColor(v) {
       this.setUseGradientColor(v);
     },
+    autoRunConfig({ value }) {
+      this.autoRun = value;
+    },
+    useGradientConfig({ value }) {
+      this.gradientColor = value;
+    },
+    diffScalingConfig({ value }) {
+      this.setDiffScale(value);
+    },
   },
   computed: {
     ...mapGetters({
       busy: 'WS_BUSY',
       aiModels: 'AI_MODELS',
-      timeRange: 'SIM_TIME_RANGE',
+      timeRange: 'UI_TIME_RANGE',
       simulationTime: 'SIM_RUN_TIMESTEP',
-      showAutoRun: 'SIM_AUTO_RUN_ENABLE',
+      autoRunConfig: 'UI_AUTO_RUN',
+      useGradientConfig: 'UI_USE_GRADIENT',
       visibility: 'AI_MODULE_VISIBILITY',
+      diffScale: 'TRAN_DIFF_SCALE',
+      moduleConfig: 'UI_MODULE_SELECTOR',
+      isModuleAvailable: 'UI_MODULE_AVAILABLE',
+      diffScalingConfig: 'UI_DIFF_SCALING',
     }),
     visibleModules: {
       get() {
@@ -56,6 +70,7 @@ export default {
     ...mapMutations({
       setUseGradientColor: 'TRAN_PRESS_USE_GRADIENT_SET',
       updateVisibility: 'AI_MODULE_VISIBILITY_SET',
+      setDiffScale: 'TRAN_DIFF_SCALE_SET',
     }),
     ...mapActions({
       connect: 'WS_CONNECT',

@@ -20,13 +20,14 @@
     />
     <v-switch
       class="ml-4"
-      v-if="showAutoRun"
+      v-if="autoRunConfig.show"
       label="Auto run"
       dense
       hide-details
       v-model="autoRun"
     />
     <v-switch
+      v-if="useGradientConfig.show"
       class="ml-4"
       label="Use gradient"
       dense
@@ -45,22 +46,43 @@
     <v-container fluid>
       <simulation />
       <v-divider />
-      <v-row class="ma-4">
+      <v-row class="ma-4 align-center">
         <v-btn icon class="mx-1" @click="addAI">
           <v-icon v-text="`$add`" />
         </v-btn>
         <div class="title">AI Models</div>
         <v-spacer />
         <v-btn-toggle
+          v-show="moduleConfig.show"
           v-model="visibleModules"
           dense
           multiple
         >
-          <v-btn value="selection"><v-icon v-text="`$showSelection`"/></v-btn>
-          <v-btn value="prediction"><v-icon v-text="`$showPrediction`"/></v-btn>
-          <v-btn value="diff"><v-icon v-text="`$showDiff`"/></v-btn>
-          <v-btn value="stats"><v-icon v-text="`$showLearnStats`"/></v-btn>
+          <v-btn v-if="isModuleAvailable('selection')" value="selection"><v-icon v-text="`$showSelection`"/></v-btn>
+          <v-btn v-if="isModuleAvailable('prediction')" value="prediction"><v-icon v-text="`$showPrediction`"/></v-btn>
+          <v-btn v-if="isModuleAvailable('diff')" value="diff"><v-icon v-text="`$showDiff`"/></v-btn>
+          <v-btn v-if="isModuleAvailable('stats')" value="stats"><v-icon v-text="`$showLearnStats`"/></v-btn>
         </v-btn-toggle>
+
+        <div
+          style="height: 36px; overflow: hidden;"
+          class="ml-8 rounded"
+          v-show="diffScalingConfig.show"
+        >
+          <v-text-field
+            :prepend-inner-icon="`$diffContrast`"
+            :value="diffScale"
+            @input="setDiffScale"
+            type="number"
+            :step="diffScalingConfig.step"
+            :min="diffScalingConfig.min"
+            :max="diffScalingConfig.max"
+            dense
+            hide-details
+            style="max-width: 100px; position: relative; top: -3px;"
+            filled
+          />
+        </div>
 
         <v-spacer />
         <v-btn @click="runAI" :disabled="autoRun"> Run Models </v-btn>
@@ -70,7 +92,7 @@
         v-for="model, idx in aiModels"
         :key="idx"
         style="position: relative;"
-        class="mr-2 pt-1"
+        class="ml-2 pt-1"
       >
         <comparison :model="model" />
         <v-btn
@@ -78,7 +100,7 @@
           fab
           elevation="2"
           @click="removeAI(idx)"
-          style="right: -14px; top: -4px;"
+          style="left: -14px; top: calc(50% - 6px);"
           color="blue-grey lighten-5"
           width="25px"
           height="25px"
