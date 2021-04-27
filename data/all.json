@@ -1,0 +1,59 @@
+{
+    "ui": {
+      "time": [-1, 5],
+      "moduleSelector": {
+        "show": true,
+        "values": ["selection", "prediction", "diff"]
+      },
+      "diffScaling": {
+        "show": true,
+        "value": 0.5,
+        "min": 0.1,
+        "step": 0.1,
+        "max": 1
+      },
+      "autoRun": {
+        "show": true,
+        "value": false
+      },
+      "useGradient": {
+        "show": true,
+        "value": true
+      }
+    },
+    "order": ["model", "training", "learningRate", "dropOut", "epoch"],
+    "parameters": {
+      "model": {
+        "label": "Model",
+        "items": [{ "text": "Pressure", "value": "RegressionPressure" }]
+      },
+      "training": {
+        "label": "Learning set",
+        "items": [
+            { "text": "All", "value": "full" },
+            { "text": "Wet", "value": "wet" },
+            { "text": "Dry", "value": "dry" }
+        ]
+      },
+      "learningRate": {
+        "label": "Learning Rate",
+        "items": [
+          { "text": "0.0001", "value": "lr4" }
+        ]
+      },
+      "dropOut": {
+        "label": "Use drop out",
+        "items": [
+          { "text": "No", "value": "ndp" }
+        ]
+      },
+      "epoch": {
+        "label": "Number of trainings",
+        "items": [
+          { "value": "e1", "text": "One time" }
+        ]
+      }
+    },
+    "uriPattern":
+      "${model}://${training}-${learningRate}-${dropOut}-${epoch}.out"
+  }
