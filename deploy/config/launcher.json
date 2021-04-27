@@ -3,10 +3,10 @@
     "host": "localhost",
     "port": 9000,
     "endpoint": "paraview",
-    "proxy_file": "/opt/launcher/proxy-mapping.txt",
+    "proxy_file": "/opt/sandtank-ml/launcher/proxy-mapping.txt",
     "sessionURL": "SESSION_URL_ROOT/proxy?sessionId=${id}&path=ws",
     "timeout": 5,
-    "log_dir": "/logs",
+    "log_dir": "/opt/sandtank-ml/logs",
     "fields": [
       "file",
       "host",
@@ -31,14 +31,14 @@
       "cmd": [
         "runuser",
         "-u",
-        "ubuntu",
+        "pvw-user",
         "--",
         "${python_exec}",
-        "/home/ubuntu/sandtank/server/server.py",
+        "/opt/sandtank-ml/server/server.py",
         "--port",
         "${port}",
         "--data",
-        "/home/ubuntu/sandtank/"
+        "/opt/sandtank-ml/data/"
       ],
       "ready_line": "Starting factory"
     }

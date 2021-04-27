@@ -45,8 +45,8 @@
 ROOT_URL="ws://localhost"
 REPLACEMENT_ARGS=""
 
-LAUNCHER_TEMPLATE_PATH=/opt/launcher/config-template.json
-LAUNCHER_PATH=/opt/launcher/config.json
+LAUNCHER_TEMPLATE_PATH=/opt/sandtank-ml/launcher/config-template.json
+LAUNCHER_PATH=/opt/sandtank-ml/launcher/config.json
 
 if [[ ! -z "${SERVER_NAME}" ]] && [[ ! -z "${PROTOCOL}" ]]
 then
@@ -72,4 +72,4 @@ service apache2 restart
 
 # Run the pvw launcher in the foreground so this script doesn't end
 echo "Starting the wslink launcher"
-/opt/paraview/bin/pvpython $(find /opt/paraview/lib | grep "launcher\\.py") ${LAUNCHER_PATH}
+python3 -m wslink.launcher ${LAUNCHER_PATH}
