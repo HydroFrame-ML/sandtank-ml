@@ -74,7 +74,6 @@ export default {
         time: state.runTimeStep,
       };
       dispatch('WS_RUN_MODELS', run);
-      dispatch('AI_RUN');
     },
     SIM_MODELS_RESULTS(
       { commit },

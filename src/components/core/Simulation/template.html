@@ -40,12 +40,6 @@
 
   <v-spacer />
 
-  <v-btn :loading="loading" class="my-2" color="primary" @click="run">
-    <v-icon v-text="`$results`" /> Simulate
-  </v-btn>
-
-  <v-spacer />
-
   <v-col class="flex-grow-0">
     <!--        :values="pressureOutput" -->
     <ComputedImage
@@ -57,8 +51,18 @@
       rgb
     />
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />
-    <v-row class="text-h6 justify-center pa-2">
-      Pressure
+    <v-row class="justify-space-between align-center pa-2">
+      <v-btn
+        small
+        icon
+        class="mr-2"
+        @click="setPressure(!isPressure)"
+        :disabled="!useGradientConfig.show"
+      >
+        <v-icon v-show="useGradientConfig.show" v-text="`$toggle`"/>
+      </v-btn>
+      <div class="text-h6">{{ fieldName }}</div>
+      <div class="body-2">t({{ simulationTime }})</div>
     </v-row>
   </v-col>
 </v-row>

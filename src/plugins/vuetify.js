@@ -10,7 +10,9 @@ export default new Vuetify({
   icons: {
     iconfont: 'mdi',
     values: {
-      compare: 'mdi-scale-balance',
+      logo: 'mdi-head-snowflake-outline',
+      parflow: 'mdi-water',
+      toggle: 'mdi-orbit-variant',
       run: 'mdi-run',
       results: 'mdi-arrow-right-bold',
       water: 'mdi-water',

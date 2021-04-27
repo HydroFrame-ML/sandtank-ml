@@ -48,6 +48,7 @@ export default {
       busy: 'WS_BUSY',
       aiModels: 'AI_MODELS',
       timeRange: 'UI_TIME_RANGE',
+      simulationLoading: 'SIM_IS_RUNNING',
       simulationTime: 'SIM_RUN_TIMESTEP',
       autoRunConfig: 'UI_AUTO_RUN',
       useGradientConfig: 'UI_USE_GRADIENT',
@@ -74,6 +75,7 @@ export default {
     }),
     ...mapActions({
       connect: 'WS_CONNECT',
+      runSimulation: 'SIM_RUN_MODELS',
       fetchConfig: 'AI_FETCH_CONFIG',
       addAI: 'AI_ADD_ENTRY',
       runAI: 'AI_RUN',

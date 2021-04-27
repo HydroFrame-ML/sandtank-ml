@@ -1,7 +1,7 @@
 <v-container class="flex-row flex-wrap">
   <v-row>
     <v-col
-      cols="6"
+      :cols="columSize"
       v-for="name in definition.getKeyNames()"
       :key="name"
       v-show="definition.getItems(name).length > 1"
