@@ -26,6 +26,7 @@ export default {
       normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
       simulationTime: 'SIM_RUN_TIMESTEP',
       permeabilityToColor: 'TRAN_PERMABILITY_AI',
+      isPressure: 'TRAN_PRESS_USE_GRADIENT',
       //
       showSelection: 'AI_SHOW_SELECTION',
       showPrediction: 'AI_SHOW_PREDICTION',
@@ -46,10 +47,14 @@ export default {
           const srcIdx = i - 1 + 100 * j;
           if (i == 0 || i == 101) {
             out[dstIdx] = 0;
-          } else {
+          } else if (this.isPressure) {
             out[dstIdx] = Math.abs(
               this.toNormPress(ref[srcIdx]) - press[dstIdx],
             );
+          } else {
+            const satRef = this.toNormPress(ref[srcIdx]) > 0;
+            const sat = press[dstIdx] > 0;
+            out[dstIdx] = satRef === sat ? 0 : 1;
           }
         }
       }

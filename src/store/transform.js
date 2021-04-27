@@ -1,3 +1,5 @@
+import { hex2float } from 'vtk.js/Sources/Common/Core/Math';
+
 // Common functions
 function toCategorical(colors, cuts = []) {
   return (v) => {
@@ -33,9 +35,7 @@ function toInvGrayScale(min, max) {
 }
 
 // Generated
-const GRAY_0_1 = toGrayScale(0, 1);
 const GRAY_n1_1 = toGrayScale(-1, 1);
-// const INV_GRAY_0_1 = toInvGrayScale(0, 0.5);
 const PRESSURE_COLORS = toCategorical(
   [
     [0, 0, 0], // cut-off: -inf
@@ -52,61 +52,71 @@ const PRESSURE_COLORS = toCategorical(
   [-20, 0, 1, 5, 10, 15, 20, 30, 40],
 );
 
+// const NORM_PRESSURE_COLORS_BLUE = toCategorical(
+//   [
+//     [0, 0, 0], // cut-off: -inf
+//     [255, 255, 255], // dry region: 0
+//     [187, 222, 251], // water +
+//     [144, 202, 249], // water ++
+//     [100, 182, 246], // water +++
+//     [66, 165, 245], // water ++++
+//     [30, 136, 229], // water +++++
+//     [25, 118, 210], // water ++++++
+//     [21, 101, 192], // water +++++++
+//     [13, 71, 161], // water +++++++
+//   ],
+//   [-0.8, -0.25, 0, 0.25, 0.5, 0.75],
+// );
+
 const NORM_PRESSURE_COLORS = toCategorical(
   [
-    [0, 0, 0], // cut-off: -inf
-    [180, 180, 180], // dry region: 0
-    [187, 222, 251], // water +
-    [144, 202, 249], // water ++
-    [100, 182, 246], // water +++
-    [66, 165, 245], // water ++++
-    [30, 136, 229], // water +++++
-    [25, 118, 210], // water ++++++
-    [21, 101, 192], // water +++++++
-    [13, 71, 161], // water +++++++
-  ],
+    '#000000', // cut-off: -inf
+    '#ffffff', // dry region: 0
+    '#B39DDB', // water +
+    '#9575CD', // water ++
+    '#7E57C2', // water +++
+    '#5E35B1', // water ++++
+    '#512DA8', // water +++++
+    '#4527A0', // water ++++++
+    '#311B92', // water +++++++
+  ].map(hexStrToUChar),
   [-0.8, -0.25, 0, 0.25, 0.5, 0.75],
 );
 
 const NORM_PRESSURE_COLOR = toCategorical(
   [
     [0, 0, 0], // cut-off: -inf
-    [180, 180, 180], // dry region: 0
-    [187, 222, 251], // water +
+    [255, 255, 255], // dry region: 0
+    [66, 165, 245], // water +
   ],
   [-0.8, -0.25],
 );
 
-const CAT6_COLORS = [
-  [255, 255, 255],
-  [255 * 0.760784, 255 * 0.8, 255 * 0.721569],
-  [255 * 0.529412, 255 * 0.509804, 255 * 0.447059],
-  [255 * 0.858824, 255 * 0.623529, 255 * 0.352941],
-  [255 * 1, 255 * 0.945098, 255 * 0.580392],
-  [255 * 0.666667, 255 * 0.901961, 255 * 0.670588],
-  [255 * 0.494118, 255 * 0.741176, 255 * 0.768627],
-];
-const COLOR_CAT_PRESS = toCategorical(CAT6_COLORS, [
-  -0.8,
-  -0.25,
-  0,
-  0.25,
-  0.5,
-  0.75,
-]);
+function hexStrToUChar(str) {
+  const result = [0, 0, 0];
+  hex2float(str, result);
+  result[0] = Math.round(255 * result[0]);
+  result[1] = Math.round(255 * result[1]);
+  result[2] = Math.round(255 * result[2]);
+  return result;
+}
 
-// const DIFF_COLORS = toCategorical(
-//   [
-//     [213, 0, 0],
-//     [244, 81, 30],
-//     [255, 183, 77],
-//     [105, 240, 174], // perfect
-//     [255, 183, 77],
-//     [244, 81, 30],
-//     [213, 0, 0],
-//   ],
-//   [-20, -10, -2, 2, 10],
-// );
+const PERMEABILITY_COLORS = toCategorical(
+  [
+    '#000000',
+    '#3E2723', // < -0.8
+    '#5D4037', // < -0.6
+    '#8D6E63', // < -0.4
+    '#BCAAA4', // < -0.2
+    '#FFB300', // < 0
+    '#FF8F00', // < 0.2
+    '#FFB300', // < 0.4
+    '#FFD54F', // < 0.6
+    '#FFECB3', // < 0.8
+    '#FFFFFF',
+  ].map(hexStrToUChar),
+  [0.00001, 0.15, 0.3, 0.45, 0.6, 0.75, 0.8, 0.95],
+);
 
 export default {
   state: {
@@ -120,7 +130,10 @@ export default {
       return state.pressureGradient;
     },
     TRAN_PERMABILITY() {
-      return GRAY_0_1;
+      return (x) => {
+        console.log(x);
+        return PERMEABILITY_COLORS(x);
+      };
     },
     TRAN_PERMABILITY_AI() {
       return GRAY_n1_1;
@@ -165,9 +178,6 @@ export default {
     },
     TRAN_DIFF_COLOR(state) {
       return toInvGrayScale(0, state.diffScale);
-    },
-    TRAN_CAT_PRESS() {
-      return COLOR_CAT_PRESS;
     },
     TRAN_DIFF_SCALE(state) {
       return state.diffScale;
