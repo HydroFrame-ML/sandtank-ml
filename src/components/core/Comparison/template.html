@@ -4,26 +4,62 @@
       <Selector :definition="model.modelSelector" style="max-width: 300px;" />
     </div>
     <div v-if="showPrediction" class="d-flex align-items-center">
-      <ComputedImage
-        v-if="model.values"
-        :values="pressure"
-        :size="model.size"
-        :scale="3"
-        :convert="currentColorConvert"
-        :rgb="simulationTime !== -1"
-        :class="{[$style.outdated] : needRunAI}"
-      />
+      <v-col class="flex-grow-0">
+        <ComputedImage
+          v-if="model.values"
+          :values="pressure"
+          :size="model.size"
+          :scale="3"
+          :convert="currentColorConvert"
+          :rgb="simulationTime !== -1"
+          :class="{[$style.outdated] : needRunAI}"
+        />
+        <v-skeleton-loader
+          v-show="!model.size"
+          type="image"
+          width="308"
+          height="152px"
+        />
+        <v-row class="justify-space-between align-center pa-2">
+          <v-btn
+            small
+            icon
+            class="mr-2"
+            @click="setPressure(!isPressure)"
+            :disabled="!model.values"
+          >
+            <v-icon v-text="`$toggle`" />
+          </v-btn>
+          <div class="text-h6">{{fieldName}}</div>
+          <div class="body-2">t({{simulationTime}})</div>
+        </v-row>
+      </v-col>
     </div>
     <div v-if="showDiff" class="d-flex align-items-center">
-      <ComputedImage
-        v-show="showDiff"
-        v-if="model.values"
-        :size="model.size"
-        :scale="3"
-        :values="delta"
-        :convert="deltaToColor"
-        :class="{[$style.outdated] : needRunAI || needRunSimulation}"
-      />
+      <v-col class="flex-grow-0">
+        <ComputedImage
+          v-show="showDiff"
+          v-if="model.values"
+          :size="model.size"
+          :scale="3"
+          :values="delta"
+          :convert="deltaToColor"
+          :class="{[$style.outdated] : needRunAI || needRunSimulation}"
+        />
+        <v-skeleton-loader
+          v-show="!model.size"
+          type="image"
+          width="308"
+          height="152px"
+        />
+        <v-row class="justify-space-between align-center pa-2">
+          <v-btn small icon class="mr-2" disabled>
+            <!-- Filler to match spacing of simulation -->
+          </v-btn>
+          <div class="text-h6">Physics vs AI</div>
+          <div class="body-2">t({{ simulationTime }})</div>
+        </v-row>
+      </v-col>
     </div>
     <div v-if="showStats">
       Stats...

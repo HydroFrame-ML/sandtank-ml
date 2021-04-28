@@ -23,12 +23,10 @@ export default {
       simulationTime: 'SIM_RUN_TIMESTEP',
       useGradientConfig: 'UI_USE_GRADIENT',
       needRunSimulation: 'SIM_RUN_NEEDED',
+      fieldName: 'TRAN_FIELD_NAME',
     }),
     normPressure() {
       return this.pressure.map(this.toNormPress);
-    },
-    fieldName() {
-      return this.isPressure ? 'Pressure' : 'Saturation';
     },
   },
   methods: {

@@ -1,4 +1,4 @@
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 import Selector from 'sandtank-ml/src/components/core/Selector';
 
@@ -24,6 +24,7 @@ export default {
       simulationTime: 'SIM_RUN_TIMESTEP',
       permeabilityToColor: 'TRAN_PERMABILITY_AI',
       isPressure: 'TRAN_PRESS_USE_GRADIENT',
+      fieldName: 'TRAN_FIELD_NAME',
       //
       showSelection: 'AI_SHOW_SELECTION',
       showPrediction: 'AI_SHOW_PREDICTION',
@@ -50,5 +51,10 @@ export default {
       }
       return this.normPressureToColor;
     },
+  },
+  methods: {
+    ...mapMutations({
+      setPressure: 'TRAN_PRESS_USE_GRADIENT_SET',
+    }),
   },
 };

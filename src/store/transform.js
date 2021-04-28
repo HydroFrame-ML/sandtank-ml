@@ -179,6 +179,9 @@ export default {
     TRAN_DIFF_SCALE(state) {
       return state.diffScale;
     },
+    TRAN_FIELD_NAME(state) {
+      return state.pressureGradient ? 'Pressure' : 'Saturation';
+    },
   },
   mutations: {
     TRAN_PRESS_USE_GRADIENT_SET(state, value) {
