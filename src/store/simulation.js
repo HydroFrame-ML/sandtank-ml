@@ -12,7 +12,7 @@ export default {
     running: false,
     runTimeStep: 1,
     busy: false,
-    lastRun: { left: null, right: null, runTimeStep: 1 },
+    lastRun: { left: null, right: null },
   },
   getters: {
     SIM_LEFT(state) {
@@ -39,12 +39,11 @@ export default {
     SIM_RUN_TIMESTEP(state) {
       return state.runTimeStep;
     },
-    SIM_INPUT_DIRTY(state) {
+    SIM_RUN_NEEDED(state) {
       return (
         state.running ||
         state.left !== state.lastRun.left ||
-        state.right !== state.lastRun.right ||
-        state.runTimeStep !== state.lastRun.runTimeStep
+        state.right !== state.lastRun.right
       );
     },
   },
@@ -74,8 +73,8 @@ export default {
       state.runTimeStep = value;
     },
     SIM_SET_LAST_RUN(state) {
-      const { left, right, runTimeStep } = state;
-      state.lastRun = { left, right, runTimeStep };
+      const { left, right } = state;
+      state.lastRun = { left, right };
     },
   },
   actions: {

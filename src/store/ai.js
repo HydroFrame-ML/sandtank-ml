@@ -1,5 +1,7 @@
 import ModelSelector from 'sandtank-ml/src/utils/ModelSelector';
 
+const RESET_RUN = { left: null, right: null, time: null };
+
 export default {
   state: {
     config: {},
@@ -7,6 +9,7 @@ export default {
     left: 0,
     right: 0,
     modulesVisibility: ['selection', 'prediction', 'diff', 'stats'],
+    lastRun: RESET_RUN,
   },
   getters: {
     AI_CONFIG(state) {
@@ -29,6 +32,13 @@ export default {
     },
     AI_SHOW_STATS(state) {
       return state.modulesVisibility.includes('stats');
+    },
+    AI_RUN_NEEDED(state, getters) {
+      return (
+        getters.SIM_LEFT !== state.lastRun.left ||
+        getters.SIM_RIGHT !== state.lastRun.right ||
+        getters.SIM_RUN_TIMESTEP !== state.lastRun.time
+      );
     },
   },
   mutations: {
@@ -55,6 +65,7 @@ export default {
       state.models = state.models.concat({
         modelSelector: new ModelSelector(state.config),
       });
+      state.lastRun = RESET_RUN;
     },
     AI_REMOVE_ENTRY({ state }, index) {
       state.models.splice(index, 1);
@@ -63,6 +74,7 @@ export default {
       const left = getters.SIM_LEFT;
       const right = getters.SIM_RIGHT;
       const time = getters.SIM_RUN_TIMESTEP;
+      state.lastRun = { left, right, time };
       commit('AI_LEFT_SET', left);
       commit('AI_RIGHT_SET', right);
       const responses = await Promise.all(

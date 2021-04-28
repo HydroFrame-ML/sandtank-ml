@@ -57,7 +57,8 @@ export default {
       moduleConfig: 'UI_MODULE_SELECTOR',
       isModuleAvailable: 'UI_MODULE_AVAILABLE',
       diffScalingConfig: 'UI_DIFF_SCALING',
-      dirty: 'SIM_INPUT_DIRTY',
+      needRunSimulation: 'SIM_RUN_NEEDED',
+      needRunAI: 'AI_RUN_NEEDED',
     }),
     visibleModules: {
       get() {

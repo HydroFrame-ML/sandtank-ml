@@ -11,7 +11,7 @@
         :scale="3"
         :convert="currentColorConvert"
         :rgb="simulationTime !== -1"
-        :class="{[$style.outdated] : dirty}"
+        :class="{[$style.outdated] : needRunAI}"
       />
     </div>
     <div v-if="showDiff" class="d-flex align-items-center">
@@ -22,7 +22,7 @@
         :scale="3"
         :values="delta"
         :convert="deltaToColor"
-        :class="{[$style.outdated] : dirty}"
+        :class="{[$style.outdated] : needRunAI || needRunSimulation}"
       />
     </div>
     <div v-if="showStats">

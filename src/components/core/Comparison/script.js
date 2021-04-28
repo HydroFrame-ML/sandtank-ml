@@ -32,7 +32,8 @@ export default {
       showPrediction: 'AI_SHOW_PREDICTION',
       showDiff: 'AI_SHOW_DIFF',
       showStats: 'AI_SHOW_STATS',
-      dirty: 'SIM_INPUT_DIRTY',
+      needRunSimulation: 'SIM_RUN_NEEDED',
+      needRunAI: 'AI_RUN_NEEDED',
     }),
     pressure() {
       return this.model.values;

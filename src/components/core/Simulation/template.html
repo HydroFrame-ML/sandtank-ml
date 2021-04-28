@@ -49,7 +49,7 @@
       :size="size"
       :values="normPressure"
       :convert="normPressureToColor"
-      :class="{ [$style.outdated]: dirty }"
+      :class="{ [$style.outdated]: needRunSimulation }"
       rgb
     />
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />

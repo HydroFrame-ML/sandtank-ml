@@ -28,8 +28,9 @@
             @click="runSimulation"
             :loading="simulationLoading"
             color="primary"
-            outlined
+            :outlined="!needRunSimulation"
             class="mx-4"
+            :disabled="!needRunSimulation"
           >
             Run Simulation
           </v-btn>
@@ -38,8 +39,7 @@
             v-show="timeRange[1] - timeRange[0] > 1"
             label="Timestep"
             :value="simulationTime"
-            @input="updateSimulationTime"
-            @change="autoRunModels"
+            @change="updateSimulationTime"
             dense
             hide-details
             :min="timeRange[0]"
@@ -68,9 +68,9 @@
           </div>
           <v-btn
             @click="runAI"
-            :disabled="autoRun || dirty"
+            :disabled="autoRun || !needRunAI"
             color="primary"
-            outlined
+            :outlined="!needRunAI"
             class="mx-4"
           >
             Run ML Models
