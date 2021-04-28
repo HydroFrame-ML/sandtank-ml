@@ -1,1 +1,2 @@
-docker push hydroframe/sandtank-ml
+docker image tag sandtank-ml hydroframe/sandtank:ml
+docker push hydroframe/sandtank:ml

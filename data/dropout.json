@@ -38,13 +38,15 @@
       "learningRate": {
         "label": "Learning Rate",
         "items": [
-          { "text": "0.0001", "value": "lr4" }
+            { "text": "0.0001", "value": "lr4" },
+            { "text": "0.001", "value": "lr3" }
         ]
       },
       "dropOut": {
         "label": "Use drop out",
         "items": [
-          { "text": "No", "value": "ndp" }
+            { "text": "No", "value": "ndp" },
+            { "text": "Yes", "value": "dp" }
         ]
       },
       "epoch": {

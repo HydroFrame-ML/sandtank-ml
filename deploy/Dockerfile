@@ -43,13 +43,13 @@ RUN a2enmod vhost_alias && \
 
 # Install sandtank-ml dependencies
 COPY ./server /opt/sandtank-ml/server
-RUN python3 -m pip install --system -r /opt/sandtank-ml/server/requirements.txt
+RUN python3 -m pip install --system --no-cache-dir -r /opt/sandtank-ml/server/requirements.txt
 
 # Copy scripts, config, and client into place
 COPY ./deploy/config/pvw_start.sh /opt/sandtank-ml/start.sh
-COPY ./deploy/config/launcher.json /opt/sandtank-ml/launcher/config-template.json 
+COPY ./deploy/config/launcher.json /opt/sandtank-ml/launcher/config-template.json
 COPY --from=build-web /sandtank/dist /opt/sandtank-ml/www
 RUN chown -R pvw-user:pvw-user /opt/sandtank-ml && \
-    chown ubuntu:proxy-mapping /opt/sandtank-ml/launcher/proxy-mapping.txt 
+    chown ubuntu:proxy-mapping /opt/sandtank-ml/launcher/proxy-mapping.txt
 
 ENTRYPOINT ["/bin/bash", "/opt/sandtank-ml/start.sh"]

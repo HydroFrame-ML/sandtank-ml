@@ -55,5 +55,5 @@
       }
     },
     "uriPattern":
-      "${model}://${training}-${learningRate}-${dropOut}-${epoch}.out"
+      "${model}://models/${training}-${learningRate}-${dropOut}-${epoch}.out"
   }
