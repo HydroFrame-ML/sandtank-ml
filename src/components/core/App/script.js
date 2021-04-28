@@ -20,21 +20,12 @@ export default {
   data() {
     return {
       logo,
-      autoRun: false,
       gradientColor: true,
     };
   },
   watch: {
-    autoRun(v) {
-      if (v) {
-        this.runAI();
-      }
-    },
     gradientColor(v) {
       this.setUseGradientColor(v);
-    },
-    autoRunConfig({ value }) {
-      this.autoRun = value;
     },
     useGradientConfig({ value }) {
       this.gradientColor = value;
@@ -50,7 +41,6 @@ export default {
       timeRange: 'UI_TIME_RANGE',
       simulationLoading: 'SIM_IS_RUNNING',
       simulationTime: 'SIM_RUN_TIMESTEP',
-      autoRunConfig: 'UI_AUTO_RUN',
       useGradientConfig: 'UI_USE_GRADIENT',
       visibility: 'AI_MODULE_VISIBILITY',
       diffScale: 'TRAN_DIFF_SCALE',
@@ -84,11 +74,6 @@ export default {
       updateSimulationTime: 'SIM_UPDATE_RUN_TIME',
       removeAI: 'AI_REMOVE_ENTRY',
     }),
-    autoRunModels() {
-      if (this.autoRun) {
-        this.runAI();
-      }
-    },
   },
   async mounted() {
     await this.connect();

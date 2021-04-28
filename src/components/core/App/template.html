@@ -3,15 +3,6 @@
     <v-icon v-text="`$logo`" :class="$style.logo" />
     <span class="title">Sandtank ML</span>
     <v-spacer />
-
-    <v-switch
-      class="ml-4"
-      v-if="autoRunConfig.show"
-      label="Auto run"
-      dense
-      hide-details
-      v-model="autoRun"
-    />
     <v-progress-linear :active="busy" :indeterminate="busy" absolute bottom />
   </v-app-bar>
 
@@ -68,7 +59,7 @@
           </div>
           <v-btn
             @click="runAI"
-            :disabled="autoRun || !needRunAI"
+            :disabled="!needRunAI"
             color="primary"
             :outlined="!needRunAI"
             class="mx-4"

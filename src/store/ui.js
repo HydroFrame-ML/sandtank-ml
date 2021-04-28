@@ -4,16 +4,6 @@ export default {
       const { ui } = getters.AI_CONFIG || {};
       return (ui && ui.time) || [0, 10];
     },
-    UI_AUTO_RUN(state, getters) {
-      const { ui } = getters.AI_CONFIG || {};
-      if (ui && ui.autoRun) {
-        return ui.autoRun;
-      }
-      return {
-        show: true,
-        value: false,
-      };
-    },
     UI_USE_GRADIENT(state, getters) {
       const { ui } = getters.AI_CONFIG || {};
       if (ui && ui.useGradient) {
