@@ -49,6 +49,7 @@
       :size="size"
       :values="normPressure"
       :convert="normPressureToColor"
+      :class="{ [$style.outdated]: dirty }"
       rgb
     />
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />
@@ -60,7 +61,7 @@
         @click="setPressure(!isPressure)"
         :disabled="!useGradientConfig.show"
       >
-        <v-icon v-show="useGradientConfig.show" v-text="`$toggle`"/>
+        <v-icon v-show="useGradientConfig.show" v-text="`$toggle`" />
       </v-btn>
       <div class="text-h6">{{ fieldName }}</div>
       <div class="body-2">t({{ simulationTime }})</div>

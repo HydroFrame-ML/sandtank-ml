@@ -12,6 +12,7 @@ export default {
     running: false,
     runTimeStep: 1,
     busy: false,
+    lastRun: { left: null, right: null, runTimeStep: 1 },
   },
   getters: {
     SIM_LEFT(state) {
@@ -37,6 +38,14 @@ export default {
     },
     SIM_RUN_TIMESTEP(state) {
       return state.runTimeStep;
+    },
+    SIM_INPUT_DIRTY(state) {
+      return (
+        state.running ||
+        state.left !== state.lastRun.left ||
+        state.right !== state.lastRun.right ||
+        state.runTimeStep !== state.lastRun.runTimeStep
+      );
     },
   },
   mutations: {
@@ -64,6 +73,10 @@ export default {
     SIM_RUN_TIMESTEP_SET(state, value) {
       state.runTimeStep = value;
     },
+    SIM_SET_LAST_RUN(state) {
+      const { left, right, runTimeStep } = state;
+      state.lastRun = { left, right, runTimeStep };
+    },
   },
   actions: {
     SIM_RUN_MODELS({ state, dispatch }) {
@@ -86,6 +99,7 @@ export default {
       commit('SIM_LEFT_SET', left);
       commit('SIM_RIGHT_SET', right);
       commit('SIM_MODELS_RAN');
+      commit('SIM_SET_LAST_RUN');
     },
     SIM_UPDATE_RUN_TIME({ commit, dispatch, state }, time) {
       commit('SIM_RUN_TIMESTEP_SET', Number(time));

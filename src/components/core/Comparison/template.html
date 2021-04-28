@@ -1,10 +1,7 @@
 <v-card style="min-height: 175px;">
   <v-row class="my-2 mx-1 pa-2 justify-space-between d-flex">
     <div v-if="showSelection">
-      <Selector
-        :definition="model.modelSelector"
-        style="max-width: 300px;"
-      />
+      <Selector :definition="model.modelSelector" style="max-width: 300px;" />
     </div>
     <div v-if="showPrediction" class="d-flex align-items-center">
       <ComputedImage
@@ -14,6 +11,7 @@
         :scale="3"
         :convert="currentColorConvert"
         :rgb="simulationTime !== -1"
+        :class="{[$style.outdated] : dirty}"
       />
     </div>
     <div v-if="showDiff" class="d-flex align-items-center">
@@ -24,6 +22,7 @@
         :scale="3"
         :values="delta"
         :convert="deltaToColor"
+        :class="{[$style.outdated] : dirty}"
       />
     </div>
     <div v-if="showStats">

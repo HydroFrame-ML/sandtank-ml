@@ -22,6 +22,7 @@ export default {
       toNormPress: 'TRAN_PRESS_TO_NORM',
       simulationTime: 'SIM_RUN_TIMESTEP',
       useGradientConfig: 'UI_USE_GRADIENT',
+      dirty: 'SIM_INPUT_DIRTY',
     }),
     normPressure() {
       return this.pressure.map(this.toNormPress);

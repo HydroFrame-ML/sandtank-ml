@@ -18,6 +18,7 @@ export default new Vuetify({
       water: 'mdi-water',
       add: 'mdi-plus',
       trash: 'mdi-delete',
+      ai: 'mdi-brain',
       // comparison icons
       closeComparison: 'mdi-close',
       showSelection: 'mdi-format-list-checks',
