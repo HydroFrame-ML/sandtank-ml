@@ -26,3 +26,9 @@
   padding-left: 20px;
   padding-top: 20px !important;
 }
+
+.titleContainer {
+  /* need the titles same width 
+   * to align run buttons */
+  min-width: 273px;
+}
