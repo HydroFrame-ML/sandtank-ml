@@ -28,7 +28,11 @@
 }
 
 .titleContainer {
-  /* need the titles same width 
-   * to align run buttons */
-  min-width: 273px;
+  /* fix titles width to align buttons */
+  min-width: 280px;
+}
+
+/* share between Simulation / Comparison */
+.outdated {
+  opacity: 0.3;
 }
