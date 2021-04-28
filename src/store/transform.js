@@ -130,10 +130,7 @@ export default {
       return state.pressureGradient;
     },
     TRAN_PERMABILITY() {
-      return (x) => {
-        console.log(x);
-        return PERMEABILITY_COLORS(x);
-      };
+      return PERMEABILITY_COLORS;
     },
     TRAN_PERMABILITY_AI() {
       return GRAY_n1_1;

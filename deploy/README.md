@@ -14,7 +14,7 @@ To do so you can run the following commands:
 ```
 # Customize these
 PORT=9000
-SERVER_NAME="192.168.0.78:${PORT}"
+SERVER_NAME="localhost:${PORT}"
 DATA="$(pwd)"/../data
 PROTOCOL="ws" #Switch to "wss" if serving over https
 
