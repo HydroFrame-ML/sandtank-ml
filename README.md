@@ -25,3 +25,69 @@ docker run --rm \
   -v ${DATA}:/opt/sandtank-ml/data \
   hydroframe/sandtank:ml
 ```
+
+## Using the application
+
+Just point your browser to `$SERVER_NAME`
+
+Then to choose a given `lesson plan` (json file in your `$DATA` directory), just provide the name of the file without the extension in the URL.
+
+For example `http://localhost:9000/?name=dropout`.
+
+## Creating a lesson plan
+
+For that you will have to create a `json` file in your `$DATA` directory following the structure below:
+
+```
+# configure the UI to match your expectation
+ui:
+  time: [-1, 5],
+  moduleSelector:
+    show: true,
+    values:
+      - selection
+      - prediction
+      - diff
+      - stats
+    diffScaling:
+      show: true
+      value: 0.5
+      min: 0.1
+      step: 0.1
+      max: 1
+    useGradient: // FIXME saturation/pressure toggle
+      show: true
+      value: true
+
+# set of parameters to selection a trained model
+uriPattern: ${model}://models/${training}-${learningRate}-${dropOut}-${epoch}.out
+order:
+  - model
+  - training
+  - learningRate
+  - dropOut
+  - epoch
+parameters:
+  model:
+    label: Model type
+    items:
+      - { "text": "Pressure", "value": "RegressionPressure" }
+  training:
+    label: Learning set
+    items:
+      - { "text": "All", "value": "full" }
+      - { "text": "Wet", "value": "wet" }
+      - { "text": "Dry", "value": "dry" }
+  learningRate:
+    label: Learning Rate
+    items:
+      - { "text": "0.0001", "value": "lr4" }
+  dropOut:
+    label: Use drop out
+    items:
+      - { "text": "No", "value": "ndp" }
+  epoch:
+    label: Number of trainings
+    items:
+      - { "value": "e1", "text": "One time" }
+```
