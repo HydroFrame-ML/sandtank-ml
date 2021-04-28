@@ -1,11 +1,5 @@
-FROM node as build-web
-
-# Build web client
-COPY ./ sandtank
-WORKDIR sandtank
-RUN npm i && npm run build
-
-FROM parflow-runtime as build-server
+FROM sandtank-ml-web as build-web
+FROM parflow-runtime
 
 # Install Apache and setup user permissions
 USER root
@@ -28,6 +22,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         sudo && \
     rm -rf /var/lib/apt/lists/*
 
+# Install sandtank-ml dependencies
+RUN python3 -m pip install --system --no-cache-dir \
+        wslink \
+        captum \
+        torchsummary \
+        pyyaml \
+        pytorch_lightning \
+        torch==1.7.0 \
+        torchvision==0.5.0 \
+        nibabel==3.1.1 \
+        tabulate==0.8.7 \
+        pftools[all]
+
 # Copy the apache configuration file into place
 COPY ./deploy/config/apache/001-pvw.conf /etc/apache2/sites-available/001-pvw.conf
 
@@ -41,11 +48,8 @@ RUN a2enmod vhost_alias && \
     a2ensite 001-pvw && \
     a2dismod autoindex -f
 
-# Install sandtank-ml dependencies
-COPY ./server /opt/sandtank-ml/server
-RUN python3 -m pip install --system --no-cache-dir -r /opt/sandtank-ml/server/requirements.txt
-
 # Copy scripts, config, and client into place
+COPY ./server /opt/sandtank-ml/server
 COPY ./deploy/config/pvw_start.sh /opt/sandtank-ml/start.sh
 COPY ./deploy/config/launcher.json /opt/sandtank-ml/launcher/config-template.json
 COPY --from=build-web /sandtank/dist /opt/sandtank-ml/www

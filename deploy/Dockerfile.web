@@ -1,0 +1,6 @@
+FROM node
+
+# Build web client
+COPY ./ sandtank
+WORKDIR sandtank
+RUN npm i && npm run build

@@ -1,22 +1,23 @@
 # Deploy sandtank-ml
-The following scripts build up the docker image for deploying sandtank-ml. They are meant to be run in this directory (`deploy/`).
+
+The following scripts build up the docker images that can be used for deploying sandtank-ml.
 
 ```
-cd deploy/
-./00_fetch_repo.sh
-./01_build_parflow.sh
-./02_dockerize_sandtank.sh
+./deploy/00_fetch_parflow.sh
+./deploy/01_build_parflow.sh
+./deploy/02_docker_web.sh
+./deploy/02_docker_runtime.sh
 ```
-Ideally, after running those there should be a sandtank server running on port 9000 (all websockets etc are passed through here).
 
-To do so you can run the following commands:
+Ideally, after running those you should have the `sandtank-ml` image available to you.
+From here you can run the following command to start the server on port 9000 (all websockets etc are passed through here).
 
 ```
 # Customize these
 PORT=9000
-SERVER_NAME="localhost:${PORT}"
-DATA="$(pwd)"/../data
-PROTOCOL="ws" #Switch to "wss" if serving over https
+SERVER_NAME=`localhost:$PORT`
+DATA=`$PWD/data`
+PROTOCOL=ws
 
 docker run --rm \
   -it \
@@ -28,11 +29,27 @@ docker run --rm \
 ```
 # Details
 
-## ./00_fetch_repo.sh
+## ./00_fetch_parflow.sh
+
 We grab parflow from github.
 
 ## ./01_build_parflow.sh
-Parflow has docker images for its development and runtime environments, which we depend on. This builds those images.
 
-## ./02_dockerize_sandtank.sh
-Our docker image wraps our sandtank server with a launcher + apache server. We build the web client for apache to serve, and wire launcher up to our server. The configurations for each of those, and a script from pvw_web to make things easier, are here in `deploy/config/`. They are largely copied from github.com/hydroframe/SandTank/tree/master/docker/web.
+Build the docker images of the Parflow repo. The `parflow-runtime` image will be our base image for creating our docker image.
+
+## ./02_docker_web.sh
+
+This steps takes the web client of our repo and build it into `sandtank-ml-web`.
+
+## ./03_docker_runtime.sh
+
+This script build on top of `parflow-runtime` the following set of steps:
+  - Install all the Web and AI dependencies
+  - Copy built web application from `sandtank-ml-web`
+  - Copy helper scripts for ParaViewWeb/Launcher deployement (from github.com/hydroframe/SandTank/tree/master/docker/web)
+  - Copy server files from current repo
+  - Auto start the service
+
+## ./04_publish_image.sh
+
+Once building those images locally, you may want to publish your local version of `sandtank-ml` to a public image `hydroframe/sandtank:ml`.
