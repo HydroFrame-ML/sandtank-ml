@@ -1,6 +1,7 @@
 import ModelSelector from 'sandtank-ml/src/utils/ModelSelector';
 
 const RESET_RUN = { left: null, right: null, time: null };
+let CALLBACK = null;
 
 export default {
   state: {
@@ -57,16 +58,24 @@ export default {
     AI_MODULE_VISIBILITY_SET(state, value) {
       state.modulesVisibility = value;
     },
+    AI_INVALIDATE_RUN(state) {
+      state.lastRun = RESET_RUN;
+    },
   },
   actions: {
     async AI_FETCH_CONFIG({ commit, dispatch }, name) {
       const newConfig = await dispatch('WS_FETCH_CONFIG', name);
       commit('AI_CONFIG_SET', newConfig);
     },
-    AI_ADD_ENTRY({ state }) {
+    AI_ADD_ENTRY({ commit, state }) {
+      if (!CALLBACK) {
+        CALLBACK = () => commit('AI_INVALIDATE_RUN');
+      }
       // FIXME should provide the definition at build time
+      const modelSelector = new ModelSelector(state.config);
+      modelSelector.onChange = CALLBACK
       state.models = state.models.concat({
-        modelSelector: new ModelSelector(state.config),
+        modelSelector,
       });
       state.lastRun = RESET_RUN;
     },

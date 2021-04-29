@@ -46,6 +46,7 @@ export default class ModelSelector {
   constructor(definitions) {
     this.definitions = definitions || DEFAULT_MODEL;
     this.values = {};
+    this.onChange = null;
   }
 
   getKeyNames() {
@@ -65,7 +66,12 @@ export default class ModelSelector {
   }
 
   setValue(keyName, value) {
-    this.values[keyName] = value;
+    if (this.values[keyName] !== value ) {
+      this.values[keyName] = value;
+      if (this.onChange) {
+        this.onChange();
+      }
+    }
   }
 
   getURI() {
