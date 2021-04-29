@@ -31,7 +31,7 @@
             <v-icon v-text="`$toggle`" />
           </v-btn>
           <div class="text-h6">{{fieldName}}</div>
-          <div class="body-2">t({{simulationTime}})</div>
+          <div class="body-2">t({{aiTime}})</div>
         </v-row>
       </v-col>
     </div>
@@ -53,11 +53,9 @@
           height="152px"
         />
         <v-row class="justify-space-between align-center pa-2">
-          <v-btn small icon class="mr-2" disabled>
-            <!-- Filler to match spacing of simulation -->
-          </v-btn>
+          <div />
           <div class="text-h6">Physics vs AI</div>
-          <div class="body-2">t({{ simulationTime }})</div>
+          <div />
         </v-row>
       </v-col>
     </div>

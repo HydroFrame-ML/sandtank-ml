@@ -40,6 +40,9 @@ export default {
         getters.SIM_RUN_TIMESTEP !== state.lastRun.time
       );
     },
+    AI_RUN_TIMESTEP(state) {
+      return state.lastRun.time || 0;
+    },
   },
   mutations: {
     AI_CONFIG_SET(state, value) {

@@ -21,6 +21,7 @@ export default {
       deltaToColor: 'TRAN_DIFF_COLOR',
       computedPressure: 'SIM_PRESSURE',
       normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
+      aiTime: 'AI_RUN_TIMESTEP',
       simulationTime: 'SIM_RUN_TIMESTEP',
       permeabilityToColor: 'TRAN_PERMABILITY_AI',
       isPressure: 'TRAN_PRESS_USE_GRADIENT',
