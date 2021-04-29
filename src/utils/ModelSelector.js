@@ -66,7 +66,7 @@ export default class ModelSelector {
   }
 
   setValue(keyName, value) {
-    if (this.values[keyName] !== value ) {
+    if (this.values[keyName] !== value) {
       this.values[keyName] = value;
       if (this.onChange) {
         this.onChange();

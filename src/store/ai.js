@@ -73,7 +73,7 @@ export default {
       }
       // FIXME should provide the definition at build time
       const modelSelector = new ModelSelector(state.config);
-      modelSelector.onChange = CALLBACK
+      modelSelector.onChange = CALLBACK;
       state.models = state.models.concat({
         modelSelector,
       });
