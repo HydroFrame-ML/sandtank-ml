@@ -1,6 +1,7 @@
 import { mapGetters, mapMutations } from 'vuex';
 import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 import Selector from 'sandtank-ml/src/components/core/Selector';
+import Histogram from 'sandtank-ml/src/components/widgets/Histogram';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -8,13 +9,16 @@ import Selector from 'sandtank-ml/src/components/core/Selector';
 
 export default {
   name: 'Comparison',
+  data: () => ({
+    scale: 3,
+  }),
   props: {
     model: {
       type: Object,
       default: null,
     },
   },
-  components: { ComputedImage, Selector },
+  components: { ComputedImage, Selector, Histogram },
   computed: {
     ...mapGetters({
       toNormPress: 'TRAN_PRESS_TO_NORM',
@@ -26,10 +30,12 @@ export default {
       permeabilityToColor: 'TRAN_PERMABILITY_AI',
       isPressure: 'TRAN_PRESS_USE_GRADIENT',
       fieldName: 'TRAN_FIELD_NAME',
+      useGradientConfig: 'UI_USE_GRADIENT',
       //
       showSelection: 'AI_SHOW_SELECTION',
       showPrediction: 'AI_SHOW_PREDICTION',
       showDiff: 'AI_SHOW_DIFF',
+      showHist: 'AI_SHOW_HIST',
       showStats: 'AI_SHOW_STATS',
       needRunSimulation: 'SIM_RUN_NEEDED',
       needRunAI: 'AI_RUN_NEEDED',

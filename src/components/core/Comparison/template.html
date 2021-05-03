@@ -9,7 +9,7 @@
           v-if="model.values"
           :values="pressure"
           :size="model.size"
-          :scale="3"
+          :scale="scale"
           :convert="currentColorConvert"
           :rgb="simulationTime !== -1"
           :class="{[$style.outdated] : needRunAI}"
@@ -17,8 +17,8 @@
         <v-skeleton-loader
           v-show="!model.size"
           type="image"
-          width="308"
-          height="152px"
+          :width="100 * scale"
+          :height="50 * scale"
         />
         <v-row class="justify-space-between align-center pa-2">
           <v-btn
@@ -26,9 +26,9 @@
             icon
             class="mr-2"
             @click="setPressure(!isPressure)"
-            :disabled="!model.values"
+            :disabled="!useGradientConfig.show || !model.values"
           >
-            <v-icon v-text="`$toggle`" />
+            <v-icon v-show="useGradientConfig.show" v-text="`$toggle`" />
           </v-btn>
           <div class="text-h6">{{fieldName}}</div>
           <div class="body-2">t({{aiTime}})</div>
@@ -41,7 +41,7 @@
           v-show="showDiff"
           v-if="model.values"
           :size="model.size"
-          :scale="3"
+          :scale="scale"
           :values="delta"
           :convert="deltaToColor"
           :class="{[$style.outdated] : needRunAI || needRunSimulation}"
@@ -49,12 +49,33 @@
         <v-skeleton-loader
           v-show="!model.size"
           type="image"
-          width="308"
-          height="152px"
+          :width="100 * scale"
+          :height="50 * scale"
         />
         <v-row class="justify-space-between align-center pa-2">
           <div />
           <div class="text-h6">Physics vs AI</div>
+          <div />
+        </v-row>
+      </v-col>
+    </div>
+    <div v-if="showHist" class="d-flex align-items-center">
+      <v-col class="flex-grow-0">
+        <Histogram
+          v-if="model.values"
+          :hist-data="delta"
+          :size="model.size"
+          :scale="scale"
+        />
+        <v-skeleton-loader
+          v-show="!model.size"
+          type="image"
+          :width="100 * scale"
+          :height="50 * scale"
+        />
+        <v-row class="justify-space-between align-center pa-2">
+          <div />
+          <div class="text-h6">Distribution of errors</div>
           <div />
         </v-row>
       </v-col>

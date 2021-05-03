@@ -21,7 +21,7 @@ export default {
       }
       return {
         show: true,
-        values: ['selection', 'prediction', 'diff', 'stats'],
+        values: ['selection', 'prediction', 'diff', 'stats', 'hist'],
       };
     },
     UI_MODULE_AVAILABLE(state, getters) {

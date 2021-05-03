@@ -26,6 +26,7 @@ export default new Vuetify({
       showPrediction: 'mdi-auto-fix',
       showDiff: 'mdi-vector-difference',
       showLearnStats: 'mdi-school-outline',
+      showHist: 'mdi-chart-histogram',
       //
       diffContrast: 'mdi-contrast-box',
     },
