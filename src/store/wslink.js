@@ -25,6 +25,9 @@ function configDecorator(config) {
   return config;
 }
 
+// Bind vtkWSLinkClient to our SmartConnect
+vtkWSLinkClient.setSmartConnectClass(SmartConnect);
+
 export default {
   state: {
     client: null,
@@ -55,9 +58,6 @@ export default {
   },
   actions: {
     async WS_CONNECT({ state, commit, dispatch }) {
-      // Bind vtkWSLinkClient to our SmartConnect
-      vtkWSLinkClient.setSmartConnectClass(SmartConnect);
-
       // Initiate network connection
       const config = { application: 'sandtank-ml' };
 
