@@ -1,12 +1,29 @@
 import vtkWSLinkClient from 'vtk.js/Sources/IO/Core/WSLinkClient';
+import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
 import SmartConnect from 'wslink/src/SmartConnect';
 
 import protocols from 'sandtank-ml/src/protocols';
 
 import { connectImageStream } from 'vtk.js/Sources/Rendering/Misc/RemoteView';
 
-// Bind vtkWSLinkClient to our SmartConnect
-vtkWSLinkClient.setSmartConnectClass(SmartConnect);
+// ----------------------------------------------------------------------------
+// Ensure we keep the same hostname regardless what the server advertise
+// ----------------------------------------------------------------------------
+
+// Process arguments from URL
+const userParams = vtkURLExtract.extractURLParameters();
+
+function configDecorator(config) {
+  // We actually have a sessionURL in the config, we rewrite it
+  if (config.sessionURL && !userParams.dev) {
+    const sessionUrl = new URL(config.sessionURL);
+    sessionUrl.host = window.location.host;
+    return Object.assign({}, config, {
+      sessionURL: sessionUrl.toString(),
+    });
+  }
+  return config;
+}
 
 export default {
   state: {
@@ -38,6 +55,9 @@ export default {
   },
   actions: {
     async WS_CONNECT({ state, commit, dispatch }) {
+      // Bind vtkWSLinkClient to our SmartConnect
+      vtkWSLinkClient.setSmartConnectClass(SmartConnect);
+
       // Initiate network connection
       const config = { application: 'sandtank-ml' };
 
@@ -57,7 +77,10 @@ export default {
       }
       let clientToConnect = client;
       if (!clientToConnect) {
-        clientToConnect = vtkWSLinkClient.newInstance({ protocols });
+        clientToConnect = vtkWSLinkClient.newInstance({
+          protocols,
+          configDecorator,
+        });
       }
 
       // Connect to busy store

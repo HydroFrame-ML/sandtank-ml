@@ -38,7 +38,7 @@
         "--port",
         "${port}",
         "--data",
-        "/opt/sandtank-ml/data/"
+        "/data"
       ],
       "ready_line": "Starting factory"
     }

@@ -13,16 +13,12 @@ In order to run this application you will need to have [Docker](https://docs.doc
 ```
 # Customize these
 PORT=9000
-SERVER_NAME="localhost:${PORT}"
 DATA=/path_to_gdrive_content/
-PROTOCOL=ws
 
 docker run --rm \
   -it \
   -p ${PORT}:80 \
-  -e SERVER_NAME=${SERVER_NAME} \
-  -e PROTOCOL=${PROTOCOL} \
-  -v ${DATA}:/opt/sandtank-ml/data \
+  -v ${DATA}:/data \
   hydroframe/sandtank:ml
 ```
 

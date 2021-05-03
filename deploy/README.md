@@ -15,16 +15,12 @@ From here you can run the following command to start the server on port 9000 (al
 ```
 # Customize these
 PORT=9000
-SERVER_NAME=`localhost:$PORT`
 DATA=`$PWD/data`
-PROTOCOL=ws
 
 docker run --rm \
   -it \
   -p ${PORT}:80 \
-  -e SERVER_NAME=${SERVER_NAME} \
-  -e PROTOCOL=${PROTOCOL} \
-  -v ${DATA}:/opt/sandtank-ml/data \
+  -v ${DATA}:/data \
   sandtank-ml
 ```
 # Details
