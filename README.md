@@ -87,3 +87,7 @@ parameters:
     items:
       - { "value": "e1", "text": "One time" }
 ```
+
+# Developer gotchas
+## Use ?dev query param
+When running a development environment (eg with `npm run serve` and `python server/server.py ...`), you will have to add ?dev to the URL (eg `http://localhost:8080/?dev&name=dropout`). This configures the client to look for ports differently than with the docker setup. The client will not connect otherwise
