@@ -26,29 +26,27 @@
       "training": {
         "label": "Learning set",
         "items": [
-            { "text": "All", "value": "full" },
-            { "text": "Wet", "value": "wet" },
-            { "text": "Dry", "value": "dry" }
+            { "text": "All", "value": "full" }
         ]
       },
       "learningRate": {
         "label": "Learning Rate",
         "items": [
-            { "text": "0.0001", "value": "lr4" },
-            { "text": "0.001", "value": "lr3" }
+            { "text": "0.0001", "value": "lr4" }
         ]
       },
       "dropOut": {
         "label": "Use drop out",
         "items": [
-            { "text": "No", "value": "ndp" },
             { "text": "Yes", "value": "dp" }
         ]
       },
       "epoch": {
         "label": "Number of trainings",
         "items": [
-          { "value": "e1", "text": "One time" }
+          { "value": "e1", "text": "1" },
+          { "value": "e10", "text": "10" },
+          { "value": "e31", "text": "31" }
         ]
       }
     },
