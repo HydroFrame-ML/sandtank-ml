@@ -5,7 +5,6 @@ let CALLBACK = null;
 
 export default {
   state: {
-    config: {},
     models: [],
     left: 0,
     right: 0,
@@ -13,9 +12,6 @@ export default {
     lastRun: RESET_RUN,
   },
   getters: {
-    AI_CONFIG(state) {
-      return state.config;
-    },
     AI_MODELS(state) {
       return state.models;
     },
@@ -49,9 +45,6 @@ export default {
     },
   },
   mutations: {
-    AI_CONFIG_SET(state, value) {
-      state.config = value;
-    },
     AI_LEFT_SET(state, value) {
       state.left = value;
     },
@@ -66,16 +59,14 @@ export default {
     },
   },
   actions: {
-    async AI_FETCH_CONFIG({ commit, dispatch }, name) {
-      const newConfig = await dispatch('WS_FETCH_CONFIG', name);
-      commit('AI_CONFIG_SET', newConfig);
-    },
-    AI_ADD_ENTRY({ commit, state }) {
+    AI_ADD_ENTRY({ commit, state, getters }, modelSelector) {
       if (!CALLBACK) {
         CALLBACK = () => commit('AI_INVALIDATE_RUN');
       }
-      // FIXME should provide the definition at build time
-      const modelSelector = new ModelSelector(state.config);
+      if (!modelSelector) {
+        // FIXME should provide the definition at build time
+        modelSelector = new ModelSelector(getters.UI_CONFIG);
+      }
       modelSelector.onChange = CALLBACK;
       state.models = state.models.concat({
         modelSelector,

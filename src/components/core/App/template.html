@@ -130,6 +130,7 @@
         <comparison :model="model" />
         <v-btn
           absolute
+          v-show="addRemoveAI.show"
           elevation="2"
           @click="removeAI(idx)"
           style="left: 0; top: 6px;"
@@ -139,8 +140,8 @@
           <v-icon small v-text="`$closeComparison`" />
         </v-btn>
       </div>
-      <div class="text-center my-4">
-        <v-btn icon @click="addAI" outlined>
+      <div v-show="addRemoveAI.show" class="text-center my-4">
+        <v-btn icon @click="addAI()" outlined>
           <v-icon v-text="`$add`" />
         </v-btn>
       </div>

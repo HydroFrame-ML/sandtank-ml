@@ -50,6 +50,7 @@ export default {
       diffScalingConfig: 'UI_DIFF_SCALING',
       needRunSimulation: 'SIM_RUN_NEEDED',
       needRunAI: 'AI_RUN_NEEDED',
+      addRemoveAI: 'UI_ADD_REMOVE_AI',
     }),
     visibleModules: {
       get() {
@@ -69,7 +70,7 @@ export default {
     ...mapActions({
       connect: 'WS_CONNECT',
       runSimulation: 'SIM_RUN_MODELS',
-      fetchConfig: 'AI_FETCH_CONFIG',
+      fetchConfig: 'UI_FETCH_CONFIG',
       addAI: 'AI_ADD_ENTRY',
       runAI: 'AI_RUN',
       updateSimulationTime: 'SIM_UPDATE_RUN_TIME',
