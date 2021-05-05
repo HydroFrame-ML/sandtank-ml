@@ -50,7 +50,10 @@ export default {
         return press.map((p, idx) => Math.abs(ref[idx] - p));
       }
 
-      return press.map((p, idx) => (ref[idx] > 0 === p > 0 ? 0 : 1));
+      const normCutoff = -0.25;
+      return press.map((p, idx) =>
+        ref[idx] > normCutoff === p > normCutoff ? 0 : 1,
+      );
     },
     currentColorConvert() {
       if (this.simulationTime == -1) {

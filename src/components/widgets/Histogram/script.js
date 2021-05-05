@@ -7,11 +7,12 @@ const options = {
     xAxes: [
       {
         gridLines: {
-          offsetGridLines: false,
+          display: false,
         },
         ticks: {
-          callback: function(value) {
-            return String(value).substr(1, 3); //truncate
+          maxTicksLimit: 2,
+          callback: function roundToQuarters(value) {
+            return Math.floor(value * 4) / 4;
           },
         },
       },
@@ -19,7 +20,10 @@ const options = {
     yAxes: [
       {
         ticks: {
-          callback: Math.round,
+          maxTicksLimit: 4,
+          callback: function hideZero(x) {
+            return Math.round(x) || '';
+          },
         },
       },
     ],
@@ -37,19 +41,19 @@ export default {
     this.$el.firstElementChild.height = height * this.scale;
 
     // Fill histogram bins
-    var hist = histogram(this.histData, { pretty: true });
     const binCount = 100;
-    var labels = range(1 / binCount, 1 - 1 / binCount, 1 / binCount);
-    var bins = Array(labels.length).fill(0);
-    for (var i = 0; i < this.histData.length; i++) {
-      var value = this.histData[i];
-      var index = labels.indexOf(hist.fun(value));
+    const hist = histogram(this.histData, { pretty: true });
+    const labels = range(1 / binCount, 1 + 1 / binCount, 1 / binCount);
+    const bins = Array(labels.length).fill(0);
+    for (let i = 0; i < this.histData.length; i++) {
+      const value = this.histData[i];
+      const index = labels.indexOf(hist.fun(value));
       bins[index] = bins[index] + 1;
     }
 
     // Configure dataset
-    var data = {
-      labels: labels,
+    const data = {
+      labels,
       datasets: [
         {
           data: bins,

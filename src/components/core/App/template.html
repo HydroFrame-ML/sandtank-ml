@@ -72,7 +72,7 @@
           <div
             style="height: 36px; overflow: hidden;"
             class="mr-8 rounded"
-            v-show="diffScalingConfig.show"
+            v-show="diffScalingConfig.show && isPressure"
           >
             <v-text-field
               :prepend-inner-icon="`$diffContrast`"

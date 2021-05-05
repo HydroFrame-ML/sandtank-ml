@@ -44,6 +44,7 @@ export default {
       useGradientConfig: 'UI_USE_GRADIENT',
       visibility: 'AI_MODULE_VISIBILITY',
       diffScale: 'TRAN_DIFF_SCALE',
+      isPressure: 'TRAN_PRESS_USE_GRADIENT',
       moduleConfig: 'UI_MODULE_SELECTOR',
       isModuleAvailable: 'UI_MODULE_AVAILABLE',
       diffScalingConfig: 'UI_DIFF_SCALING',
