@@ -1,4 +1,5 @@
 import ModelSelector from 'sandtank-ml/src/utils/ModelSelector';
+import { histogram, range } from 'sandtank-ml/src/utils/histogram';
 
 const RESET_RUN = { left: null, right: null, time: null };
 let CALLBACK = null;
@@ -98,6 +99,72 @@ export default {
         newModels.push({ ...state.models[i], ...responses[i] });
       }
       state.models = newModels;
+      dispatch('AI_ADD_STATS');
+    },
+    AI_ADD_STATS({ state, getters }) {
+      const ref = getters.SIM_PRESSURE.map(getters.TRAN_PRESS_TO_NORM);
+      const isPressure = getters.TRAN_PRESS_USE_GRADIENT;
+
+      for (const model of state.models) {
+        model.stats = {};
+
+        // Add delta
+        if (isPressure) {
+          model.stats.delta = model.values.map((p, idx) =>
+            Math.abs(ref[idx] - p),
+          );
+        } else {
+          const normCutoff = -0.25;
+          model.stats.delta = model.values.map((p, idx) =>
+            ref[idx] > normCutoff === p > normCutoff ? 0 : 1,
+          );
+        }
+
+        // Add Histograms
+        // Fill histogram bins
+        const binCount = 100;
+        const hist = histogram(model.stats.delta, { pretty: true });
+        const labels = range(1 / binCount, 1 + 1 / binCount, 1 / binCount);
+        const bins = Array(labels.length).fill(0);
+        for (let i = 0; i < model.stats.delta.length; i++) {
+          const value = model.stats.delta[i];
+          const index = labels.indexOf(hist.fun(value));
+          bins[index] = bins[index] + 1;
+        }
+
+        // Configure dataset
+        model.stats.histData = {
+          labels,
+          datasets: [
+            {
+              data: bins,
+              label: false,
+              backgroundColor: 'rgb(20,20,20)',
+              barPercentage: 1.0,
+              categoryPercentage: 1.0,
+            },
+          ],
+        };
+
+        // Add Pie Data
+        const errorCount = ([errors, accuracies], val) => {
+          if (val) {
+            errors++;
+          } else {
+            accuracies++;
+          }
+          return [errors, accuracies];
+        };
+        model.stats.pieData = {
+          labels: ['Errors', 'Accuracies'],
+          datasets: [
+            {
+              data: model.stats.delta.reduce(errorCount, [0, 0]),
+              backgroundColor: ['rgb(20,20,20)', 'rgb(200,200,200)'],
+            },
+          ],
+        };
+      }
     },
   },
 };

@@ -1,6 +1,6 @@
-import { Bar } from 'vue-chartjs';
-import { histogram, range } from 'sandtank-ml/src/utils/histogram';
+import { Bar, mixins } from 'vue-chartjs';
 
+const { reactiveProp } = mixins;
 const options = {
   legend: { display: false },
   scales: {
@@ -33,38 +33,14 @@ const options = {
 export default {
   name: 'Histogram',
   extends: Bar,
-  props: ['histData', 'size', 'scale'],
+  mixins: [reactiveProp],
+  props: ['size', 'scale'],
   mounted() {
     // Set chart canvas size
     const [width, height] = this.size;
     this.$el.firstElementChild.width = width * this.scale;
     this.$el.firstElementChild.height = height * this.scale;
 
-    // Fill histogram bins
-    const binCount = 100;
-    const hist = histogram(this.histData, { pretty: true });
-    const labels = range(1 / binCount, 1 + 1 / binCount, 1 / binCount);
-    const bins = Array(labels.length).fill(0);
-    for (let i = 0; i < this.histData.length; i++) {
-      const value = this.histData[i];
-      const index = labels.indexOf(hist.fun(value));
-      bins[index] = bins[index] + 1;
-    }
-
-    // Configure dataset
-    const data = {
-      labels,
-      datasets: [
-        {
-          data: bins,
-          label: false,
-          backgroundColor: 'rgb(20,20,20)',
-          barPercentage: 1.0,
-          categoryPercentage: 1.0,
-        },
-      ],
-    };
-
-    this.renderChart(data, options);
+    this.renderChart(this.chartData, options);
   },
 };

@@ -2,6 +2,7 @@ import { mapGetters, mapMutations } from 'vuex';
 import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 import Selector from 'sandtank-ml/src/components/core/Selector';
 import Histogram from 'sandtank-ml/src/components/widgets/Histogram';
+import PieChart from 'sandtank-ml/src/components/widgets/PieChart';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -18,7 +19,7 @@ export default {
       default: null,
     },
   },
-  components: { ComputedImage, Selector, Histogram },
+  components: { ComputedImage, Selector, Histogram, PieChart },
   computed: {
     ...mapGetters({
       toNormPress: 'TRAN_PRESS_TO_NORM',
@@ -42,18 +43,6 @@ export default {
     }),
     pressure() {
       return this.model.values;
-    },
-    delta() {
-      const press = this.pressure;
-      const ref = this.computedPressure.map(this.toNormPress);
-      if (this.isPressure) {
-        return press.map((p, idx) => Math.abs(ref[idx] - p));
-      }
-
-      const normCutoff = -0.25;
-      return press.map((p, idx) =>
-        ref[idx] > normCutoff === p > normCutoff ? 0 : 1,
-      );
     },
     currentColorConvert() {
       if (this.simulationTime == -1) {

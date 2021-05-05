@@ -42,7 +42,7 @@
           v-if="model.values"
           :size="model.size"
           :scale="scale"
-          :values="delta"
+          :values="model.stats.delta"
           :convert="deltaToColor"
           :class="{[$style.outdated] : needRunAI || needRunSimulation}"
         />
@@ -62,10 +62,18 @@
     <div v-if="showHist" class="d-flex align-items-center">
       <v-col class="flex-grow-0">
         <Histogram
-          v-if="model.values"
-          :hist-data="delta"
+          v-if="model.values && isPressure"
+          :chart-data="model.stats.histData"
           :size="model.size"
           :scale="scale"
+          :class="{[$style.outdated] : needRunAI || needRunSimulation}"
+        />
+        <PieChart
+          v-if="model.values && !isPressure"
+          :chart-data="model.stats.pieData"
+          :size="model.size"
+          :scale="scale"
+          :class="{[$style.outdated] : needRunAI || needRunSimulation}"
         />
         <v-skeleton-loader
           v-show="!model.size"
