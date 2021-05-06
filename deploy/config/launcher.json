@@ -5,7 +5,7 @@
     "endpoint": "paraview",
     "proxy_file": "/opt/sandtank-ml/launcher/proxy-mapping.txt",
     "sessionURL": "SESSION_URL_ROOT/proxy?sessionId=${id}&path=ws",
-    "timeout": 5,
+    "timeout": 50,
     "log_dir": "/opt/sandtank-ml/logs",
     "fields": [
       "file",
