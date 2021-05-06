@@ -14,10 +14,15 @@
     },
     "useGradient": {
       "show": true,
-      "value": true
+      "value": false 
     },
     "addRemoveAI": {
-      "show": true
+      "show": true,
+      "defaultModels": []
+    },
+    "useHistGlobalMax": {
+      "show": true,
+      "value": true
     }
   },
   "order": ["model", "training", "learningRate", "dropOut", "epoch"],

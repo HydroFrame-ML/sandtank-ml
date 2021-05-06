@@ -42,7 +42,7 @@
           v-if="model.values"
           :size="model.size"
           :scale="scale"
-          :values="model.stats.delta"
+          :values="isPressure ? model.stats.presDelta : model.stats.satDelta"
           :convert="deltaToColor"
           :class="{[$style.outdated] : needRunAI || needRunSimulation}"
         />
@@ -61,20 +61,24 @@
     </div>
     <div v-if="showHist" class="d-flex align-items-center">
       <v-col class="flex-grow-0">
-        <Histogram
-          v-if="model.values && isPressure"
-          :chart-data="model.stats.histData"
-          :size="model.size"
-          :scale="scale"
-          :class="{[$style.outdated] : needRunAI || needRunSimulation}"
-        />
-        <PieChart
-          v-if="model.values && !isPressure"
-          :chart-data="model.stats.pieData"
-          :size="model.size"
-          :scale="scale"
-          :class="{[$style.outdated] : needRunAI || needRunSimulation}"
-        />
+        <div style="border: 1px solid grey;" v-if="model.values && isPressure">
+          <Histogram
+            :chart-data="model.stats.histData"
+            :size="model.size"
+            :scale="scale"
+            :max="globalMax ? model.stats.histGlobalMax : -1"
+            :class="{[$style.outdated] : needRunAI || needRunSimulation}"
+            class="pa-2"
+          />
+        </div>
+        <div style="border: 1px solid grey;" v-if="model.values && !isPressure">
+          <PieChart
+            :chart-data="model.stats.pieData"
+            :size="model.size"
+            :scale="scale"
+            :class="{[$style.outdated] : needRunAI || needRunSimulation}"
+          />
+        </div>
         <v-skeleton-loader
           v-show="!model.size"
           type="image"
@@ -82,7 +86,17 @@
           :height="50 * scale"
         />
         <v-row class="justify-space-between align-center pa-2">
-          <div />
+          <v-btn
+            small
+            icon
+            class="mr-2"
+            @click="setGlobalMax(!globalMax)"
+            v-show="isPressure && useHistGlobalMax.show"
+            :disabled="!useGradientConfig.show || !model.values"
+          >
+            <v-icon v-show="useGradientConfig.show" v-text="`$toggle`" />
+          </v-btn>
+          <div v-show="!isPressure || !useHistGlobalMax.show" />
           <div class="text-h6">Distribution of errors</div>
           <div />
         </v-row>

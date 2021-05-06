@@ -32,6 +32,7 @@ export default {
       isPressure: 'TRAN_PRESS_USE_GRADIENT',
       fieldName: 'TRAN_FIELD_NAME',
       useGradientConfig: 'UI_USE_GRADIENT',
+      useHistGlobalMax: 'UI_USE_HIST_GLOBAL_MAX',
       //
       showSelection: 'AI_SHOW_SELECTION',
       showPrediction: 'AI_SHOW_PREDICTION',
@@ -40,6 +41,7 @@ export default {
       showStats: 'AI_SHOW_STATS',
       needRunSimulation: 'SIM_RUN_NEEDED',
       needRunAI: 'AI_RUN_NEEDED',
+      globalMax: 'UI_GLOBAL_MAX',
     }),
     pressure() {
       return this.model.values;
@@ -54,6 +56,7 @@ export default {
   methods: {
     ...mapMutations({
       setPressure: 'TRAN_PRESS_USE_GRADIENT_SET',
+      setGlobalMax: 'UI_GLOBAL_MAX_SET',
     }),
   },
 };

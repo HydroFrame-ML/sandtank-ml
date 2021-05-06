@@ -34,13 +34,28 @@ export default {
   name: 'Histogram',
   extends: Bar,
   mixins: [reactiveProp],
-  props: ['size', 'scale'],
+  props: ['max', 'size', 'scale'],
   mounted() {
     // Set chart canvas size
     const [width, height] = this.size;
-    this.$el.firstElementChild.width = width * this.scale;
-    this.$el.firstElementChild.height = height * this.scale;
+    this.$el.firstElementChild.width = width * this.scale - 8 * 2; // Adjust for vuetify pa-2
+    this.$el.firstElementChild.height = height * this.scale - 8 * 2;
+    this.render();
+  },
+  watch: {
+    max() {
+      this.render();
+    },
+  },
+  methods: {
+    render() {
+      if (this.max === -1) {
+        delete options.scales.yAxes[0].ticks.suggestedMax;
+      } else {
+        options.scales.yAxes[0].ticks.suggestedMax = this.max;
+      }
 
-    this.renderChart(this.chartData, options);
+      this.renderChart(this.chartData, options);
+    },
   },
 };
