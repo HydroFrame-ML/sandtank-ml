@@ -50,7 +50,7 @@ export default {
       }
       return {
         show: true,
-        values: ['selection', 'prediction', 'diff', 'stats', 'hist'],
+        values: ['selection', 'prediction', 'diff', 'hist', 'error', 'stats'],
       };
     },
     UI_MODULE_AVAILABLE(state, getters) {
@@ -90,6 +90,7 @@ export default {
       //Set values from new config
       commit('TRAN_PRESS_USE_GRADIENT_SET', getters.UI_USE_GRADIENT.value);
       commit('UI_GLOBAL_MAX_SET', getters.UI_USE_HIST_GLOBAL_MAX.value);
+      commit('AI_MODULE_VISIBILITY_SET', getters.UI_MODULE_SELECTOR.values);
       for (const model of getters.UI_ADD_REMOVE_AI.defaultModels) {
         const modelSelector = new ModelSelector(newConfig);
         modelSelector.values = Object.assign(modelSelector.values, model);

@@ -50,6 +50,7 @@ export default {
       diffScalingConfig: 'UI_DIFF_SCALING',
       needRunSimulation: 'SIM_RUN_NEEDED',
       needRunAI: 'AI_RUN_NEEDED',
+      aiLoading: 'AI_IS_RUNNING',
       addRemoveAI: 'UI_ADD_REMOVE_AI',
     }),
     visibleModules: {

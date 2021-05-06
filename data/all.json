@@ -3,7 +3,7 @@
     "time": [-1, 5],
     "moduleSelector": {
       "show": true,
-      "values": ["selection", "prediction", "diff", "hist", "stats", "error"]
+      "values": ["selection", "prediction", "diff", "hist", "error", "stats"]
     },
     "diffScaling": {
       "show": true,

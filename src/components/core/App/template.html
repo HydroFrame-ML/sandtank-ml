@@ -59,6 +59,7 @@
           </div>
           <v-btn
             @click="runAI"
+            :loading="aiLoading"
             :disabled="!needRunAI || !aiModels.length"
             color="primary"
             :outlined="!needRunAI || !aiModels.length"

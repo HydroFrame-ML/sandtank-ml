@@ -18,6 +18,7 @@ export default {
       'stats',
     ],
     lastRun: RESET_RUN,
+    isRunning: false,
   },
   getters: {
     AI_MODELS(state) {
@@ -54,6 +55,9 @@ export default {
     AI_RUN_TIMESTEP(state) {
       return state.lastRun.time || 0;
     },
+    AI_IS_RUNNING(state) {
+      return state.isRunning;
+    },
   },
   mutations: {
     AI_LEFT_SET(state, value) {
@@ -67,6 +71,9 @@ export default {
     },
     AI_INVALIDATE_RUN(state) {
       state.lastRun = RESET_RUN;
+    },
+    AI_IS_RUNNING_SET(state, value) {
+      state.isRunning = value;
     },
   },
   actions: {
@@ -88,6 +95,7 @@ export default {
       state.models.splice(index, 1);
     },
     async AI_RUN({ state, getters, commit, dispatch }) {
+      commit('AI_IS_RUNNING_SET', true);
       const left = getters.SIM_LEFT;
       const right = getters.SIM_RIGHT;
       const time = getters.SIM_RUN_TIMESTEP;
@@ -110,6 +118,7 @@ export default {
       }
       state.models = newModels;
       dispatch('AI_ADD_STATS');
+      commit('AI_IS_RUNNING_SET', false);
     },
     AI_ADD_STATS({ state, getters }) {
       const ref = getters.SIM_PRESSURE.map(getters.TRAN_PRESS_TO_NORM);

@@ -19,6 +19,7 @@
           type="image"
           :width="100 * scale"
           :height="50 * scale"
+          :boilerplate="!aiLoading"
         />
         <v-row class="justify-space-between align-center pa-2">
           <v-btn
@@ -51,6 +52,7 @@
           type="image"
           :width="100 * scale"
           :height="50 * scale"
+          :boilerplate="!aiLoading"
         />
         <v-row class="justify-space-between align-center pa-2">
           <div />
@@ -84,6 +86,7 @@
           type="image"
           :width="100 * scale"
           :height="50 * scale"
+          :boilerplate="!aiLoading"
         />
         <v-row class="justify-space-between align-center pa-2">
           <v-btn
@@ -138,6 +141,7 @@
         type="image"
         :width="100 * scale"
         :height="50 * scale"
+        :boilerplate="!aiLoading"
       />
     </div>
     <div v-if="showStats">
