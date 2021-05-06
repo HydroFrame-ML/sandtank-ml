@@ -9,7 +9,14 @@ export default {
     models: [],
     left: 0,
     right: 0,
-    modulesVisibility: ['selection', 'prediction', 'diff', 'stats', 'hist'],
+    modulesVisibility: [
+      'selection',
+      'prediction',
+      'diff',
+      'hist',
+      'error',
+      'stats',
+    ],
     lastRun: RESET_RUN,
   },
   getters: {
@@ -25,11 +32,14 @@ export default {
     AI_SHOW_PREDICTION(state) {
       return state.modulesVisibility.includes('prediction');
     },
+    AI_SHOW_DIFF(state) {
+      return state.modulesVisibility.includes('diff');
+    },
     AI_SHOW_HIST(state) {
       return state.modulesVisibility.includes('hist');
     },
-    AI_SHOW_DIFF(state) {
-      return state.modulesVisibility.includes('diff');
+    AI_SHOW_ERROR(state) {
+      return state.modulesVisibility.includes('error');
     },
     AI_SHOW_STATS(state) {
       return state.modulesVisibility.includes('stats');

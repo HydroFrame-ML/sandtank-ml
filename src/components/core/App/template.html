@@ -108,11 +108,14 @@
             <v-btn v-if="isModuleAvailable('diff')" value="diff">
               <v-icon v-text="`$showDiff`" />
             </v-btn>
-            <v-btn v-if="isModuleAvailable('stats')" value="stats">
-              <v-icon v-text="`$showLearnStats`" />
-            </v-btn>
             <v-btn v-if="isModuleAvailable('hist')" value="hist">
               <v-icon v-text="`$showHist`" />
+            </v-btn>
+            <v-btn v-if="isModuleAvailable('error')" value="error">
+              <v-icon v-text="`$showError`" />
+            </v-btn>
+            <v-btn v-if="isModuleAvailable('stats')" value="stats">
+              <v-icon v-text="`$showLearnStats`" />
             </v-btn>
           </v-btn-toggle>
         </v-row>

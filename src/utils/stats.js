@@ -66,6 +66,27 @@ export default {
           },
         ],
       };
+
+      // Add error statistics
+      const L1Error = (acc, val, idx) => {
+        const resid = Math.abs(val - ref[idx]);
+        acc.l1 += resid;
+        if (resid > acc.lmax) {
+          acc.lmax = resid;
+        }
+        return acc;
+      };
+      model.stats = {
+        ...model.stats,
+        ...model.values.reduce(L1Error, { l1: 0, lmax: 0 }),
+      };
+
+      const stdDev = (acc, val, idx) => {
+        acc += (val - ref[idx]) ** 2;
+        return acc;
+      };
+      model.stats.stdDev =
+        (model.values.reduce(stdDev) / model.values.length) ** 0.5;
     }
 
     // Set global histogram yMax on all models

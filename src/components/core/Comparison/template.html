@@ -102,6 +102,44 @@
         </v-row>
       </v-col>
     </div>
+    <div v-if="showError ">
+      <div
+        v-if="model.stats"
+        :class="{[$style.outdated] : needRunAI || needRunSimulation}"
+        class="pa-2"
+      >
+        <v-text-field
+          label="L1 error"
+          :value="model.stats.l1"
+          type="number"
+          hide-details
+          filled
+          readonly
+        />
+        <v-text-field
+          label="Lmax"
+          :value="model.stats.lmax"
+          type="number"
+          hide-details
+          filled
+          readonly
+        />
+        <v-text-field
+          label="Standard deviation"
+          :value="model.stats.stdDev"
+          type="number"
+          hide-details
+          filled
+          readonly
+        />
+      </div>
+      <v-skeleton-loader
+        v-show="!model.size"
+        type="image"
+        :width="100 * scale"
+        :height="50 * scale"
+      />
+    </div>
     <div v-if="showStats">
       Stats...
     </div>

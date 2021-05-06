@@ -38,6 +38,7 @@ export default {
       showPrediction: 'AI_SHOW_PREDICTION',
       showDiff: 'AI_SHOW_DIFF',
       showHist: 'AI_SHOW_HIST',
+      showError: 'AI_SHOW_ERROR',
       showStats: 'AI_SHOW_STATS',
       needRunSimulation: 'SIM_RUN_NEEDED',
       needRunAI: 'AI_RUN_NEEDED',

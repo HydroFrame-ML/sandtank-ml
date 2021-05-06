@@ -27,6 +27,7 @@ export default new Vuetify({
       showDiff: 'mdi-vector-difference',
       showLearnStats: 'mdi-school-outline',
       showHist: 'mdi-chart-histogram',
+      showError: 'mdi-sigma',
       //
       diffContrast: 'mdi-contrast-box',
     },
