@@ -11,7 +11,7 @@ export default {
     },
     UI_TIME_RANGE(state) {
       const { ui } = state.config || {};
-      return (ui && ui.time) || [0, 10];
+      return (ui && ui.time) || [0, 0];
     },
     UI_ADD_REMOVE_AI(state) {
       const { ui } = state.config || {};
@@ -19,7 +19,7 @@ export default {
         return ui.addRemoveAI;
       }
       return {
-        show: true,
+        show: false,
         defaultModels: [],
       };
     },
@@ -29,7 +29,7 @@ export default {
         return ui.useGradient;
       }
       return {
-        show: true,
+        show: false,
         value: true,
       };
     },
@@ -39,7 +39,7 @@ export default {
         return ui.useHistGlobalMax;
       }
       return {
-        show: true,
+        show: false,
         value: false,
       };
     },
@@ -49,7 +49,7 @@ export default {
         return ui.moduleSelector;
       }
       return {
-        show: true,
+        show: false,
         values: ['selection', 'prediction', 'diff', 'hist', 'error', 'stats'],
       };
     },
@@ -63,7 +63,7 @@ export default {
         return ui.diffScaling;
       }
       return {
-        show: true,
+        show: false,
         value: 0.5,
         min: 0.1,
         step: 0.1,
