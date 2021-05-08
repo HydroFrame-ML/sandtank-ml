@@ -9,5 +9,8 @@ export default function createMethods(session) {
     fetchConfig(name) {
       return session.call('parflow.ai.config', [name]);
     },
+    stats(uri) {
+      return session.call('parflow.ai.stats', [uri]);
+    },
   };
 }

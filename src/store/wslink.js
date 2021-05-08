@@ -172,5 +172,11 @@ export default {
         .AI.explain(uri, method, xy)
         .catch(console.error);
     },
+    WS_STATS({ state }, { uri }) {
+      return state.client
+        .getRemote()
+        .AI.stats(uri)
+        .catch(console.error);
+    },
   },
 };

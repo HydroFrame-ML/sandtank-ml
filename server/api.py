@@ -9,11 +9,12 @@ from wslink import register as exportRpc
 from twisted.internet import reactor
 
 from engine import SandtankEngine
-from ml import load_ml_model, remove_b_conditions
+from ml import load_ml_stats, load_ml_model, remove_b_conditions
 
 # -----------------------------------------------------------------------------
 # Local setup
 # -----------------------------------------------------------------------------
+
 
 class Parflow(LinkProtocol):
     def __init__(self, **kwargs):
@@ -45,6 +46,7 @@ class Parflow(LinkProtocol):
         self.results = results
         self.publish("parflow.results", results)
 
+
 class AI(LinkProtocol):
     def __init__(self, models_basepath, **kwargs):
         super(AI, self).__init__()
@@ -61,6 +63,26 @@ class AI(LinkProtocol):
 
         return self.loaded_models[model_path]
 
+    def get_stats(self, model_uri):
+        model_type, model_path = model_uri.split("://")
+        _model_dir, model_path = model_path.split("/")
+        model_path, _extension = model_path.split(".")
+        log_dir = "logs"
+        version_dir = "version_0"
+        log_name = "metrics.csv"
+        return load_ml_stats(
+            os.path.abspath(
+                os.path.join(
+                    self.basepath,
+                    log_dir,
+                    model_type,
+                    model_path,
+                    version_dir,
+                    log_name,
+                )
+            )
+        )
+
     @exportRpc("parflow.ai.predict")
     def predict(self, model_uri, left, right, time):
         model = self.get_model(model_uri)
@@ -73,6 +95,10 @@ class AI(LinkProtocol):
         remove_b_conditions(result)
 
         return result
+
+    @exportRpc("parflow.ai.stats")
+    def stats(self, model_uri):
+        return self.get_stats(model_uri)
 
     @exportRpc("parflow.ai.explain")
     def explain(self, model_uri, method, xy):

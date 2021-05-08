@@ -1,4 +1,5 @@
 import os
+import csv
 from argparse import ArgumentParser
 import numpy as np
 
@@ -403,6 +404,38 @@ class RegressionPressure:
 
 
 AI_MAP["RegressionPressure"] = RegressionPressure
+
+# -----------------------------------------------------------------------------
+# Learning Stats
+# -----------------------------------------------------------------------------
+
+
+def load_ml_stats(model_filepath):
+    result = {"learning": [], "validation": []}
+    validation_step_counter = 0
+    with open(model_filepath) as csv_file:
+        stats_reader = csv.DictReader(csv_file)
+        for line in stats_reader:
+            print(line)
+            if line["epoch"] == "":  # Validation when no epoch
+                validation_step_counter += 1
+                print(line["training_loss"])
+                result["validation"].append(
+                    {
+                        "step": validation_step_counter,
+                        "value": line["validation_loss_step/epoch_" + line["epoch"]],
+                    }
+                )
+            else:  # Training otherwise
+                print(line["validation_loss_step/epoch_" + line["epoch"]])
+                result["learning"].append(
+                    {
+                        "step": line["step"],
+                        "value": line["training_loss"],
+                    }
+                )
+
+    return result
 
 
 def remove_b_conditions(result):

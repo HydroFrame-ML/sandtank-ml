@@ -105,7 +105,7 @@
         </v-row>
       </v-col>
     </div>
-    <div v-if="showError ">
+    <div v-if="showError" class="d-flex align-items-center">
       <div
         v-if="model.stats"
         :class="{[$style.outdated] : needRunAI || needRunSimulation}"
@@ -144,8 +144,28 @@
         :boilerplate="!aiLoading"
       />
     </div>
-    <div v-if="showStats">
-      Stats...
+    <div v-if="showStats" class="d-flex align-items-center">
+      <v-col class="flex-grow-0">
+        <div style="border: 1px solid grey;" v-if="model.values && isPressure">
+          <LearningGraph
+            :learningData="model.learningStats"
+            :size="model.size"
+            :scale="scale"
+          />
+        </div>
+        <v-skeleton-loader
+          v-show="!model.size"
+          type="image"
+          :width="100 * scale"
+          :height="50 * scale"
+          :boilerplate="!aiLoading"
+        />
+        <v-row class="justify-space-between align-center pa-2">
+          <div />
+          <div class="text-h6">Learning stats</div>
+          <div />
+        </v-row>
+      </v-col>
     </div>
   </v-row>
 </v-card>
