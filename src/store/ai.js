@@ -116,9 +116,10 @@ export default {
       for (let i = 0; i < responses.length; i++) {
         const newModel = { ...state.models[i], ...responses[i] };
         if (!newModel.learningStats) {
-          dispatch('AI_ADD_LEARNING_STATS', {
+          const learningStats = await dispatch('WS_STATS', {
             uri: newModel.modelSelector.getURI(),
           });
+          newModel.learningStats = learningStats;
         }
         newModels.push(newModel);
       }
@@ -129,14 +130,6 @@ export default {
     AI_ADD_STATS({ state, getters }) {
       const ref = getters.SIM_PRESSURE.map(getters.TRAN_PRESS_TO_NORM);
       stats.decorate(state.models, ref);
-    },
-    async AI_ADD_LEARNING_STATS({ state, dispatch }, { uri }) {
-      const learning = await dispatch('WS_STATS', { uri });
-      for (const model of state.models) {
-        if (uri === model.uri) {
-          model.learningStats = learning;
-        }
-      }
     },
   },
 };

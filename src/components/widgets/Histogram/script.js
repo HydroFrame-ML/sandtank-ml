@@ -34,13 +34,7 @@ export default {
   name: 'Histogram',
   extends: Bar,
   mixins: [reactiveProp],
-  props: [
-    {
-      max: { type: Number, default: 0 },
-      size: { type: Array, default: () => [10, 10] },
-      scale: { type: Number, default: 10 },
-    },
-  ],
+  props: ['max', 'size', 'scale'],
   mounted() {
     // Set chart canvas size
     const [width, height] = this.size;

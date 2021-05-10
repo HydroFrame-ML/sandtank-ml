@@ -411,31 +411,26 @@ AI_MAP["RegressionPressure"] = RegressionPressure
 
 
 def load_ml_stats(model_filepath):
-    result = {"learning": [], "validation": []}
-    validation_step_counter = 0
+    epoch = 0
+    learning = []
+    validation = []
     with open(model_filepath) as csv_file:
         stats_reader = csv.DictReader(csv_file)
         for line in stats_reader:
-            print(line)
+            if line["validation_loss_epoch"] != "":
+                continue
             if line["epoch"] == "":  # Validation when no epoch
-                validation_step_counter += 1
-                print(line["training_loss"])
-                result["validation"].append(
-                    {
-                        "step": validation_step_counter,
-                        "value": line["validation_loss_step/epoch_" + line["epoch"]],
-                    }
-                )
-            else:  # Training otherwise
-                print(line["validation_loss_step/epoch_" + line["epoch"]])
-                result["learning"].append(
-                    {
-                        "step": line["step"],
-                        "value": line["training_loss"],
-                    }
-                )
+                key = "validation_loss_step/epoch_{}".format(epoch)
+                validation.append(float(line[key]))
+            else:  # Learning otherwise
+                epoch = line["epoch"]
+                learning.append(float(line["training_loss"]))
 
-    return result
+    downsample = 10
+    return {
+        "validation": validation[::downsample],
+        "learning": learning[::downsample],
+    }
 
 
 def remove_b_conditions(result):

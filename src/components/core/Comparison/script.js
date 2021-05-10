@@ -3,6 +3,7 @@ import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 import Selector from 'sandtank-ml/src/components/core/Selector';
 import Histogram from 'sandtank-ml/src/components/widgets/Histogram';
 import PieChart from 'sandtank-ml/src/components/widgets/PieChart';
+import LearningChart from 'sandtank-ml/src/components/widgets/LearningChart';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -19,7 +20,7 @@ export default {
       default: null,
     },
   },
-  components: { ComputedImage, Selector, Histogram, PieChart },
+  components: { ComputedImage, Selector, Histogram, PieChart, LearningChart },
   computed: {
     ...mapGetters({
       toNormPress: 'TRAN_PRESS_TO_NORM',

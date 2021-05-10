@@ -112,25 +112,25 @@
         class="pa-2"
       >
         <v-text-field
+          dense
           label="L1 error"
           :value="model.stats.l1"
-          type="number"
           hide-details
           filled
           readonly
         />
         <v-text-field
+          dense
           label="Lmax"
           :value="model.stats.lmax"
-          type="number"
           hide-details
           filled
           readonly
         />
         <v-text-field
+          dense
           label="Standard deviation"
           :value="model.stats.stdDev"
-          type="number"
           hide-details
           filled
           readonly
@@ -144,17 +144,19 @@
         :boilerplate="!aiLoading"
       />
     </div>
+
     <div v-if="showStats" class="d-flex align-items-center">
       <v-col class="flex-grow-0">
-        <div style="border: 1px solid grey;" v-if="model.values && isPressure">
-          <LearningGraph
+        <div style="border: 1px solid grey;" v-if="model.values">
+          <LearningChart
             :learningData="model.learningStats"
             :size="model.size"
             :scale="scale"
+            class="pa-2"
           />
         </div>
         <v-skeleton-loader
-          v-show="!model.size"
+          v-show="!model.learningStats"
           type="image"
           :width="100 * scale"
           :height="50 * scale"
@@ -162,7 +164,7 @@
         />
         <v-row class="justify-space-between align-center pa-2">
           <div />
-          <div class="text-h6">Learning stats</div>
+          <div class="text-h6">Learning rate</div>
           <div />
         </v-row>
       </v-col>
