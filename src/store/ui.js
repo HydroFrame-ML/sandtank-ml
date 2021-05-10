@@ -4,6 +4,7 @@ export default {
   state: {
     config: {},
     globalMax: true,
+    trainingLoss: true,
   },
   getters: {
     UI_CONFIG(state) {
@@ -43,6 +44,16 @@ export default {
         value: false,
       };
     },
+    UI_USE_TRAINING_LOSS(state) {
+      const { ui } = state.config || {};
+      if (ui && ui.useTrainingLoss) {
+        return ui.useTrainingLoss;
+      }
+      return {
+        show: true,
+        value: true,
+      };
+    },
     UI_MODULE_SELECTOR(state) {
       const { ui } = state.config || {};
       if (ui && ui.moduleSelector) {
@@ -73,6 +84,9 @@ export default {
     UI_GLOBAL_MAX(state) {
       return state.globalMax;
     },
+    UI_TRAINING_LOSS(state) {
+      return state.trainingLoss;
+    },
   },
   mutations: {
     UI_CONFIG_SET(state, value) {
@@ -80,6 +94,9 @@ export default {
     },
     UI_GLOBAL_MAX_SET(state, max) {
       state.globalMax = max;
+    },
+    UI_TRAINING_LOSS_SET(state, value) {
+      state.trainingLoss = value;
     },
   },
   actions: {
@@ -89,6 +106,7 @@ export default {
 
       //Set values from new config
       commit('TRAN_PRESS_USE_GRADIENT_SET', getters.UI_USE_GRADIENT.value);
+      commit('UI_TRAINING_LOSS_SET', getters.UI_USE_TRAINING_LOSS.value);
       commit('UI_GLOBAL_MAX_SET', getters.UI_USE_HIST_GLOBAL_MAX.value);
       commit('AI_MODULE_VISIBILITY_SET', getters.UI_MODULE_SELECTOR.values);
       for (const model of getters.UI_ADD_REMOVE_AI.defaultModels) {

@@ -1,7 +1,10 @@
-import { Bar } from 'vue-chartjs';
+import { Bar, mixins } from 'vue-chartjs';
+
+const { reactiveProp } = mixins;
 
 const options = {
   legend: { display: false },
+  mixins: [reactiveProp],
   scales: {
     xAxes: [
       {
@@ -17,9 +20,6 @@ const options = {
       {
         ticks: {
           maxTicksLimit: 4,
-          callback: function hideZero(x) {
-            return Math.round(x) || '';
-          },
         },
       },
     ],
@@ -29,33 +29,14 @@ const options = {
 export default {
   name: 'LearningChart',
   extends: Bar,
-  props: ['learningData', 'size', 'scale'],
+  mixins: [reactiveProp],
+  props: ['size', 'scale'],
   mounted() {
     // Set chart canvas size
     const [width, height] = this.size;
     this.$el.firstElementChild.width = width * this.scale - 8 * 2; // Adjust for vuetify pa-2
     this.$el.firstElementChild.height = height * this.scale - 8 * 2;
 
-    const { learning, validation } = this.learningData;
-    this.chartData = {
-      labels: [...Array(learning.length).keys()],
-      datasets: [
-        {
-          data: learning,
-          backgroundColor: 'rgb(20,80,20)',
-        },
-        {
-          data: validation,
-          backgroundColor: 'rgb(20,20,80)',
-        },
-      ],
-    };
-
-    this.render();
-  },
-  methods: {
-    render() {
-      this.renderChart(this.chartData, options);
-    },
+    this.renderChart(this.chartData, options);
   },
 };

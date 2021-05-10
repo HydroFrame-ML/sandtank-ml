@@ -156,7 +156,7 @@
       <v-col class="flex-grow-0">
         <div style="border: 1px solid grey;" v-if="model.values">
           <LearningChart
-            :learningData="model.learningStats"
+            :chart-data="chartData"
             :size="model.size"
             :scale="scale"
             class="pa-2"
@@ -170,8 +170,20 @@
           :boilerplate="!aiLoading"
         />
         <v-row class="justify-space-between text-center pa-2">
-          <div />
-          <div class="text-h6 pt-2">Learning rate</div>
+          <v-btn
+            small
+            icon
+            class="mr-2 pt-2"
+            @click="setTrainingLoss(!trainingLoss)"
+            v-show="useTrainingLoss.show"
+            :disabled="!useGradientConfig.show || !model.values"
+          >
+            <v-icon v-text="`$toggle`" />
+          </v-btn>
+          <div v-show="!useTrainingLoss.show" />
+          <div class="text-h6 pt-2">
+            {{trainingLoss ? "Training loss" : "Validation loss"}}
+          </div>
           <div />
         </v-row>
       </v-col>

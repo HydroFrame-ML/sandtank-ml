@@ -23,7 +23,13 @@
     "useHistGlobalMax": {
       "show": true,
       "value": true
+    },
+    "useTrainingLoss":
+    {
+      "show": true,
+      "value": true
     }
+
   },
   "order": ["model", "training", "learningRate", "dropOut", "epoch"],
   "parameters": {

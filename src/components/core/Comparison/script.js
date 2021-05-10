@@ -35,6 +35,7 @@ export default {
       fieldName: 'TRAN_FIELD_NAME',
       useGradientConfig: 'UI_USE_GRADIENT',
       useHistGlobalMax: 'UI_USE_HIST_GLOBAL_MAX',
+      useTrainingLoss: 'UI_USE_TRAINING_LOSS',
       //
       showSelection: 'AI_SHOW_SELECTION',
       showPrediction: 'AI_SHOW_PREDICTION',
@@ -45,6 +46,7 @@ export default {
       needRunSimulation: 'SIM_RUN_NEEDED',
       needRunAI: 'AI_RUN_NEEDED',
       globalMax: 'UI_GLOBAL_MAX',
+      trainingLoss: 'UI_TRAINING_LOSS',
     }),
     pressure() {
       return this.model.values;
@@ -55,11 +57,24 @@ export default {
       }
       return this.normPressureToColor;
     },
+    chartData() {
+      return this.trainingLoss
+        ? decorate(this.model.learningStats.training)
+        : decorate(this.model.learningStats.validation);
+    },
   },
   methods: {
     ...mapMutations({
       setPressure: 'TRAN_PRESS_USE_GRADIENT_SET',
       setGlobalMax: 'UI_GLOBAL_MAX_SET',
+      setTrainingLoss: 'UI_TRAINING_LOSS_SET',
     }),
   },
 };
+
+function decorate(data) {
+  return {
+    labels: [...Array(data.length).keys()],
+    datasets: [{ data, backgroundColor: 'rgb(10, 10, 10)' }],
+  };
+}

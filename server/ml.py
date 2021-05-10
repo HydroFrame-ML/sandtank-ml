@@ -412,7 +412,7 @@ AI_MAP["RegressionPressure"] = RegressionPressure
 
 def load_ml_stats(model_filepath):
     epoch = 0
-    learning = []
+    training = []
     validation = []
     with open(model_filepath) as csv_file:
         stats_reader = csv.DictReader(csv_file)
@@ -424,12 +424,13 @@ def load_ml_stats(model_filepath):
                 validation.append(float(line[key]))
             else:  # Learning otherwise
                 epoch = line["epoch"]
-                learning.append(float(line["training_loss"]))
+                training.append(float(line["training_loss"]))
 
     downsample = 10
+    viewFirstNth = 10
     return {
-        "validation": validation[::downsample],
-        "learning": learning[::downsample],
+        "validation": validation[: len(validation) // viewFirstNth : downsample],
+        "training": training[: len(training) // viewFirstNth : downsample],
     }
 
 
