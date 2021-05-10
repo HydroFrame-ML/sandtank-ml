@@ -21,7 +21,7 @@
           :height="50 * scale"
           :boilerplate="!aiLoading"
         />
-        <v-row class="justify-space-between align-center pa-2">
+        <v-row class="justify-space-between text-center pa-2">
           <v-btn
             small
             icon
@@ -54,7 +54,7 @@
           :height="50 * scale"
           :boilerplate="!aiLoading"
         />
-        <v-row class="justify-space-between align-center pa-2">
+        <v-row class="justify-space-between text-center pa-2">
           <div />
           <div class="text-h6">Physics vs AI</div>
           <div />
@@ -88,11 +88,11 @@
           :height="50 * scale"
           :boilerplate="!aiLoading"
         />
-        <v-row class="justify-space-between align-center pa-2">
+        <v-row class="justify-space-between pa-2">
           <v-btn
             small
             icon
-            class="mr-2"
+            class="mr-2 pt-2"
             @click="setGlobalMax(!globalMax)"
             v-show="isPressure && useHistGlobalMax.show"
             :disabled="!useGradientConfig.show || !model.values"
@@ -100,7 +100,7 @@
             <v-icon v-show="useGradientConfig.show" v-text="`$toggle`" />
           </v-btn>
           <div v-show="!isPressure || !useHistGlobalMax.show" />
-          <div class="text-h6">Distribution of errors</div>
+          <div class="text-h6 pt-2">Distribution of errors</div>
           <div />
         </v-row>
       </v-col>
@@ -109,7 +109,7 @@
       <div
         v-if="model.stats"
         :class="{[$style.outdated] : needRunAI || needRunSimulation}"
-        class="pa-2"
+        class="pa-2 text-center"
       >
         <v-text-field
           dense
@@ -135,14 +135,21 @@
           filled
           readonly
         />
+        <div class="text-h6 pt-1">Prediction error</div>
       </div>
-      <v-skeleton-loader
-        v-show="!model.size"
-        type="image"
-        :width="100 * scale"
-        :height="50 * scale"
-        :boilerplate="!aiLoading"
-      />
+      <v-col v-show="!model.size" class="flex-grow-0 text-center align-center ">
+        <v-skeleton-loader
+          type="image"
+          :width="100 * scale"
+          :height="50 * scale"
+          :boilerplate="!aiLoading"
+        />
+        <v-row class="pa-2 text-center justify-space-between">
+          <div />
+          <div class="text-h6 pt-1">Prediction error</div>
+          <div />
+        </v-row>
+      </v-col>
     </div>
 
     <div v-if="showStats" class="d-flex align-items-center">
@@ -162,9 +169,9 @@
           :height="50 * scale"
           :boilerplate="!aiLoading"
         />
-        <v-row class="justify-space-between align-center pa-2">
+        <v-row class="justify-space-between text-center pa-2">
           <div />
-          <div class="text-h6">Learning rate</div>
+          <div class="text-h6 pt-2">Learning rate</div>
           <div />
         </v-row>
       </v-col>

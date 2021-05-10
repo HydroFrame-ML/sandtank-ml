@@ -91,8 +91,9 @@ export default {
       });
       state.lastRun = RESET_RUN;
     },
-    AI_REMOVE_ENTRY({ state }, index) {
+    AI_REMOVE_ENTRY({ state, dispatch }, index) {
       state.models.splice(index, 1);
+      dispatch('AI_ADD_STATS');
     },
     async AI_RUN({ state, getters, commit, dispatch }) {
       commit('AI_IS_RUNNING_SET', true);
