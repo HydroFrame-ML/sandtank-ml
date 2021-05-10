@@ -91,5 +91,27 @@ export default {
         this.height * this.scale,
       );
     },
+    currentRGB(e) {
+      var pos = findPos(this.$el);
+      var x = e.pageX - pos.x;
+      var y = e.pageY - pos.y;
+      const c = this.$el.getContext('2d');
+      var p = c.getImageData(x, y, 1, 1).data;
+      this.$emit('currentRGB', p);
+
+      function findPos(obj) {
+        var curleft = 0,
+          curtop = 0;
+        if (obj.offsetParent) {
+          //eslint-disable-next-line
+          do {
+            curleft += obj.offsetLeft;
+            curtop += obj.offsetTop;
+          } while ((obj = obj.offsetParent));
+          return { x: curleft, y: curtop };
+        }
+        return undefined;
+      }
+    },
   },
 };

@@ -21,9 +21,15 @@
       :values="permeability"
       :convert="permeabilityToColor"
       rgb
+      v-on:currentRGB="setCurrentRGB"
     />
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />
-    <v-row class="text-h6 justify-center pa-2"> Permeability </v-row>
+    <v-row class="text-h6 justify-center pa-2">
+      Permeability
+      <div
+        :style="`width: 1em; backgroundColor: rgb(` + rgbLabel[0] + `,` + rgbLabel[1] + `,` + rgbLabel[2] +`)`"
+      ></div>
+    </v-row>
   </v-col>
 
   <v-col class="flex-grow-0 pa-0">
