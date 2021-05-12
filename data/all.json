@@ -24,10 +24,6 @@
       "show": true,
       "value": true
     },
-    "useTrainingLoss": {
-      "show": true,
-      "value": true
-    },
     "usePermeabilityLabels": {
       "show": true,
       "values": {

@@ -105,9 +105,6 @@ export default {
     UI_GLOBAL_MAX(state) {
       return state.globalMax;
     },
-    UI_TRAINING_LOSS(state) {
-      return state.trainingLoss;
-    },
     UI_SKIP_INITIAL(state) {
       return state.skipInitial;
     },
@@ -118,9 +115,6 @@ export default {
     },
     UI_GLOBAL_MAX_SET(state, max) {
       state.globalMax = max;
-    },
-    UI_TRAINING_LOSS_SET(state, value) {
-      state.trainingLoss = value;
     },
     UI_SKIP_INITIAL_SET(state, value) {
       state.skipInitial = value;
@@ -133,7 +127,6 @@ export default {
 
       //Set values from new config
       commit('TRAN_PRESS_USE_GRADIENT_SET', getters.UI_USE_GRADIENT.value);
-      commit('UI_TRAINING_LOSS_SET', getters.UI_USE_TRAINING_LOSS.value);
       commit('UI_GLOBAL_MAX_SET', getters.UI_USE_HIST_GLOBAL_MAX.value);
       commit('UI_SKIP_INITIAL_SET', getters.UI_USE_SKIP_INITIAL.value);
       commit('AI_MODULE_VISIBILITY_SET', getters.UI_MODULE_SELECTOR.values);

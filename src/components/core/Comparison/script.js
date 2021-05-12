@@ -45,7 +45,6 @@ export default {
       fieldName: 'TRAN_FIELD_NAME',
       useGradientConfig: 'UI_USE_GRADIENT',
       useHistGlobalMax: 'UI_USE_HIST_GLOBAL_MAX',
-      useTrainingLoss: 'UI_USE_TRAINING_LOSS',
       useSkipInitial: 'UI_USE_SKIP_INITIAL',
       //
       showSelection: 'AI_SHOW_SELECTION',
@@ -57,7 +56,6 @@ export default {
       needRunSimulation: 'SIM_RUN_NEEDED',
       needRunAI: 'AI_RUN_NEEDED',
       globalMax: 'UI_GLOBAL_MAX',
-      trainingLoss: 'UI_TRAINING_LOSS',
       skipInitial: 'UI_SKIP_INITIAL',
     }),
     pressure() {
@@ -69,12 +67,16 @@ export default {
       }
       return this.normPressureToColor;
     },
-    chartData() {
-      return this.trainingLoss
-        ? this.decorate(this.model.learningStats.training)
-        : this.decorate(this.model.learningStats.validation);
+    learningData() {
+      return this.decorate(this.model.learningStats.training);
+    },
+    validationData() {
+      return this.decorate(this.model.learningStats.validation);
     },
     epochData() {
+      if (!this.model.learningStats.epochs) {
+        return {};
+      }
       let extrema = this.model.learningStats.epochs.map((d) => [
         this.simplifyNumber(d.min),
         this.simplifyNumber(d.max),
@@ -116,7 +118,6 @@ export default {
     ...mapMutations({
       setPressure: 'TRAN_PRESS_USE_GRADIENT_SET',
       setGlobalMax: 'UI_GLOBAL_MAX_SET',
-      setTrainingLoss: 'UI_TRAINING_LOSS_SET',
       setSkipInitial: 'UI_SKIP_INITIAL_SET',
     }),
     simplifyNumber(n) {
