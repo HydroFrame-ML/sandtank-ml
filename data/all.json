@@ -24,12 +24,23 @@
       "show": true,
       "value": true
     },
-    "useTrainingLoss":
-    {
+    "useTrainingLoss": {
       "show": true,
       "value": true
+    },
+    "usePermeabilityLabels": {
+      "show": true,
+      "values": {
+        "0": "A River",
+        "1": "Sand",
+        "0.6": "Compacted Sand",
+        "0.05": "Dense Clay"
+      },
+      "useSkipInitial" : {
+        "show": true,
+        "value": true
+      }
     }
-
   },
   "order": ["model", "training", "learningRate", "dropOut", "epoch"],
   "parameters": {

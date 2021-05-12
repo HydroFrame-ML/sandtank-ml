@@ -8,7 +8,7 @@ import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 export default {
   name: 'Simulation',
   components: { ComputedImage },
-  data: () => ({ rgbLabel: '' }),
+  data: () => ({ labelRGB: '', labelValue: null }),
   computed: {
     ...mapGetters({
       isPressure: 'TRAN_PRESS_USE_GRADIENT',
@@ -23,6 +23,7 @@ export default {
       toNormPress: 'TRAN_PRESS_TO_NORM',
       simulationTime: 'SIM_RUN_TIMESTEP',
       useGradientConfig: 'UI_USE_GRADIENT',
+      usePermeabilityLabels: 'UI_USE_PERMEABILITY_LABELS',
       needRunSimulation: 'SIM_RUN_NEEDED',
       fieldName: 'TRAN_FIELD_NAME',
     }),
@@ -39,8 +40,14 @@ export default {
       setRightSlider: 'SIM_RIGHT_SET',
       setPressure: 'TRAN_PRESS_USE_GRADIENT_SET',
     }),
-    setCurrentRGB(rgb) {
-      this.rgbLabel = rgb;
+    setCurrentRGB(value) {
+      this.labelValue = value;
+      if (value === null) {
+        this.labelRGB = '';
+      } else {
+        const color = this.permeabilityToColor(value);
+        this.labelRGB = `rgb(${color[0]}, ${color[1]}, ${color[2]});`;
+      }
     },
   },
 };

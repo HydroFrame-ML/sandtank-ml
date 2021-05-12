@@ -21,13 +21,13 @@
           :height="50 * scale"
           :boilerplate="!aiLoading"
         />
-        <v-row class="justify-space-between text-center pa-2">
+        <v-row class="justify-space-between align-center pa-2">
           <v-btn
             small
             icon
             class="mr-2"
             @click="setPressure(!isPressure)"
-            :disabled="!useGradientConfig.show || !model.values"
+            :disabled="needRunAI"
           >
             <v-icon v-show="useGradientConfig.show" v-text="`$toggle`" />
           </v-btn>
@@ -88,16 +88,19 @@
           :height="50 * scale"
           :boilerplate="!aiLoading"
         />
-        <v-row class="justify-space-between pa-2">
+        <v-row class="justify-space-between pa-2 align-center">
           <v-btn
             small
             icon
             class="mr-2 pt-2"
             @click="setGlobalMax(!globalMax)"
             v-show="isPressure && useHistGlobalMax.show"
-            :disabled="!useGradientConfig.show || !model.values"
+            :disabled="needRunAI"
           >
-            <v-icon v-show="useGradientConfig.show" v-text="`$toggle`" />
+            <v-icon
+              v-show="useGradientConfig.show"
+              v-text="`$toggleGlobalMax`"
+            />
           </v-btn>
           <div v-show="!isPressure || !useHistGlobalMax.show" />
           <div class="text-h6 pt-2">Distribution of errors</div>
@@ -114,7 +117,7 @@
         <v-text-field
           dense
           label="L1 error"
-          :value="model.stats.l1"
+          :value="simplifyNumber(model.stats.l1)"
           hide-details
           filled
           readonly
@@ -122,7 +125,7 @@
         <v-text-field
           dense
           label="Lmax"
-          :value="model.stats.lmax"
+          :value="simplifyNumber(model.stats.lmax)"
           hide-details
           filled
           readonly
@@ -130,7 +133,7 @@
         <v-text-field
           dense
           label="Standard deviation"
-          :value="model.stats.stdDev"
+          :value="simplifyNumber(model.stats.stdDev)"
           hide-details
           filled
           readonly
@@ -169,20 +172,56 @@
           :height="50 * scale"
           :boilerplate="!aiLoading"
         />
-        <v-row class="justify-space-between text-center pa-2">
+        <v-row class="justify-space-between align-center pa-2">
           <v-btn
             small
             icon
             class="mr-2 pt-2"
             @click="setTrainingLoss(!trainingLoss)"
             v-show="useTrainingLoss.show"
-            :disabled="!useGradientConfig.show || !model.values"
+            :disabled="needRunAI"
           >
             <v-icon v-text="`$toggle`" />
           </v-btn>
           <div v-show="!useTrainingLoss.show" />
           <div class="text-h6 pt-2">
             {{trainingLoss ? "Training loss" : "Validation loss"}}
+          </div>
+          <div />
+        </v-row>
+      </v-col>
+    </div>
+
+    <div v-if="showStats" class="d-flex align-items-center">
+      <v-col class="flex-grow-0">
+        <div style="border: 1px solid grey;" v-if="model.values">
+          <EpochChart
+            :chart-data="epochData"
+            :size="model.size"
+            :scale="scale"
+            class="pa-2"
+          />
+        </div>
+        <v-skeleton-loader
+          v-show="!model.learningStats"
+          type="image"
+          :width="100 * scale"
+          :height="50 * scale"
+          :boilerplate="!aiLoading"
+        />
+        <v-row class="justify-space-between align-center pa-2">
+          <v-btn
+            small
+            icon
+            class="mr-2 pt-2"
+            v-show="useSkipInitial.show"
+            @click="setSkipInitial(!skipInitial)"
+            :disabled="needRunAI"
+          >
+            <v-icon v-text="`$toggleSkipInitial`" />
+          </v-btn>
+          <div class="text-h6 pt-2">
+            Epoch loss
           </div>
           <div />
         </v-row>

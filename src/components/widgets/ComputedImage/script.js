@@ -92,26 +92,27 @@ export default {
       );
     },
     currentRGB(e) {
-      var pos = findPos(this.$el);
-      var x = e.pageX - pos.x;
-      var y = e.pageY - pos.y;
-      const c = this.$el.getContext('2d');
-      var p = c.getImageData(x, y, 1, 1).data;
-      this.$emit('currentRGB', p);
-
-      function findPos(obj) {
-        var curleft = 0,
-          curtop = 0;
-        if (obj.offsetParent) {
-          //eslint-disable-next-line
-          do {
-            curleft += obj.offsetLeft;
-            curtop += obj.offsetTop;
-          } while ((obj = obj.offsetParent));
-          return { x: curleft, y: curtop };
-        }
-        return undefined;
+      var pos = this.findPosition(this.$el);
+      var x = Math.floor((e.pageX - pos.x) / this.scale);
+      var y = Math.floor((e.pageY - pos.y) / this.scale);
+      const valueIndex = x + (this.height - y) * this.width;
+      this.$emit('currentValue', this.values[valueIndex]);
+    },
+    findPosition(el) {
+      var curleft = 0,
+        curtop = 0;
+      if (el.offsetParent) {
+        //eslint-disable-next-line
+        do {
+          curleft += el.offsetLeft;
+          curtop += el.offsetTop;
+        } while ((el = el.offsetParent));
+        return { x: curleft, y: curtop };
       }
+      return undefined;
+    },
+    mouseLeft() {
+      this.$emit('currentValue', null);
     },
   },
 };

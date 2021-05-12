@@ -13,13 +13,17 @@ export default new Vuetify({
     values: {
       logo: 'mdi-head-snowflake-outline',
       parflow: 'mdi-water',
-      toggle: 'mdi-orbit-variant',
       run: 'mdi-run',
       results: 'mdi-arrow-right-bold',
       water: 'mdi-water',
       add: 'mdi-plus',
       trash: 'mdi-delete',
       ai: 'mdi-brain',
+      // toggles
+      toggle: 'mdi-orbit-variant',
+      toggleGlobalMax: 'mdi-arrow-vertical-lock',
+      toggleSkipInitial: 'mdi-blur-linear',
+
       // comparison icons
       closeComparison: 'mdi-close',
       showSelection: 'mdi-format-list-checks',

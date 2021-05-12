@@ -5,10 +5,15 @@ export default {
     config: {},
     globalMax: true,
     trainingLoss: true,
+    skipInitial: true,
   },
   getters: {
     UI_CONFIG(state) {
       return state.config;
+    },
+    UI_MODULE_AVAILABLE(state, getters) {
+      const { values } = getters.UI_MODULE_SELECTOR;
+      return (name) => values.includes(name);
     },
     UI_TIME_RANGE(state) {
       const { ui } = state.config || {};
@@ -54,6 +59,26 @@ export default {
         value: true,
       };
     },
+    UI_USE_PERMEABILITY_LABELS(state) {
+      const { ui } = state.config || {};
+      if (ui && ui.usePermeabilityLabels) {
+        return ui.usePermeabilityLabels;
+      }
+      return {
+        show: false,
+        values: {},
+      };
+    },
+    UI_USE_SKIP_INITIAL(state) {
+      const { ui } = state.config || {};
+      if (ui && ui.useSkipInitial) {
+        return ui.useSkipInitial;
+      }
+      return {
+        show: true,
+        value: true,
+      };
+    },
     UI_MODULE_SELECTOR(state) {
       const { ui } = state.config || {};
       if (ui && ui.moduleSelector) {
@@ -63,10 +88,6 @@ export default {
         show: false,
         values: ['selection', 'prediction', 'diff', 'hist', 'error', 'stats'],
       };
-    },
-    UI_MODULE_AVAILABLE(state, getters) {
-      const { values } = getters.UI_MODULE_SELECTOR;
-      return (name) => values.includes(name);
     },
     UI_DIFF_SCALING(state) {
       const { ui } = state.config || {};
@@ -87,6 +108,9 @@ export default {
     UI_TRAINING_LOSS(state) {
       return state.trainingLoss;
     },
+    UI_SKIP_INITIAL(state) {
+      return state.skipInitial;
+    },
   },
   mutations: {
     UI_CONFIG_SET(state, value) {
@@ -98,6 +122,9 @@ export default {
     UI_TRAINING_LOSS_SET(state, value) {
       state.trainingLoss = value;
     },
+    UI_SKIP_INITIAL_SET(state, value) {
+      state.skipInitial = value;
+    },
   },
   actions: {
     async UI_FETCH_CONFIG({ commit, dispatch, getters }, name) {
@@ -108,6 +135,7 @@ export default {
       commit('TRAN_PRESS_USE_GRADIENT_SET', getters.UI_USE_GRADIENT.value);
       commit('UI_TRAINING_LOSS_SET', getters.UI_USE_TRAINING_LOSS.value);
       commit('UI_GLOBAL_MAX_SET', getters.UI_USE_HIST_GLOBAL_MAX.value);
+      commit('UI_SKIP_INITIAL_SET', getters.UI_USE_SKIP_INITIAL.value);
       commit('AI_MODULE_VISIBILITY_SET', getters.UI_MODULE_SELECTOR.values);
       for (const model of getters.UI_ADD_REMOVE_AI.defaultModels) {
         const modelSelector = new ModelSelector(newConfig);

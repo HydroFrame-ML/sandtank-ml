@@ -4,6 +4,9 @@ import Selector from 'sandtank-ml/src/components/core/Selector';
 import Histogram from 'sandtank-ml/src/components/widgets/Histogram';
 import PieChart from 'sandtank-ml/src/components/widgets/PieChart';
 import LearningChart from 'sandtank-ml/src/components/widgets/LearningChart';
+import EpochChart from 'sandtank-ml/src/components/widgets/EpochChart';
+
+import categoricalColors from 'sandtank-ml/src/utils/categoricalColors';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -20,7 +23,14 @@ export default {
       default: null,
     },
   },
-  components: { ComputedImage, Selector, Histogram, PieChart, LearningChart },
+  components: {
+    ComputedImage,
+    Selector,
+    Histogram,
+    PieChart,
+    LearningChart,
+    EpochChart,
+  },
   computed: {
     ...mapGetters({
       toNormPress: 'TRAN_PRESS_TO_NORM',
@@ -36,6 +46,7 @@ export default {
       useGradientConfig: 'UI_USE_GRADIENT',
       useHistGlobalMax: 'UI_USE_HIST_GLOBAL_MAX',
       useTrainingLoss: 'UI_USE_TRAINING_LOSS',
+      useSkipInitial: 'UI_USE_SKIP_INITIAL',
       //
       showSelection: 'AI_SHOW_SELECTION',
       showPrediction: 'AI_SHOW_PREDICTION',
@@ -47,6 +58,7 @@ export default {
       needRunAI: 'AI_RUN_NEEDED',
       globalMax: 'UI_GLOBAL_MAX',
       trainingLoss: 'UI_TRAINING_LOSS',
+      skipInitial: 'UI_SKIP_INITIAL',
     }),
     pressure() {
       return this.model.values;
@@ -59,8 +71,45 @@ export default {
     },
     chartData() {
       return this.trainingLoss
-        ? decorate(this.model.learningStats.training)
-        : decorate(this.model.learningStats.validation);
+        ? this.decorate(this.model.learningStats.training)
+        : this.decorate(this.model.learningStats.validation);
+    },
+    epochData() {
+      let extrema = this.model.learningStats.epochs.map((d) => [
+        this.simplifyNumber(d.min),
+        this.simplifyNumber(d.max),
+      ]);
+      let mean = this.model.learningStats.epochs
+        .map((d) => d.mean)
+        .map(this.simplifyNumber);
+      let labels = [...Array(extrema.length).keys()];
+
+      // Hide outlier, first training round
+      if (this.skipInitial) {
+        extrema = extrema.slice(1);
+        mean = mean.slice(1);
+        labels = labels.slice(1);
+      }
+
+      return {
+        labels: labels.map((n) => `e${n}`),
+        datasets: [
+          {
+            label: 'mean',
+            data: mean,
+            type: 'line',
+            fill: false,
+            pointBackgroundColor: categoricalColors,
+            pointBorderColor: 'rgb(10,10,10)',
+            lineTension: 0,
+          },
+          {
+            label: '[min, max]',
+            data: extrema,
+            backgroundColor: categoricalColors,
+          },
+        ],
+      };
     },
   },
   methods: {
@@ -68,13 +117,21 @@ export default {
       setPressure: 'TRAN_PRESS_USE_GRADIENT_SET',
       setGlobalMax: 'UI_GLOBAL_MAX_SET',
       setTrainingLoss: 'UI_TRAINING_LOSS_SET',
+      setSkipInitial: 'UI_SKIP_INITIAL_SET',
     }),
+    simplifyNumber(n) {
+      return n.toFixed(1 - Math.floor(Math.log(n) / Math.log(10)));
+    },
+    decorate(data) {
+      return {
+        labels: [...Array(data.length).keys()],
+        datasets: [
+          {
+            data: data.map(this.simplifyNumber),
+            backgroundColor: 'rgb(10, 10, 10)',
+          },
+        ],
+      };
+    },
   },
 };
-
-function decorate(data) {
-  return {
-    labels: [...Array(data.length).keys()],
-    datasets: [{ data, backgroundColor: 'rgb(10, 10, 10)' }],
-  };
-}

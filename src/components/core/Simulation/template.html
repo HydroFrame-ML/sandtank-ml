@@ -21,14 +21,23 @@
       :values="permeability"
       :convert="permeabilityToColor"
       rgb
-      v-on:currentRGB="setCurrentRGB"
+      v-on:currentValue="setCurrentRGB"
     />
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />
-    <v-row class="text-h6 justify-center pa-2">
-      Permeability
+    <v-row
+      class="text-h6 justify-space-between justify-center align-center pa-2"
+      v-if="labelValue !== null && usePermeabilityLabels.show"
+    >
       <div
-        :style="`width: 1em; backgroundColor: rgb(` + rgbLabel[0] + `,` + rgbLabel[1] + `,` + rgbLabel[2] +`)`"
+        :style="`display: inline-block; width: 1em; height: 1em; backgroundColor: ` + labelRGB"
+        class="mx-1"
       ></div>
+
+      {{usePermeabilityLabels.values[labelValue] || labelValue}}
+      <div style="width: 1em; height: 1em;" class="mx-1" />
+    </v-row>
+    <v-row class="text-h6 justify-center pa-2" v-else>
+      Permeability
     </v-row>
   </v-col>
 
@@ -48,7 +57,6 @@
   <v-spacer />
 
   <v-col class="flex-grow-0">
-    <!--        :values="pressureOutput" -->
     <ComputedImage
       v-if="pressure"
       :scale="3"

@@ -2,6 +2,7 @@ import os
 import csv
 from argparse import ArgumentParser
 import numpy as np
+from collections import defaultdict
 
 import torch
 import torch.nn as nn
@@ -414,6 +415,7 @@ def load_ml_stats(model_filepath):
     epoch = 0
     training = []
     validation = []
+    training_by_epoch = defaultdict(StatsSummary)
     with open(model_filepath) as csv_file:
         stats_reader = csv.DictReader(csv_file)
         for line in stats_reader:
@@ -422,16 +424,48 @@ def load_ml_stats(model_filepath):
             if line["epoch"] == "":  # Validation when no epoch
                 key = "validation_loss_step/epoch_{}".format(epoch)
                 validation.append(float(line[key]))
+                training_by_epoch[epoch].update(float(line[key]))
             else:  # Learning otherwise
                 epoch = line["epoch"]
                 training.append(float(line["training_loss"]))
 
+    skipInitial = 50
     downsample = 10
     viewFirstNth = 10
     return {
-        "validation": validation[: len(validation) // viewFirstNth : downsample],
-        "training": training[: len(training) // viewFirstNth : downsample],
+        "validation": validation[
+            skipInitial : len(validation) // viewFirstNth : downsample
+        ],
+        "training": training[skipInitial : len(training) // viewFirstNth : downsample],
+        "epochs": [epoch.to_dict() for epoch in training_by_epoch.values()],
     }
+
+
+class StatsSummary:
+    def __init__(self):
+        self.min = None
+        self.max = None
+        self.mean = None
+        self.count = 0
+
+    def update(self, value):
+
+        # Update mean
+        newCount = self.count + 1
+        if self.mean == None:
+            self.mean = value
+        else:
+            self.mean = (self.mean * self.count + value) / newCount
+        self.count = newCount
+
+        # Update extrema
+        if self.min == None or value < self.min:
+            self.min = value
+        if self.max == None or value > self.max:
+            self.max = value
+
+    def to_dict(self):
+        return {"max": self.max, "min": self.min, "mean": self.mean}
 
 
 def remove_b_conditions(result):
