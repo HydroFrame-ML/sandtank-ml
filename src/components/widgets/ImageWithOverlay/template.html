@@ -1,0 +1,19 @@
+<div>
+  <ComputedImage
+    :config="config"
+    :scale="scale"
+    :size="size"
+    :values="values"
+    :convert="convert"
+    :rgb="rgb"
+    v-on:tooltip="updateOverlay"
+  />
+
+  <div
+    :style="`display: inline-block; width: 1em; height: 1em; backgroundColor: ` + labelRGB"
+    class="mx-1"
+  ></div>
+
+  {{usePermeabilityLabels.values[labelValue] || labelValue}}
+  <div style="width: 1em; height: 1em;" class="mx-1" />
+</div>

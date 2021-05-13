@@ -1,5 +1,5 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex';
-import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
+import ImageWithOverlay from 'sandtank-ml/src/components/widgets/ImageWithOverlay';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -7,8 +7,7 @@ import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 
 export default {
   name: 'Simulation',
-  components: { ComputedImage },
-  data: () => ({ labelRGB: '', labelValue: null }),
+  components: { ImageWithOverlay },
   computed: {
     ...mapGetters({
       isPressure: 'TRAN_PRESS_USE_GRADIENT',
@@ -40,14 +39,5 @@ export default {
       setRightSlider: 'SIM_RIGHT_SET',
       setPressure: 'TRAN_PRESS_USE_GRADIENT_SET',
     }),
-    setCurrentRGB(value) {
-      this.labelValue = value;
-      if (value === null) {
-        this.labelRGB = '';
-      } else {
-        const color = this.permeabilityToColor(value);
-        this.labelRGB = `rgb(${color[0]}, ${color[1]}, ${color[2]});`;
-      }
-    },
   },
 };

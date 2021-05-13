@@ -1,5 +1,9 @@
 export default {
   name: 'ComputedImage',
+  data: () => ({
+    x: 0,
+    y: 0,
+  }),
   props: {
     config: {
       type: String,
@@ -96,7 +100,11 @@ export default {
       var x = Math.floor((e.pageX - pos.x) / this.scale);
       var y = Math.floor((e.pageY - pos.y) / this.scale);
       const valueIndex = x + (this.height - y) * this.width;
-      this.$emit('currentValue', this.values[valueIndex]);
+      this.$emit('tooltip', {
+        values: this.values[valueIndex],
+        x: e.pageX,
+        y: e.pageY,
+      });
     },
     findPosition(el) {
       var curleft = 0,
@@ -112,7 +120,7 @@ export default {
       return undefined;
     },
     mouseLeft() {
-      this.$emit('currentValue', null);
+      this.$emit('tooltip', null);
     },
   },
 };
