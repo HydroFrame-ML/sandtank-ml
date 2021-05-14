@@ -10,6 +10,7 @@
   "dependencies": {
     "@mdi/font": "5.9.55",
     "chart.js": "^2.9.4",
+    "chartjs-chart-box-and-violin-plot": "^2.4.0",
     "core-js": "^2.6.5",
     "typeface-roboto": "0.0.54",
     "vtk.js": "^14.10.2",

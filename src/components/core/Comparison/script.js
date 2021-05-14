@@ -74,9 +74,9 @@ export default {
       if (!this.model.learningStats) {
         return {};
       }
-      let validationMean = this.model.learningStats.validationByEpoch.map(
-        (d) => d.mean,
-      );
+      //      let validationMean = this.model.learningStats.validationByEpoch.map(
+      //        (d) => d.mean,
+      //      );
       let trainingMean = this.model.learningStats.trainingByEpoch.map(
         (d) => d.mean,
       );
@@ -86,7 +86,7 @@ export default {
 
       // Hide outlier, first training round
       if (this.skipInitial) {
-        validationMean = validationMean.slice(1);
+        //validationMean = validationMean.slice(1);
         trainingMean = trainingMean.slice(1);
         validationByEpoch = validationByEpoch.slice(1);
         trainingByEpoch = trainingByEpoch.slice(1);
@@ -96,10 +96,16 @@ export default {
       return {
         labels: labels.map((n) => `e${n}`),
         datasets: [
-          lineDataset(trainingMean),
-          lineDataset(validationMean),
-          ...stackedDataset(trainingByEpoch, 'Training', 1),
-          ...stackedDataset(validationByEpoch, 'Validation', 0.4),
+          // lineDataset(trainingMean),
+          // lineDataset(validationMean),
+          // ...stackedDataset(trainingByEpoch, 'Training', 1),
+          // ...stackedDataset(validationByEpoch, 'Validation', 0.4),
+          {
+            data: validationByEpoch.map((d) => [d.min, d.mean, d.max]),
+          },
+          {
+            data: trainingByEpoch.map((d) => [d.min, d.mean, d.max]),
+          },
         ],
       };
     },
@@ -125,42 +131,42 @@ export default {
   },
 };
 
-function lineDataset(data) {
-  return {
-    label: 'mean',
-    data,
-    type: 'line',
-    fill: false,
-    lineTension: 0,
-  };
-}
+// function lineDataset(data) {
+//   return {
+//     label: 'mean',
+//     data,
+//     type: 'line',
+//     fill: false,
+//     lineTension: 0,
+//   };
+// }
 
-function stackedDataset(data, label, bar) {
-  const colors = {
-    min: 'rgba(100, 100, 200, .7)',
-    mean: 'rgba(100, 200, 100, .7)',
-    max: 'rgba(200, 100, 100, .7)',
-  };
-
-  const sumAdjustedStats = (d) => {
-    const stats = {
-      min: d.min,
-      mean: d.mean - d.min,
-      max: d.max - (d.mean - d.min) - d.min,
-    };
-    console.log('og', { min: d.min, mean: d.mean, max: d.max });
-    return stats;
-  };
-
-  return ['min', 'mean', 'max'].map((stat) => ({
-    label: label + ' ' + stat,
-    data: data.map((d) => sumAdjustedStats(d)[stat]),
-    barPercentage: bar,
-    scales: {
-      yAxes: [{ stacked: true }],
-      xAxes: [{ stacked: true }],
-    },
-    backgroundColor: colors[stat],
-    stack: label,
-  }));
-}
+//function stackedDataset(data, label, bar) {
+//  const colors = {
+//    min: 'rgba(100, 100, 200, .7)',
+//    mean: 'rgba(100, 200, 100, .7)',
+//    max: 'rgba(200, 100, 100, .7)',
+//  };
+//
+//  //const sumAdjustedStats = (d) => {
+//  //  const stats = {
+//  //    min: d.min,
+//  //    mean: d.mean - d.min,
+//  //    max: d.max - (d.mean - d.min) - d.min,
+//  //  };
+//  //  console.log('og', { min: d.min, mean: d.mean, max: d.max });
+//  //  return stats;
+//  //};
+//
+//  return ['min', 'mean', 'max'].map((stat) => ({
+//    label: label + ' ' + stat,
+//    data: data.map((d) => d[stat]),
+//    barPercentage: bar,
+//    scales: {
+//      yAxes: [{ stacked: true }],
+//      xAxes: [{ stacked: true }],
+//    },
+//    backgroundColor: colors[stat],
+//    stack: label,
+//  }));
+//}
