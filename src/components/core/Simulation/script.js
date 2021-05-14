@@ -1,5 +1,6 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import ImageWithOverlay from 'sandtank-ml/src/components/widgets/ImageWithOverlay';
+import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -7,7 +8,7 @@ import ImageWithOverlay from 'sandtank-ml/src/components/widgets/ImageWithOverla
 
 export default {
   name: 'Simulation',
-  components: { ImageWithOverlay },
+  components: { ImageWithOverlay, ComputedImage },
   computed: {
     ...mapGetters({
       isPressure: 'TRAN_PRESS_USE_GRADIENT',

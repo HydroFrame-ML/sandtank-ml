@@ -1,5 +1,5 @@
 import ModelSelector from 'sandtank-ml/src/utils/ModelSelector';
-import stats from 'sandtank-ml/src/utils/stats';
+import { addErrorStats } from 'sandtank-ml/src/utils/stats';
 
 const RESET_RUN = { left: null, right: null, time: null };
 let CALLBACK = null;
@@ -129,7 +129,7 @@ export default {
     },
     AI_ADD_STATS({ state, getters }) {
       const ref = getters.SIM_PRESSURE.map(getters.TRAN_PRESS_TO_NORM);
-      stats.decorate(state.models, ref);
+      addErrorStats(state.models, ref);
     },
   },
 };

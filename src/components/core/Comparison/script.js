@@ -1,4 +1,5 @@
 import { mapGetters, mapMutations } from 'vuex';
+import ImageWithOverlay from 'sandtank-ml/src/components/widgets/ImageWithOverlay';
 import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 import Selector from 'sandtank-ml/src/components/core/Selector';
 import Histogram from 'sandtank-ml/src/components/widgets/Histogram';
@@ -7,6 +8,7 @@ import LearningChart from 'sandtank-ml/src/components/widgets/LearningChart';
 import EpochChart from 'sandtank-ml/src/components/widgets/EpochChart';
 
 import categoricalColors from 'sandtank-ml/src/utils/categoricalColors';
+import { simplifyNumber } from 'sandtank-ml/src/utils/stats';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -24,6 +26,7 @@ export default {
     },
   },
   components: {
+    ImageWithOverlay,
     ComputedImage,
     Selector,
     Histogram,
@@ -46,6 +49,7 @@ export default {
       useGradientConfig: 'UI_USE_GRADIENT',
       useHistGlobalMax: 'UI_USE_HIST_GLOBAL_MAX',
       useSkipInitial: 'UI_USE_SKIP_INITIAL',
+      useDiffLabels: 'UI_USE_DIFF_LABELS',
       //
       showSelection: 'AI_SHOW_SELECTION',
       showPrediction: 'AI_SHOW_PREDICTION',
@@ -77,13 +81,8 @@ export default {
       if (!this.model.learningStats.epochs) {
         return {};
       }
-      let extrema = this.model.learningStats.epochs.map((d) => [
-        this.simplifyNumber(d.min),
-        this.simplifyNumber(d.max),
-      ]);
-      let mean = this.model.learningStats.epochs
-        .map((d) => d.mean)
-        .map(this.simplifyNumber);
+      let extrema = this.model.learningStats.epochs.map((d) => [d.min, d.max]);
+      let mean = this.model.learningStats.epochs.map((d) => d.mean);
       let labels = [...Array(extrema.length).keys()];
 
       // Hide outlier, first training round
@@ -120,15 +119,13 @@ export default {
       setGlobalMax: 'UI_GLOBAL_MAX_SET',
       setSkipInitial: 'UI_SKIP_INITIAL_SET',
     }),
-    simplifyNumber(n) {
-      return n.toFixed(1 - Math.floor(Math.log(n) / Math.log(10)));
-    },
+    simplifyNumber,
     decorate(data) {
       return {
         labels: [...Array(data.length).keys()],
         datasets: [
           {
-            data: data.map(this.simplifyNumber),
+            data: data,
             backgroundColor: 'rgb(10, 10, 10)',
           },
         ],

@@ -39,12 +39,21 @@
     <div v-if="showDiff" class="d-flex align-items-center">
       <v-col class="flex-grow-0">
         <ComputedImage
-          v-show="showDiff"
-          v-if="model.values"
+          v-if="model.values && isPressure"
           :size="model.size"
           :scale="scale"
-          :values="isPressure ? model.stats.presDelta : model.stats.satDelta"
+          :values="model.stats.presDelta"
           :convert="deltaToColor"
+          :labels="errorLabels"
+          :class="{[$style.outdated] : needRunAI || needRunSimulation}"
+        />
+        <ImageWithOverlay
+          v-if="model.values && !isPressure"
+          :size="model.size"
+          :scale="scale"
+          :values="model.stats.satDelta"
+          :convert="deltaToColor"
+          :labels="useDiffLabels.values"
           :class="{[$style.outdated] : needRunAI || needRunSimulation}"
         />
         <v-skeleton-loader

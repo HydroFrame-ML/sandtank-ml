@@ -95,16 +95,22 @@ export default {
         this.height * this.scale,
       );
     },
-    currentRGB(e) {
+    mouseLeft() {
+      this.$emit('overlay', null);
+    },
+    mouseoverValue(e) {
       var pos = this.findPosition(this.$el);
       var x = Math.floor((e.pageX - pos.x) / this.scale);
       var y = Math.floor((e.pageY - pos.y) / this.scale);
       const valueIndex = x + (this.height - y) * this.width;
-      this.$emit('tooltip', {
-        values: this.values[valueIndex],
-        x: e.pageX,
-        y: e.pageY,
-      });
+      const value = this.values[valueIndex];
+      if (typeof value == 'number') {
+        this.$emit('overlay', {
+          clientX: e.clientX,
+          clientY: e.clientY,
+          value,
+        });
+      }
     },
     findPosition(el) {
       var curleft = 0,
@@ -118,9 +124,6 @@ export default {
         return { x: curleft, y: curtop };
       }
       return undefined;
-    },
-    mouseLeft() {
-      this.$emit('tooltip', null);
     },
   },
 };

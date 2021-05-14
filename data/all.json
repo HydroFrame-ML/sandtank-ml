@@ -31,11 +31,18 @@
         "1": "Sand",
         "0.6": "Compacted Sand",
         "0.05": "Dense Clay"
-      },
-      "useSkipInitial" : {
-        "show": true,
-        "value": true
       }
+    },
+    "useDiffLabels": {
+      "show": true,
+      "values": {
+        "0": "Accurate",
+        "1": "Error"
+      }
+    },
+    "useSkipInitial" : {
+      "show": true,
+      "value": true
     }
   },
   "order": ["model", "training", "learningRate", "dropOut", "epoch"],

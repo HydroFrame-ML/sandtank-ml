@@ -14,12 +14,13 @@
   </v-col>
 
   <v-col class="flex-grow-0">
-    <ComputedImage
+    <ImageWithOverlay
       v-if="permeability"
       :scale="3"
       :size="size"
       :values="permeability"
       :convert="permeabilityToColor"
+      :labels="usePermeabilityLabels.values"
       rgb
     />
     <v-skeleton-loader

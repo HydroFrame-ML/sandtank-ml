@@ -2,11 +2,11 @@ import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 
 export default {
   name: 'ImageWithOverlay',
-  compoents: { ComputedImage },
+  components: { ComputedImage },
   data: () => ({
-    tooltipStyle: '',
-    labelRGB: '',
-    labelValue: '',
+    overlayStyle: '',
+    valueColor: '',
+    label: '',
   }),
   props: {
     config: {
@@ -33,18 +33,26 @@ export default {
       type: Boolean,
       default: false,
     },
+    labels: {
+      type: Object,
+      default: () => ({}),
+    },
   },
   methods: {
     updateOverlay(e) {
-      if (e === null) {
-        this.labelRGB = '';
-        this.tooltipStyle = 'display: none;';
+      if (e) {
+        const { value, clientX, clientY } = e;
+        const color = this.convert(value);
+        if (this.rgb) {
+          this.valueColor = `backgroundColor: rgb(${color[0]}, ${color[1]}, ${color[2]});`;
+        } else {
+          this.valueColor = `backgroundColor: rgb(${color}, ${color}, ${color});`;
+        }
+        this.label = this.labels[value] || value;
+        this.overlayStyle = `display: block; left: ${clientX +
+          10}px; top: ${clientY - 10}px;`;
       } else {
-        const { value, x, y } = e;
-        this.labelValue = value;
-        const color = this.permeabilityToColor(this.labelValue);
-        this.labelRGB = `rgb(${color[0]}, ${color[1]}, ${color[2]});`;
-        this.tooltipStyle = `position: fixed; left: ${x}; top: ${y};`;
+        this.overlayStyle = 'display: none;';
       }
     },
   },

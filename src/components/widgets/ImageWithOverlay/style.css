@@ -1,0 +1,14 @@
+.overlay {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  pointer-events: none;
+  background-color: rgba(30, 30, 30, 0.9);
+  color: white;
+}
+
+.overlayColorBlock {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+}

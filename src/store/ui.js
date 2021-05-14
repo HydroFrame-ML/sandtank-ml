@@ -69,6 +69,16 @@ export default {
         values: {},
       };
     },
+    UI_USE_DIFF_LABELS(state) {
+      const { ui } = state.config || {};
+      if (ui && ui.useDiffLabels) {
+        return ui.useDiffLabels;
+      }
+      return {
+        show: false,
+        values: {},
+      };
+    },
     UI_USE_SKIP_INITIAL(state) {
       const { ui } = state.config || {};
       if (ui && ui.useSkipInitial) {
