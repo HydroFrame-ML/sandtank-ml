@@ -96,7 +96,8 @@ export default {
           },
           {
             data: training,
-            borderColor: 'black',
+            borderColor: '#cf3f3f',
+            backgroundColor: '#cf3f3f',
           },
         ],
       };
