@@ -41,6 +41,7 @@ export default {
       normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
       aiTime: 'AI_RUN_TIMESTEP',
       aiLoading: 'AI_IS_RUNNING',
+      aiModelCount: 'AI_MODEL_COUNT',
       simulationTime: 'SIM_RUN_TIMESTEP',
       permeabilityToColor: 'TRAN_PERMABILITY_AI',
       isPressure: 'TRAN_PRESS_USE_GRADIENT',
@@ -71,9 +72,14 @@ export default {
       }
       return this.normPressureToColor;
     },
+    showGlobalMaxButton() {
+      return (
+        this.aiModelCount > 1 && this.isPressure && this.useHistGlobalMax.show
+      );
+    },
     epochData() {
       if (!this.model.learningStats) {
-        return {};
+        return null;
       }
 
       let validation = Object.values(

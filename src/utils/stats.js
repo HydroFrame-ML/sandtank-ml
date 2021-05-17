@@ -95,10 +95,6 @@ export const addErrorStats = (models, ref) => {
 };
 
 export const simplifyNumber = (n) => {
-  console.log(n, simplifyNumberHelper(n));
-  return simplifyNumberHelper(n);
-};
-export const simplifyNumberHelper = (n) => {
   // Removes all non-zero digits except one
   if (n === 0) {
     return 0;

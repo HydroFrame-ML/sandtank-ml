@@ -24,6 +24,9 @@ export default {
     AI_MODELS(state) {
       return state.models;
     },
+    AI_MODEL_COUNT(state) {
+      return state.models.length;
+    },
     AI_MODULE_VISIBILITY(state) {
       return state.modulesVisibility;
     },

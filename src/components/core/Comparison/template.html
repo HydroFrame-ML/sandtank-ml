@@ -96,7 +96,7 @@
             icon
             class="mr-2 pt-2"
             @click="setGlobalMax(!globalMax)"
-            v-show="isPressure && useHistGlobalMax.show"
+            v-show="showGlobalMaxButton"
             :disabled="needRunAI"
           >
             <v-icon
@@ -104,7 +104,7 @@
               v-text="`$toggleGlobalMax`"
             />
           </v-btn>
-          <div v-show="!isPressure || !useHistGlobalMax.show" />
+          <div v-show="!showGlobalMaxButton" />
           <div class="text-h6 pt-2">Distribution of errors</div>
           <div />
         </v-row>
@@ -161,6 +161,7 @@
       <v-col class="flex-grow-0">
         <div style="border: 1px solid grey;" v-if="model.values">
           <EpochChart
+            v-if="epochData"
             :chart-data="epochData"
             :size="model.size"
             :scale="scale"
