@@ -413,10 +413,8 @@ AI_MAP["RegressionPressure"] = RegressionPressure
 
 def load_ml_stats(model_filepath):
     epoch = 0
-    training = []
-    validation = []
-    training_by_epoch = defaultdict(StatsSummary)
-    validation_by_epoch = defaultdict(StatsSummary)
+    training_by_epoch = defaultdict(list)
+    validation_by_epoch = defaultdict(list)
     with open(model_filepath) as csv_file:
         stats_reader = csv.DictReader(csv_file)
         for line in stats_reader:
@@ -424,53 +422,15 @@ def load_ml_stats(model_filepath):
                 continue
             if line["epoch"] == "":  # Validation when no epoch
                 key = "validation_loss_step/epoch_{}".format(epoch)
-                validation.append(float(line[key]))
-                validation_by_epoch[epoch].update(float(line[key]))
+                validation_by_epoch[epoch].append(float(line[key]))
             else:  # Learning otherwise
                 epoch = line["epoch"]
-                training.append(float(line["training_loss"]))
-                training_by_epoch[epoch].update(float(line["training_loss"]))
+                training_by_epoch[epoch].append(float(line["training_loss"]))
 
-    skipInitial = 50
-    downsample = 10
-    viewFirstNth = 10
     return {
-        "validation": validation[
-            skipInitial : len(validation) // viewFirstNth : downsample
-        ],
-        "training": training[skipInitial : len(training) // viewFirstNth : downsample],
-        "validationByEpoch": [
-            epoch.to_dict() for epoch in validation_by_epoch.values()
-        ],
-        "trainingByEpoch": [epoch.to_dict() for epoch in training_by_epoch.values()],
+        "validationByEpoch": validation_by_epoch,
+        "trainingByEpoch": training_by_epoch,
     }
-
-
-class StatsSummary:
-    def __init__(self):
-        self.min = None
-        self.max = None
-        self.mean = None
-        self.count = 0
-
-    def update(self, value):
-
-        # Update mean
-        newCount = self.count + 1
-        if self.mean == None:
-            self.mean = value
-        else:
-            self.mean = (self.mean * self.count + value) / newCount
-        self.count = newCount
-
-        # Update extrema
-        if self.min == None or value < self.min:
-            self.min = value
-        if self.max == None or value > self.max:
-            self.max = value
-
-    def to_dict(self):
-        return {"max": self.max, "min": self.min, "mean": self.mean}
 
 
 def remove_b_conditions(result):
