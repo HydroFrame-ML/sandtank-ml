@@ -24,6 +24,7 @@ export default {
       simulationTime: 'SIM_RUN_TIMESTEP',
       useGradientConfig: 'UI_USE_GRADIENT',
       usePermeabilityLabels: 'UI_USE_PERMEABILITY_LABELS',
+      useWaterLabels: 'UI_USE_WATER_LABELS',
       needRunSimulation: 'SIM_RUN_NEEDED',
       fieldName: 'TRAN_FIELD_NAME',
     }),

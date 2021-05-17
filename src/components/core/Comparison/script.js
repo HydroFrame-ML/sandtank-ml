@@ -49,6 +49,7 @@ export default {
       useHistGlobalMax: 'UI_USE_HIST_GLOBAL_MAX',
       useSkipInitial: 'UI_USE_SKIP_INITIAL',
       useDiffLabels: 'UI_USE_DIFF_LABELS',
+      useWaterLabels: 'UI_USE_WATER_LABELS',
       //
       showSelection: 'AI_SHOW_SELECTION',
       showPrediction: 'AI_SHOW_PREDICTION',

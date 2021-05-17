@@ -79,6 +79,15 @@ export default {
         values: {},
       };
     },
+    UI_USE_WATER_LABELS(state) {
+      const { ui } = state.config || {};
+      if (ui && ui.useWaterLabels) {
+        return ui.useWaterLabels;
+      }
+      return {
+        show: true,
+      };
+    },
     UI_USE_SKIP_INITIAL(state) {
       const { ui } = state.config || {};
       if (ui && ui.useSkipInitial) {

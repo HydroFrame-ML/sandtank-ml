@@ -95,6 +95,10 @@ export const addErrorStats = (models, ref) => {
 };
 
 export const simplifyNumber = (n) => {
+  console.log(n, simplifyNumberHelper(n));
+  return simplifyNumberHelper(n);
+};
+export const simplifyNumberHelper = (n) => {
   // Removes all non-zero digits except one
   if (n === 0) {
     return 0;
@@ -104,7 +108,10 @@ export const simplifyNumber = (n) => {
     return Math.round(n);
   }
 
-  const decimalPlaces = 0 - Math.floor(Math.log(n) / Math.log(10));
+  let decimalPlaces = 0 - Math.ceil(Math.log(n) / Math.log(10));
+  if (isNaN(decimalPlaces)) {
+    decimalPlaces = 1;
+  }
 
   const result = n.toFixed(decimalPlaces);
 

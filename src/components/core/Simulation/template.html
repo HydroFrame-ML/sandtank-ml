@@ -21,6 +21,7 @@
       :values="permeability"
       :convert="permeabilityToColor"
       :labels="usePermeabilityLabels.values"
+      :overlayKind="usePermeabilityLabels.show ? 'labels' : ''"
       rgb
     />
     <v-skeleton-loader
@@ -50,12 +51,13 @@
   <v-spacer />
 
   <v-col class="flex-grow-0">
-    <ComputedImage
+    <ImageWithOverlay
       v-if="pressure"
       :scale="3"
       :size="size"
       :values="normPressure"
       :convert="normPressureToColor"
+      :overlayKind="useWaterLabels.show ? 'values' : ''"
       :class="{ [$style.outdated]: needRunSimulation }"
       rgb
     />
