@@ -42,8 +42,8 @@ export default {
       permeabilityToColor: 'TRAN_PERMABILITY_AI',
       isPressure: 'TRAN_PRESS_USE_GRADIENT',
       fieldName: 'TRAN_FIELD_NAME',
+      diffScale: 'TRAN_DIFF_SCALE',
       useGradientConfig: 'UI_USE_GRADIENT',
-      useHistGlobalMax: 'UI_USE_HIST_GLOBAL_MAX',
       useSkipInitial: 'UI_USE_SKIP_INITIAL',
       useDiffLabels: 'UI_USE_DIFF_LABELS',
       useWaterLabels: 'UI_USE_WATER_LABELS',
@@ -56,7 +56,6 @@ export default {
       showStats: 'AI_SHOW_STATS',
       needRunSimulation: 'SIM_RUN_NEEDED',
       needRunAI: 'AI_RUN_NEEDED',
-      globalMax: 'UI_GLOBAL_MAX',
       skipInitial: 'UI_SKIP_INITIAL',
     }),
     pressure() {
@@ -69,47 +68,12 @@ export default {
       return this.normPressureToColor;
     },
     showGlobalMaxButton() {
-      return (
-        this.aiModelCount > 1 && this.isPressure && this.useHistGlobalMax.show
-      );
-    },
-    epochData() {
-      if (!this.model.learningStats) {
-        return null;
-      }
-
-      let validation = Object.values(
-        this.model.learningStats.validationByEpoch,
-      );
-      let training = Object.values(this.model.learningStats.trainingByEpoch);
-      let labels = [...Array(validation.length).keys()].map((e) => `E${e}`);
-
-      if (this.skipInitial) {
-        labels = labels.slice(1);
-        training = training.slice(1);
-        validation = validation.slice(1);
-      }
-
-      return {
-        labels,
-        datasets: [
-          {
-            data: validation,
-            borderColor: 'black',
-          },
-          {
-            data: training,
-            borderColor: '#cf3f3f',
-            backgroundColor: '#cf3f3f',
-          },
-        ],
-      };
+      return this.aiModelCount > 1 && this.isPressure;
     },
   },
   methods: {
     ...mapMutations({
       setPressure: 'TRAN_PRESS_USE_GRADIENT_SET',
-      setGlobalMax: 'UI_GLOBAL_MAX_SET',
       setSkipInitial: 'UI_SKIP_INITIAL_SET',
     }),
     simplifyNumber,

@@ -71,7 +71,8 @@
             :labels="model.stats.histLabels"
             :size="model.size"
             :scale="scale"
-            :globalMax="globalMax ? model.stats.histGlobalMax : -1"
+            :yMax="globalMax ? model.stats.histGlobalMax : -1"
+            :xMax="diffScale"
             :class="{[$style.outdated] : needRunAI || needRunSimulation}"
           />
         </div>
@@ -91,20 +92,7 @@
           :boilerplate="!aiLoading"
         />
         <v-row class="justify-space-between pa-2 align-center">
-          <v-btn
-            small
-            icon
-            class="mr-2 pt-2"
-            @click="setGlobalMax(!globalMax)"
-            v-show="showGlobalMaxButton"
-            :disabled="needRunAI"
-          >
-            <v-icon
-              v-show="useGradientConfig.show"
-              v-text="`$toggleChartCompare`"
-            />
-          </v-btn>
-          <div v-show="!showGlobalMaxButton" />
+          <div />
           <div class="text-h6 pt-2">Distribution of errors</div>
           <div />
         </v-row>
@@ -161,11 +149,10 @@
       <v-col class="flex-grow-0">
         <div style="border: 1px solid grey;" v-if="model.values">
           <EpochChart
-            v-if="epochData"
-            :chart-data="epochData"
+            v-if="model.learningStats"
+            :data="model.learningStats"
             :size="model.size"
             :scale="scale"
-            class="pa-2"
           />
         </div>
         <v-skeleton-loader

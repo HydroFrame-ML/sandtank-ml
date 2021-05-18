@@ -1,6 +1,4 @@
 export const addErrorStats = (models, ref) => {
-  let globalMax = 0;
-
   for (const model of models) {
     model.stats = {};
 
@@ -13,26 +11,8 @@ export const addErrorStats = (models, ref) => {
       ref[idx] > normCutoff === p > normCutoff ? 0 : 1,
     );
 
-    // Fill histogram bins
-    const binCount = 100;
-    const hist = histogram(model.stats.presDelta, { pretty: true });
-    model.stats.histLabels = range(
-      1 / binCount,
-      1 + 1 / binCount,
-      1 / binCount,
-    );
-    model.stats.histData = Array(model.stats.histLabels.length).fill(0);
-    for (let i = 0; i < model.stats.presDelta.length; i++) {
-      const value = model.stats.presDelta[i];
-      const index = model.stats.histLabels.indexOf(hist.fun(value));
-      model.stats.histData[index] = model.stats.histData[index] + 1;
-    }
-
-    // Track global max
-    const localMax = Math.max(...model.stats.histData);
-    if (localMax > globalMax) {
-      globalMax = localMax;
-    }
+    // Generate histogram data
+    model.stats.histData = model.stats.presDelta;
 
     // Add Pie Data
     const errorCount = ([errors, accuracies], val) => {
@@ -66,11 +46,6 @@ export const addErrorStats = (models, ref) => {
     model.stats.stdDev =
       (model.values.reduce(stdDev) / model.values.length) ** 0.5;
   }
-
-  // Set global histogram yMax on all models
-  for (let model of models) {
-    model.stats.histGlobalMax = globalMax;
-  }
 };
 
 export const simplifyNumber = (n) => {
@@ -98,7 +73,7 @@ export const simplifyNumber = (n) => {
   return result;
 };
 
-function histogram(vector, options) {
+export function histogram(vector, options) {
   // Taken from https://github.com/jrideout/histogram-pretty/blob/master/histogram-pretty.js
 
   options = options || {};
@@ -159,7 +134,7 @@ function histogram(vector, options) {
   };
 }
 
-function range(start, end, step = 1) {
+export function range(start, end, step = 1) {
   const len = Math.floor((end - start) / step) + 1;
   return Array(len)
     .fill()

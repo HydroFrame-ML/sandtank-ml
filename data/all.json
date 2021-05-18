@@ -20,10 +20,6 @@
       "show": true,
       "defaultModels": []
     },
-    "useHistGlobalMax": {
-      "show": true,
-      "value": false 
-    },
     "usePermeabilityLabels": {
       "show": true,
       "values": {

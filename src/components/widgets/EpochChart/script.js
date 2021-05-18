@@ -1,13 +1,63 @@
-import 'chartjs-chart-box-and-violin-plot';
-import { generateChart, mixins } from 'vue-chartjs';
+import BoxPlot from 'sandtank-ml/src/components/charts/BoxPlot';
+import Bar from 'sandtank-ml/src/components/charts/Bar';
 
-const { reactiveProp } = mixins;
-const BoxPlot = generateChart('boxplot', 'boxplot');
+export default {
+  name: 'EpochChart',
+  components: { BoxPlot, Bar },
+  data: () => ({
+    epochIndex: null,
+  }),
+  props: ['data', 'size', 'scale'],
+  computed: {
+    chart() {
+      let validation = Object.values(this.data.validationByEpoch);
+      let training = Object.values(this.data.trainingByEpoch);
+      let labels = [...Array(validation.length).keys()].map((e) => `E${e}`);
 
-const options = {
+      if (this.skipInitial) {
+        labels = labels.slice(1);
+        training = training.slice(1);
+        validation = validation.slice(1);
+      }
+
+      return {
+        data: {
+          labels,
+          datasets: [
+            {
+              data: validation,
+              borderColor: 'black',
+            },
+            {
+              data: training,
+              borderColor: '#cf3f3f',
+              backgroundColor: '#cf3f3f',
+            },
+          ],
+        },
+        options,
+      };
+    },
+  },
+};
+
+function onClick(e, charts) {
+  try {
+    this.epochIndex = charts[0]._index;
+  } catch {
+    this.epochIndex = null;
+  }
+}
+
+var options = {
   legend: { display: false },
   layout: {
-    padding: 16,
+    padding: {
+      top: 16,
+      bottom: 0,
+      left: 8,
+      right: 16,
+    },
   },
   animation: false,
   scales: {
@@ -27,18 +77,6 @@ const options = {
     ],
   },
   tooltipDecimals: 3,
-};
-
-export default {
-  name: 'EpochChart',
-  extends: BoxPlot,
-  mixins: [reactiveProp],
-  props: ['size', 'scale'],
-  mounted() {
-    // Set chart canvas size
-    const [width, height] = this.size;
-    this.$el.firstElementChild.width = width * this.scale;
-    this.$el.firstElementChild.height = height * this.scale;
-    this.renderChart(this.chartData, options);
-  },
+  events: ['click', 'mousemove', 'mouseout'],
+  onClick,
 };

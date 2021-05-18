@@ -1,4 +1,5 @@
 import PieChart from 'sandtank-ml/src/components/charts/PieChart';
+import { simplifyNumber } from 'sandtank-ml/src/utils/stats';
 
 export default {
   name: 'DiffErrorChart',
@@ -39,7 +40,7 @@ var options = {
       label: function({ index, datasetIndex }, { labels, datasets }) {
         const sum = datasets[datasetIndex].data.reduce((acc, val) => acc + val);
         const numerator = datasets[datasetIndex].data[index];
-        return `${labels[index]}: ${numerator / sum}%`;
+        return `${labels[index]}: ${simplifyNumber((numerator / sum) * 100)}%`;
       },
     },
   },

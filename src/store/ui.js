@@ -39,16 +39,6 @@ export default {
         value: true,
       };
     },
-    UI_USE_HIST_GLOBAL_MAX(state) {
-      const { ui } = state.config || {};
-      if (ui && ui.useHistGlobalMax) {
-        return ui.useHistGlobalMax;
-      }
-      return {
-        show: false,
-        value: false,
-      };
-    },
     UI_USE_TRAINING_LOSS(state) {
       const { ui } = state.config || {};
       if (ui && ui.useTrainingLoss) {
@@ -121,9 +111,6 @@ export default {
         max: 1,
       };
     },
-    UI_GLOBAL_MAX(state) {
-      return state.globalMax;
-    },
     UI_SKIP_INITIAL(state) {
       return state.skipInitial;
     },
@@ -131,9 +118,6 @@ export default {
   mutations: {
     UI_CONFIG_SET(state, value) {
       state.config = value;
-    },
-    UI_GLOBAL_MAX_SET(state, max) {
-      state.globalMax = max;
     },
     UI_SKIP_INITIAL_SET(state, value) {
       state.skipInitial = value;
@@ -146,7 +130,6 @@ export default {
 
       //Set values from new config
       commit('TRAN_PRESS_USE_GRADIENT_SET', getters.UI_USE_GRADIENT.value);
-      commit('UI_GLOBAL_MAX_SET', getters.UI_USE_HIST_GLOBAL_MAX.value);
       commit('UI_SKIP_INITIAL_SET', getters.UI_USE_SKIP_INITIAL.value);
       commit('AI_MODULE_VISIBILITY_SET', getters.UI_MODULE_SELECTOR.values);
       for (const model of getters.UI_ADD_REMOVE_AI.defaultModels) {
