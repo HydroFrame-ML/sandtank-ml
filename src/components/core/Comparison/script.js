@@ -1,11 +1,9 @@
 import { mapGetters, mapMutations } from 'vuex';
 import ImageWithOverlay from 'sandtank-ml/src/components/widgets/ImageWithOverlay';
-import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 import Selector from 'sandtank-ml/src/components/core/Selector';
-import Histogram from 'sandtank-ml/src/components/widgets/Histogram';
-import PieChart from 'sandtank-ml/src/components/widgets/PieChart';
-import LearningChart from 'sandtank-ml/src/components/widgets/LearningChart';
 import EpochChart from 'sandtank-ml/src/components/widgets/EpochChart';
+import DiffErrorChart from 'sandtank-ml/src/components/widgets/DiffErrorChart';
+import DiffErrorHistogram from 'sandtank-ml/src/components/widgets/DiffErrorHistogram';
 
 import { simplifyNumber } from 'sandtank-ml/src/utils/stats';
 
@@ -25,12 +23,10 @@ export default {
     },
   },
   components: {
+    DiffErrorChart,
+    DiffErrorHistogram,
     ImageWithOverlay,
-    ComputedImage,
     Selector,
-    Histogram,
-    PieChart,
-    LearningChart,
     EpochChart,
   },
   computed: {

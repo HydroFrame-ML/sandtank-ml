@@ -1,7 +1,7 @@
 import { histogram, range } from 'sandtank-ml/src/utils/histogram';
 
 export const addErrorStats = (models, ref) => {
-  let histGlobalMax = 0;
+  let globalMax = 0;
 
   for (const model of models) {
     model.stats = {};
@@ -15,37 +15,22 @@ export const addErrorStats = (models, ref) => {
       ref[idx] > normCutoff === p > normCutoff ? 0 : 1,
     );
 
-    // Add Histograms
     // Fill histogram bins
     const binCount = 100;
     const hist = histogram(model.stats.presDelta, { pretty: true });
     const labels = range(1 / binCount, 1 + 1 / binCount, 1 / binCount);
-    const bins = Array(labels.length).fill(0);
+    model.stats.histData = Array(labels.length).fill(0);
     for (let i = 0; i < model.stats.presDelta.length; i++) {
       const value = model.stats.presDelta[i];
       const index = labels.indexOf(hist.fun(value));
-      bins[index] = bins[index] + 1;
+      model.stats.histData[index] = model.stats.histData[index] + 1;
     }
 
-    // Update global max
-    const localMax = Math.max(...bins);
-    if (localMax > histGlobalMax) {
-      histGlobalMax = localMax;
+    // Track global max
+    const localMax = Math.max(...model.stats.histData);
+    if (localMax > globalMax) {
+      globalMax = localMax;
     }
-
-    // Configure dataset
-    model.stats.histData = {
-      labels,
-      datasets: [
-        {
-          data: bins,
-          label: false,
-          backgroundColor: 'rgb(20,20,20)',
-          barPercentage: 1.0,
-          categoryPercentage: 1.0,
-        },
-      ],
-    };
 
     // Add Pie Data
     const errorCount = ([errors, accuracies], val) => {
@@ -56,15 +41,7 @@ export const addErrorStats = (models, ref) => {
       }
       return [errors, accuracies];
     };
-    model.stats.pieData = {
-      labels: ['Errors', 'Accuracies'],
-      datasets: [
-        {
-          data: model.stats.satDelta.reduce(errorCount, [0, 0]),
-          backgroundColor: ['rgb(20,20,20)', 'rgb(200,200,200)'],
-        },
-      ],
-    };
+    model.stats.pieData = model.stats.satDelta.reduce(errorCount, [0, 0]);
 
     // Add error statistics
     const L1Error = (acc, val, idx) => {
@@ -90,7 +67,7 @@ export const addErrorStats = (models, ref) => {
 
   // Set global histogram yMax on all models
   for (let model of models) {
-    model.stats.histGlobalMax = histGlobalMax;
+    model.stats.histGlobalMax = globalMax;
   }
 };
 

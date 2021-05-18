@@ -66,18 +66,17 @@
     <div v-if="showHist" class="d-flex align-items-center">
       <v-col class="flex-grow-0">
         <div style="border: 1px solid grey;" v-if="model.values && isPressure">
-          <Histogram
-            :chart-data="model.stats.histData"
+          <DiffErrorHistogram
+            :data="model.stats.histData"
             :size="model.size"
             :scale="scale"
-            :max="globalMax ? model.stats.histGlobalMax : -1"
+            :globalMax="globalMax ? model.stats.histGlobalMax : -1"
             :class="{[$style.outdated] : needRunAI || needRunSimulation}"
-            class="pa-2"
           />
         </div>
         <div style="border: 1px solid grey;" v-if="model.values && !isPressure">
-          <PieChart
-            :chart-data="model.stats.pieData"
+          <DiffErrorChart
+            :data="model.stats.pieData"
             :size="model.size"
             :scale="scale"
             :class="{[$style.outdated] : needRunAI || needRunSimulation}"
@@ -101,7 +100,7 @@
           >
             <v-icon
               v-show="useGradientConfig.show"
-              v-text="`$toggleGlobalMax`"
+              v-text="`$toggleChartCompare`"
             />
           </v-btn>
           <div v-show="!showGlobalMaxButton" />

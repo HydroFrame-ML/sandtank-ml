@@ -21,7 +21,7 @@ export default new Vuetify({
       ai: 'mdi-brain',
       // toggles
       toggle: 'mdi-orbit-variant',
-      toggleGlobalMax: 'mdi-arrow-vertical-lock',
+      toggleChartCompare: 'mdi-magnify',
       toggleSkipInitial: 'mdi-blur-linear',
 
       // comparison icons
