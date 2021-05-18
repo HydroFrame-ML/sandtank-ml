@@ -15,19 +15,32 @@ export default {
     },
   },
   computed: {
-    chartData() {
+    chart() {
       return {
-        labels: ['Errors', 'Accuracies'],
-        datasets: [
-          {
-            data: this.data,
-            backgroundColor: ['rgb(20,20,20)', 'rgb(200,200,200)'],
-          },
-        ],
+        data: {
+          labels: ['Errors', 'Accuracies'],
+          datasets: [
+            {
+              data: this.data,
+              backgroundColor: ['rgb(20,20,20)', 'rgb(200,200,200)'],
+            },
+          ],
+        },
+        options,
       };
     },
-    chartOptions() {
-      return {};
+  },
+};
+
+var options = {
+  legend: { display: false },
+  tooltips: {
+    callbacks: {
+      label: function({ index, datasetIndex }, { labels, datasets }) {
+        const sum = datasets[datasetIndex].data.reduce((acc, val) => acc + val);
+        const numerator = datasets[datasetIndex].data[index];
+        return `${labels[index]}: ${numerator / sum}%`;
+      },
     },
   },
 };

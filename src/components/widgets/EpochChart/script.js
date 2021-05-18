@@ -6,6 +6,9 @@ const BoxPlot = generateChart('boxplot', 'boxplot');
 
 const options = {
   legend: { display: false },
+  layout: {
+    padding: 16,
+  },
   animation: false,
   scales: {
     xAxes: [
@@ -34,8 +37,8 @@ export default {
   mounted() {
     // Set chart canvas size
     const [width, height] = this.size;
-    this.$el.firstElementChild.width = width * this.scale - 8 * 2; // Adjust for vuetify pa-2
-    this.$el.firstElementChild.height = height * this.scale - 8 * 2;
+    this.$el.firstElementChild.width = width * this.scale;
+    this.$el.firstElementChild.height = height * this.scale;
     this.renderChart(this.chartData, options);
   },
 };
