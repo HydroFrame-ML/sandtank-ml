@@ -22,7 +22,7 @@
     },
     "useHistGlobalMax": {
       "show": true,
-      "value": true
+      "value": false 
     },
     "usePermeabilityLabels": {
       "show": true,

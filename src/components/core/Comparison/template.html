@@ -68,6 +68,7 @@
         <div style="border: 1px solid grey;" v-if="model.values && isPressure">
           <DiffErrorHistogram
             :data="model.stats.histData"
+            :labels="model.stats.histLabels"
             :size="model.size"
             :scale="scale"
             :globalMax="globalMax ? model.stats.histGlobalMax : -1"

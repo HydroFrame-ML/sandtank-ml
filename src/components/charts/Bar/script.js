@@ -7,8 +7,8 @@ export default {
   mounted() {
     // Set chart canvas size
     const [width, height] = this.size;
-    this.$el.firstElementChild.width = width * this.scale - 8 * 2; // Adjust for vuetify pa-2
-    this.$el.firstElementChild.height = height * this.scale - 8 * 2;
+    this.$el.firstElementChild.width = width * this.scale;
+    this.$el.firstElementChild.height = height * this.scale;
     this.renderChart(this.chart.data, this.chart.options);
   },
   watch: {
