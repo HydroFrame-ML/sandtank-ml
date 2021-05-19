@@ -59,7 +59,7 @@ export const simplifyNumber = (n) => {
   }
 
   let decimalPlaces = 0 - Math.ceil(Math.log(n) / Math.log(10));
-  if (isNaN(decimalPlaces)) {
+  if (isNaN(decimalPlaces) || decimalPlaces < 1) {
     decimalPlaces = 1;
   }
 

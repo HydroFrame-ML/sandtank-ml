@@ -1,5 +1,4 @@
 import PieChart from 'sandtank-ml/src/components/charts/PieChart';
-import { simplifyNumber } from 'sandtank-ml/src/utils/stats';
 
 export default {
   name: 'DiffErrorChart',
@@ -17,12 +16,21 @@ export default {
   },
   computed: {
     chart() {
+      // Chart two percentages that add to 100%
+      const [errors, accuracies] = this.data;
+      const asPercentages = [errors, accuracies].map(
+        (d) => (d / (errors + accuracies)) * 100,
+      );
+      const bigger = Math.floor(Math.max(...asPercentages));
+      const smaller = 100 - bigger;
+      const data = errors > accuracies ? [bigger, smaller] : [smaller, bigger];
+
       return {
         data: {
           labels: ['Errors', 'Accuracies'],
           datasets: [
             {
-              data: this.data,
+              data,
               backgroundColor: ['rgb(20,20,20)', 'rgb(200,200,200)'],
             },
           ],
@@ -37,11 +45,11 @@ var options = {
   legend: { display: false },
   tooltips: {
     callbacks: {
-      label: function({ index, datasetIndex }, { labels, datasets }) {
-        const sum = datasets[datasetIndex].data.reduce((acc, val) => acc + val);
-        const numerator = datasets[datasetIndex].data[index];
-        return `${labels[index]}: ${simplifyNumber((numerator / sum) * 100)}%`;
-      },
+      label: displayPercentages,
     },
   },
 };
+
+function displayPercentages({ index, datasetIndex }, { labels, datasets }) {
+  return `${labels[index]}: ${datasets[datasetIndex].data[index]}%`;
+}
