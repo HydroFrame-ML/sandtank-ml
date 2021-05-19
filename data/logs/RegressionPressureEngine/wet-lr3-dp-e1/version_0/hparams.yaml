@@ -1,0 +1,6 @@
+grid_shape: !!python/tuple
+- 50
+- 1
+- 100
+learning_rate: 0.001
+use_dropout: true

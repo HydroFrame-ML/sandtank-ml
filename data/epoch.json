@@ -29,5 +29,5 @@
       }
     },
     "uriPattern":
-      "RegressionPressure://models/odd-lr4-ndp-${epoch}.out"
+      "RegressionPressure://odd-lr4-ndp-${epoch}.out"
   }

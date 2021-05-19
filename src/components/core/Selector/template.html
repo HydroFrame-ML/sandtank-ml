@@ -11,6 +11,7 @@
         :items="definition.getItems(name)"
         :value="definition.getValue(name)"
         @input="definition.setValue(name, $event)"
+        :disabled="!addRemoveAI.show"
         dense
         hide-details
       />

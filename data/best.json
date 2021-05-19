@@ -1,8 +1,12 @@
 {
   "ui": {
-    "time": [-1, 10]
+    "time": [-1, 10],
+    "addRemoveAI": {
+      "show": false,
+      "defaultModels": [{}]
+    }
   },
   "order": [],
   "parameters": {},
-  "uriPattern": "RegressionPressure://models/best.out"
+  "uriPattern": "RegressionPressure://best.out"
 }

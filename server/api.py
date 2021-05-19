@@ -57,7 +57,12 @@ class AI(LinkProtocol):
         model_type, model_path = model_uri.split("://")
         if model_path not in self.loaded_models:
             model = load_ml_model(
-                model_type, os.path.abspath(os.path.join(self.basepath, model_path))
+                model_type,
+                os.path.abspath(
+                    os.path.join(
+                        self.basepath, "models", model_type + "Engine", model_path
+                    )
+                ),
             )
             self.loaded_models[model_path] = model
 
@@ -65,7 +70,6 @@ class AI(LinkProtocol):
 
     def get_stats(self, model_uri):
         model_type, model_path = model_uri.split("://")
-        _model_dir, model_path = model_path.split("/")
         model_path, _extension = model_path.split(".")
         log_dir = "logs"
         version_dir = "version_0"
@@ -75,7 +79,7 @@ class AI(LinkProtocol):
                 os.path.join(
                     self.basepath,
                     log_dir,
-                    model_type,
+                    model_type + "Engine",
                     model_path,
                     version_dir,
                     log_name,

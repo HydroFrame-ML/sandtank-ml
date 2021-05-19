@@ -119,7 +119,7 @@ export default {
       const newModels = [];
       for (let i = 0; i < responses.length; i++) {
         const newModel = { ...state.models[i], ...responses[i] };
-        if (!newModel.learningStats) {
+        if (getters.UI_MODULE_AVAILABLE('stats') && !newModel.learningStats) {
           newModel.learningStats = await dispatch('WS_STATS', {
             uri: newModel.modelSelector.getURI(),
           });

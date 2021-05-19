@@ -24,7 +24,7 @@ export default {
         return ui.addRemoveAI;
       }
       return {
-        show: false,
+        show: true,
         defaultModels: [],
       };
     },
