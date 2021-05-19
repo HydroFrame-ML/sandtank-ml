@@ -22,12 +22,11 @@ export default {
       const xMax = Number(this.xMax);
       const binCount = 100;
       const labels = range(1 / binCount, xMax + 1 / binCount, xMax / binCount);
-      console.log({ labels });
       const hist = new Histogram(this.data, labels);
 
       return {
         data: {
-          labels: labels.map((d) => d.toFixed(3)),
+          labels: formatLabels(labels),
           datasets: [
             {
               data: hist.calculateBins(),
@@ -61,10 +60,6 @@ var options = {
         },
         ticks: {
           maxTicksLimit: 2,
-          callback: function(value) {
-            if (value > 1) return 1;
-            return value;
-          },
         },
       },
     ],
@@ -80,3 +75,8 @@ var options = {
     ],
   },
 };
+
+function formatLabels(values) {
+  // 3 decimal places, then remove trailing zeroes
+  return values.map((d) => String(Number(d.toFixed(3))));
+}
