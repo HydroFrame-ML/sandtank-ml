@@ -71,7 +71,7 @@
             :labels="model.stats.histLabels"
             :size="model.size"
             :scale="scale"
-            :yMax="globalMax ? model.stats.histGlobalMax : -1"
+            :yMax=" model.stats.histGlobalMax "
             :xMax="diffScale"
             :class="{[$style.outdated] : needRunAI || needRunSimulation}"
           />

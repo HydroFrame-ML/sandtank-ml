@@ -3,7 +3,6 @@ import ModelSelector from 'sandtank-ml/src/utils/ModelSelector';
 export default {
   state: {
     config: {},
-    globalMax: true,
     trainingLoss: true,
     skipInitial: true,
   },

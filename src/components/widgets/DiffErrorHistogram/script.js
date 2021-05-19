@@ -1,5 +1,5 @@
 import Bar from 'sandtank-ml/src/components/charts/Bar';
-import { histogram, range } from 'sandtank-ml/src/utils/stats';
+import { Histogram, range } from 'sandtank-ml/src/utils/stats';
 
 export default {
   name: 'DiffErrorChart',
@@ -20,22 +20,17 @@ export default {
   computed: {
     chart() {
       const xMax = Number(this.xMax);
-      const hist = histogram(this.data);
       const binCount = 100;
       const labels = range(1 / binCount, xMax + 1 / binCount, xMax / binCount);
-      const bins = Array(labels.length).fill(0);
-      for (let i = 0; i < this.data.length; i++) {
-        const value = this.data[i];
-        const index = labels.indexOf(hist.fun(value));
-        bins[index] = bins[index] + 1;
-      }
+      console.log({ labels });
+      const hist = new Histogram(this.data, labels);
 
       return {
         data: {
-          labels: labels.map((d) => d.toFixed(2)),
+          labels: labels.map((d) => d.toFixed(3)),
           datasets: [
             {
-              data: bins,
+              data: hist.calculateBins(),
               label: false,
               backgroundColor: 'rgb(20,20,20)',
               barPercentage: 1.0,
@@ -66,7 +61,7 @@ var options = {
         },
         ticks: {
           maxTicksLimit: 2,
-          callback: function roundToQuarters(value) {
+          callback: function(value) {
             if (value > 1) return 1;
             return value;
           },
