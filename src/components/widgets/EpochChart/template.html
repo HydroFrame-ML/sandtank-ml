@@ -1,1 +1,14 @@
-<BoxPlot :chart="chart" :size="size" :scale="scale" />
+<div>
+  <BoxPlot
+    v-if="epochIndex === null"
+    :chart="chart"
+    :size="size"
+    :scale="scale"
+  />
+  <Bar
+    v-if="epochIndex !== null"
+    :chart="epochBySteps"
+    :size="size"
+    :scale="scale"
+  />
+</div>

@@ -39,19 +39,49 @@ export default {
             },
           ],
         },
-        options,
+        options: { ...options, onClick: this.onClickBox },
+      };
+    },
+    epochBySteps() {
+      let validation = this.data.validationByEpoch[this.epochIndex];
+      let training = this.data.trainingByEpoch[this.epochIndex];
+
+      let labels = [...Array(validation.length).keys()].map((e) => `s${e}`);
+
+      return {
+        data: {
+          labels,
+          datasets: [
+            {
+              data: validation,
+              borderColor: 'black',
+            },
+            {
+              data: training,
+              borderColor: '#cf3f3f',
+              backgroundColor: '#cf3f3f',
+            },
+          ],
+        },
+        options: { ...options, onClick: this.onClickBar },
       };
     },
   },
+  methods: {
+    onClickBox(_e, charts) {
+      console.log('clickBox', { epochIndex: this.epochIndex });
+      try {
+        this.epochIndex = charts[0]._index;
+      } catch {
+        this.epochIndex = null;
+      }
+    },
+    onClickBar() {
+      console.log('clickBar', { epochIndex: this.epochIndex });
+      this.epochIndex = null;
+    },
+  },
 };
-
-function onClick(e, charts) {
-  try {
-    this.epochIndex = charts[0]._index;
-  } catch {
-    this.epochIndex = null;
-  }
-}
 
 var options = {
   legend: { display: false },
@@ -82,5 +112,4 @@ var options = {
   },
   tooltipDecimals: 3,
   events: ['click', 'mousemove', 'mouseout'],
-  onClick,
 };
