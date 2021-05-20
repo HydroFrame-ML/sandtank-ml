@@ -1,6 +1,6 @@
 # sandtank-ml
 
-SandTank-ML provide an application for learning and seeing how ML behave compared to a physic based simulator such as ParFlow.
+SandTank-ML provides an application for learning and seeing how ML behaves compared to a physics-based simulator such as ParFlow.
 
 # Running the application
 
@@ -26,16 +26,16 @@ docker run --rm \
 
 Just point your browser to `$SERVER_NAME`
 
-Then to choose a given `lesson plan` (json file in your `$DATA` directory), just provide the name of the file without the extension in the URL.
+Then to choose a given `lesson plan` (json file in your `$DATA` directory), just provide the name of the file without the extension in the URL. There are sample lesson plans in a google drive under __Hydroframe-ML > Sandtank-ML > data__.
 
-For example `http://localhost:9000/?name=dropout`.
+For example, after downloading`dropout.json`, point your browser to `http://localhost:9000/?name=dropout`.
 
 ## Creating a lesson plan
 
-For that you will have to create a `json` file in your `$DATA` directory following the structure below:
+Lesson plans are `.json` files in your `$DATA` directory following the structure below:
 
 ```
-# configure the UI to match your expectation
+# configure the UI to show or hide features or to set initial values
 ui:
   time: [-1, 5],
   moduleSelector:
@@ -55,7 +55,7 @@ ui:
       show: true
       value: true
 
-# set of parameters to selection a trained model
+# set of parameters to select a trained model
 uriPattern: ${model}://models/${training}-${learningRate}-${dropOut}-${epoch}.out
 order:
   - model
