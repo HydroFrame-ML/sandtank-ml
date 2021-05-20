@@ -70,7 +70,7 @@ class AI(LinkProtocol):
         log_dir = "logs"
         version_dir = "version_0"
         log_name = "metrics.csv"
-        return load_ml_stats(
+        stats = load_ml_stats(
             os.path.abspath(
                 os.path.join(
                     self.basepath,
@@ -81,6 +81,8 @@ class AI(LinkProtocol):
                 )
             )
         )
+        stats.update({"uri": model_uri})
+        return stats
 
     @exportRpc("parflow.ai.predict")
     def predict(self, model_uri, left, right, time):

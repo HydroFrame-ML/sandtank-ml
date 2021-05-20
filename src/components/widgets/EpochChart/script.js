@@ -1,3 +1,4 @@
+import { mapGetters } from 'vuex';
 import BoxPlot from 'sandtank-ml/src/components/charts/BoxPlot';
 import Bar from 'sandtank-ml/src/components/charts/Bar';
 
@@ -9,12 +10,15 @@ export default {
   }),
   props: ['data', 'size', 'scale'],
   computed: {
+    ...mapGetters({
+      skipInitial: 'UI_SKIP_INITIAL',
+    }),
     chart() {
       let validation = Object.values(this.data.validationByEpoch);
       let training = Object.values(this.data.trainingByEpoch);
       let labels = [...Array(validation.length).keys()].map((e) => `E${e}`);
 
-      if (this.skipInitial) {
+      if (this.skipInitial && labels.length > 1) {
         labels = labels.slice(1);
         training = training.slice(1);
         validation = validation.slice(1);

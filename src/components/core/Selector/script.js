@@ -1,5 +1,3 @@
-import { mapGetters } from 'vuex';
-
 export default {
   name: 'Selector',
   props: {
@@ -9,9 +7,6 @@ export default {
     },
   },
   computed: {
-    ...mapGetters({
-      addRemoveAI: 'UI_ADD_REMOVE_AI',
-    }),
     columSize() {
       let count = 0;
       const names = this.definition.getKeyNames();

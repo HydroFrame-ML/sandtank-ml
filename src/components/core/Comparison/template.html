@@ -167,12 +167,13 @@
             small
             icon
             class="mr-2 pt-2"
-            v-show="useSkipInitial.show"
+            v-show="showSkipInitialButton"
             @click="setSkipInitial(!skipInitial)"
             :disabled="needRunAI"
           >
             <v-icon v-text="`$toggleSkipInitial`" />
           </v-btn>
+          <div v-show="!showSkipInitialButton" />
           <div class="text-h6 pt-2">
             Epoch loss
           </div>

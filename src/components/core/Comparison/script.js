@@ -70,6 +70,14 @@ export default {
     showGlobalMaxButton() {
       return this.aiModelCount > 1 && this.isPressure;
     },
+    showSkipInitialButton() {
+      if (this.model.learningStats) {
+        const v = this.model.learningStats.validationByEpoch;
+        const epochCount = Object.keys(v).length;
+        return epochCount > 1 && this.useSkipInitial.show;
+      }
+      return false;
+    },
   },
   methods: {
     ...mapMutations({

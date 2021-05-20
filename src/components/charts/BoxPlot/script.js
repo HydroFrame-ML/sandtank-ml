@@ -14,4 +14,9 @@ export default {
     this.$el.firstElementChild.height = height * this.scale;
     this.renderChart(this.chart.data, this.chart.options);
   },
+  watch: {
+    chart() {
+      this.renderChart(this.chart.data, this.chart.options);
+    },
+  },
 };
