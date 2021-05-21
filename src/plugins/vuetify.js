@@ -25,7 +25,7 @@ export default new Vuetify({
       toggleSkipInitial: 'mdi-blur-linear',
 
       // comparison icons
-      closeComparison: 'mdi-close',
+      close: 'mdi-close',
       showSelection: 'mdi-format-list-checks',
       showPrediction: 'mdi-auto-fix',
       showDiff: 'mdi-vector-difference',

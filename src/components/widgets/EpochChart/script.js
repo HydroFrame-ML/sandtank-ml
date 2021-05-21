@@ -1,4 +1,4 @@
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import BoxPlot from 'sandtank-ml/src/components/charts/BoxPlot';
 import Bar from 'sandtank-ml/src/components/charts/Bar';
 
@@ -12,7 +12,11 @@ export default {
   computed: {
     ...mapGetters({
       skipInitial: 'UI_SKIP_INITIAL',
+      useSkipInitial: 'UI_USE_SKIP_INITIAL',
+      aiLoading: 'AI_IS_RUNNING',
+      needRunAI: 'AI_RUN_NEEDED',
     }),
+
     chart() {
       let validation = Object.values(this.data.validationByEpoch);
       let training = Object.values(this.data.trainingByEpoch);
@@ -39,45 +43,61 @@ export default {
             },
           ],
         },
-        options: { ...options, onClick: this.onClickBox },
+        options: { ...options, onClick: this.setEpochIndex },
       };
     },
     epochBySteps() {
-      let validation = this.data.validationByEpoch[this.epochIndex];
-      let training = this.data.trainingByEpoch[this.epochIndex];
+      // Pad both arrays so validation occurs after training
+      const training = this.data.trainingByEpoch[this.epochIndex];
+      const validation = this.data.validationByEpoch[this.epochIndex];
+      const paddedTraining = training.concat(Array(validation.length).fill(0));
+      const paddedValidation = Array(training.length)
+        .fill(0)
+        .concat(validation);
 
-      let labels = [...Array(validation.length).keys()].map((e) => `s${e}`);
-
+      const labels = [...Array(paddedTraining.length).keys()];
       return {
         data: {
           labels,
           datasets: [
             {
-              data: validation,
+              label: 'Training',
+              data: paddedTraining,
               borderColor: 'black',
+              backgroundColor: 'black',
             },
             {
-              data: training,
+              label: 'Validation',
+              data: paddedValidation,
               borderColor: '#cf3f3f',
               backgroundColor: '#cf3f3f',
             },
           ],
         },
-        options: { ...options, onClick: this.onClickBar },
+        options: epochByStepOptions,
       };
+    },
+    showSkipInitialButton() {
+      if (this.data) {
+        const v = this.data.validationByEpoch;
+        const epochCount = Object.keys(v).length;
+        return epochCount > 1 && this.useSkipInitial.show;
+      }
+      return false;
     },
   },
   methods: {
-    onClickBox(_e, charts) {
-      console.log('clickBox', { epochIndex: this.epochIndex });
+    ...mapMutations({
+      setSkipInitial: 'UI_SKIP_INITIAL_SET',
+    }),
+    setEpochIndex(_e, charts) {
       try {
         this.epochIndex = charts[0]._index;
       } catch {
-        this.epochIndex = null;
+        this.resetEpochIndex();
       }
     },
-    onClickBar() {
-      console.log('clickBar', { epochIndex: this.epochIndex });
+    resetEpochIndex() {
       this.epochIndex = null;
     },
   },
@@ -100,6 +120,9 @@ var options = {
         gridLines: {
           display: false,
         },
+        ticks: {
+          maxTicksLimit: 4,
+        },
       },
     ],
     yAxes: [
@@ -111,5 +134,29 @@ var options = {
     ],
   },
   tooltipDecimals: 3,
-  events: ['click', 'mousemove', 'mouseout'],
+};
+
+var epochByStepOptions = {
+  ...options,
+  legend: { display: true },
+  layout: {},
+  scales: {
+    xAxes: [
+      {
+        gridLines: {
+          display: false,
+        },
+        ticks: {
+          maxTicksLimit: 4,
+        },
+      },
+    ],
+    yAxes: [
+      {
+        ticks: {
+          maxTicksLimit: 4,
+        },
+      },
+    ],
+  },
 };

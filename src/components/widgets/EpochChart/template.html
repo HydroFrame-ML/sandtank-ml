@@ -1,14 +1,55 @@
-<div>
-  <BoxPlot
-    v-if="epochIndex === null"
-    :chart="chart"
-    :size="size"
-    :scale="scale"
+<v-col class="flex-grow-0">
+  <div style="border: 1px solid grey;" v-if="data">
+    <div style="position: relative;">
+      <BoxPlot
+        v-if="epochIndex === null"
+        :chart="chart"
+        :size="size"
+        :scale="scale"
+      />
+      <Bar
+        v-if="epochIndex !== null"
+        :chart="epochBySteps"
+        :size="size"
+        :scale="scale"
+        @mouseleave="resetEpochIndex"
+      />
+      <v-btn
+        absolute
+        v-show="epochIndex !== null"
+        elevation="2"
+        @click="resetEpochIndex"
+        style="left: -6px; top: -6px;"
+        class="white"
+        icon
+        x-small
+      >
+        <v-icon small v-text="`$close`" />
+      </v-btn>
+    </div>
+  </div>
+  <v-skeleton-loader
+    v-show="!data"
+    type="image"
+    :width="100 * scale"
+    :height="50 * scale"
+    :boilerplate="!aiLoading"
   />
-  <Bar
-    v-if="epochIndex !== null"
-    :chart="epochBySteps"
-    :size="size"
-    :scale="scale"
-  />
-</div>
+  <v-row class="justify-space-between align-center pa-2">
+    <v-btn
+      small
+      icon
+      class="mr-2 pt-2"
+      v-show="showSkipInitialButton"
+      @click="setSkipInitial(!skipInitial)"
+      :disabled="needRunAI"
+    >
+      <v-icon v-text="`$toggleSkipInitial`" />
+    </v-btn>
+    <div v-show="!showSkipInitialButton" />
+    <div class="text-h6 pt-2">
+      {{epochIndex === null ? "Loss across epochs" : "Loss across steps"}}
+    </div>
+    <div />
+  </v-row>
+</v-col>
