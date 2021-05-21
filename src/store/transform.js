@@ -126,7 +126,7 @@ export default {
     diffScale: 0.5,
   },
   getters: {
-    TRAN_PRESS_USE_GRADIENT(state) {
+    TRAN_USE_PRESSURE(state) {
       return state.pressureGradient;
     },
     TRAN_PERMABILITY() {
@@ -184,7 +184,7 @@ export default {
     },
   },
   mutations: {
-    TRAN_PRESS_USE_GRADIENT_SET(state, value) {
+    TRAN_USE_PRESSURE_SET(state, value) {
       state.pressureGradient = value;
     },
     TRAN_DIFF_SCALE_SET(state, value) {

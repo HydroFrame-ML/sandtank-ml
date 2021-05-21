@@ -40,10 +40,10 @@ export default {
       aiModelCount: 'AI_MODEL_COUNT',
       simulationTime: 'SIM_RUN_TIMESTEP',
       permeabilityToColor: 'TRAN_PERMABILITY_AI',
-      isPressure: 'TRAN_PRESS_USE_GRADIENT',
+      isPressure: 'TRAN_USE_PRESSURE',
       fieldName: 'TRAN_FIELD_NAME',
       diffScale: 'TRAN_DIFF_SCALE',
-      useGradientConfig: 'UI_USE_GRADIENT',
+      usePressureConfig: 'UI_USE_PRESSURE',
       useSkipInitial: 'UI_USE_SKIP_INITIAL',
       useDiffLabels: 'UI_USE_DIFF_LABELS',
       useWaterLabels: 'UI_USE_WATER_LABELS',
@@ -73,7 +73,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setPressure: 'TRAN_PRESS_USE_GRADIENT_SET',
+      setPressure: 'TRAN_USE_PRESSURE_SET',
       setSkipInitial: 'UI_SKIP_INITIAL_SET',
     }),
     simplifyNumber,

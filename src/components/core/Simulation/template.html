@@ -68,9 +68,9 @@
         icon
         class="mr-2"
         @click="setPressure(!isPressure)"
-        :disabled="!useGradientConfig.show"
+        :disabled="!usePressureConfig.show"
       >
-        <v-icon v-show="useGradientConfig.show" v-text="`$toggle`" />
+        <v-icon v-show="usePressureConfig.show" v-text="`$toggle`" />
       </v-btn>
       <div class="text-h6">{{ fieldName }}</div>
       <div class="body-2">t({{ simulationTime }})</div>

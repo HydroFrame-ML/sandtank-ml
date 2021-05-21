@@ -27,7 +27,7 @@ export default {
     gradientColor(v) {
       this.setUseGradientColor(v);
     },
-    useGradientConfig({ value }) {
+    usePressureConfig({ value }) {
       this.gradientColor = value;
     },
     diffScalingConfig({ value }) {
@@ -41,10 +41,10 @@ export default {
       timeRange: 'UI_TIME_RANGE',
       simulationLoading: 'SIM_IS_RUNNING',
       simulationTime: 'SIM_RUN_TIMESTEP',
-      useGradientConfig: 'UI_USE_GRADIENT',
+      usePressureConfig: 'UI_USE_PRESSURE',
       visibility: 'AI_MODULE_VISIBILITY',
       diffScale: 'TRAN_DIFF_SCALE',
-      isPressure: 'TRAN_PRESS_USE_GRADIENT',
+      isPressure: 'TRAN_USE_PRESSURE',
       moduleConfig: 'UI_MODULE_SELECTOR',
       isModuleAvailable: 'UI_MODULE_AVAILABLE',
       diffScalingConfig: 'UI_DIFF_SCALING',
@@ -64,7 +64,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      setUseGradientColor: 'TRAN_PRESS_USE_GRADIENT_SET',
+      setUseGradientColor: 'TRAN_USE_PRESSURE_SET',
       updateVisibility: 'AI_MODULE_VISIBILITY_SET',
       setDiffScale: 'TRAN_DIFF_SCALE_SET',
     }),

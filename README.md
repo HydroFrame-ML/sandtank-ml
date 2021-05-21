@@ -32,60 +32,127 @@ For example, after downloading`dropout.json`, point your browser to `http://loca
 
 ## Creating a lesson plan
 
-Lesson plans are `.json` files in your `$DATA` directory following the structure below:
+Lesson plans are `.json` files in your `$DATA` directory following the structure below. Samples are available in this repos /data folder.
+
+### UI Features
+Set the range of timesteps available to the simulator. (Note, -1 is for debugging purposes)
+```
+    "time": [-1, 5],
+```
+Select which charts and images are available for comparison, as well as whether to show their show/hide controls. 
+```
+    "moduleSelector": {
+      "show": true,
+      "values": ["selection", "prediction", "diff", "hist", "error", "stats"]
+    },
+```
+Select the contrast range for the image diffing the simulation vs an ai model.
+```
+    "diffScaling": {
+      "show": true,
+      "value": 0.5,
+      "min": 0.1,
+      "step": 0.1,
+      "max": 1
+    }
+```
+Select whether to show pressure, or saturation, or to show a button switching betwen them.
+```
+    "usePressure": {
+      "show": true,
+      "value": false 
+    }
 
 ```
-# configure the UI to show or hide features or to set initial values
-ui:
-  time: [-1, 5],
-  moduleSelector:
-    show: true,
-    values:
-      - selection
-      - prediction
-      - diff
-      - stats
-    diffScaling:
-      show: true
-      value: 0.5
-      min: 0.1
-      step: 0.1
-      max: 1
-    useGradient: // FIXME saturation/pressure toggle
-      show: true
-      value: true
+Select whether to let the user add/remove models to/from the comparison. Also, set which models will appear in the comparison at startup.
+```
+    "addRemoveAI": {
+      "show": true,
+      "defaultModels": [
+        { 
+          "model": "RegressionPressure",
+          "training":"full",
+          "learningRate": "lr4",
+          "dropOut":"ndp",
+          "epoch":"e1"
+        },
 
-# set of parameters to select a trained model
-uriPattern: ${model}://models/${training}-${learningRate}-${dropOut}-${epoch}.out
-order:
-  - model
-  - training
-  - learningRate
-  - dropOut
-  - epoch
-parameters:
-  model:
-    label: Model type
-    items:
-      - { "text": "Pressure", "value": "RegressionPressure" }
-  training:
-    label: Learning set
-    items:
-      - { "text": "All", "value": "full" }
-      - { "text": "Wet", "value": "wet" }
-      - { "text": "Dry", "value": "dry" }
-  learningRate:
-    label: Learning Rate
-    items:
-      - { "text": "0.0001", "value": "lr4" }
-  dropOut:
-    label: Use drop out
-    items:
-      - { "text": "No", "value": "ndp" }
-  epoch:
-    label: Number of trainings
-    items:
-      - { "value": "e1", "text": "One time" }
+      ]
+    }
+```
+Select whether a label should follow the mouse along the permeability image. Also, set label values to show instead of numbers. 
+```
+    "usePermeabilityLabels": {
+      "show": true,
+      "values": {
+        "0": "A River",
+        "1": "Sand",
+        "0.6": "Compacted Sand",
+        "0.05": "Dense Clay"
+      }
+    }
+```
+Select whether a label should follow the mouse along the diff image. Also, set label values to show instead of numbers. 
+```
+    "useDiffLabels": {
+      "show": true,
+      "values": {
+        "0": "Accurate",
+        "1": "Error"
+      }
+    }
+```
+Select whether to a label should follow the mouse along the water images.
+```
+    "useWaterLabels": {
+      "show": true
+    }
+
+```
+Select whether to skip the first epoch in learning stats sets with more than one epoch. First epochs are often outliers, distoring the graph. A value can be set, or a button can be shown.
+```
+    "useSkipInitial" : {
+      "show": true,
+      "value": true
+    }
+```
+
+### UI Features
+The application will look for files in your $DATA directory corresponding to the uri pattern. That pattern is filled by your parameters, which will be shown in your specified order. 
+```
+  "uriPattern": "${model}://${training}-${learningRate}-${dropOut}-${epoch}.out"
+  "order": ["model", "training", "learningRate", "dropOut", "epoch"],
+  "parameters": {
+    "model": {
+      "label": "Model",
+      "items": [{ "text": "Pressure", "value": "RegressionPressure" }]
+    },
+    "training": {
+      "label": "Learning set",
+      "items": [
+        { "text": "All", "value": "full" },
+        { "text": "Wet", "value": "wet" },
+        { "text": "Dry", "value": "dry" }
+      ]
+    },
+    "learningRate": {
+      "label": "Learning Rate",
+      "items": [
+        { "text": "0.0001", "value": "lr4" }
+      ]
+    },
+    "dropOut": {
+      "label": "Use drop out",
+      "items": [
+        { "text": "No", "value": "ndp" }
+      ]
+    },
+    "epoch": {
+      "label": "Number of trainings",
+      "items": [
+        { "value": "e1", "text": "One time" }
+      ]
+    }
 ```
 
 # Developer gotchas

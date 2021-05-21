@@ -28,10 +28,10 @@ export default {
         defaultModels: [],
       };
     },
-    UI_USE_GRADIENT(state) {
+    UI_USE_PRESSURE(state) {
       const { ui } = state.config || {};
-      if (ui && ui.useGradient) {
-        return ui.useGradient;
+      if (ui && ui.usePressure) {
+        return ui.usePressure;
       }
       return {
         show: false,
@@ -128,7 +128,7 @@ export default {
       commit('UI_CONFIG_SET', newConfig);
 
       //Set values from new config
-      commit('TRAN_PRESS_USE_GRADIENT_SET', getters.UI_USE_GRADIENT.value);
+      commit('TRAN_USE_PRESSURE_SET', getters.UI_USE_PRESSURE.value);
       commit('UI_SKIP_INITIAL_SET', getters.UI_USE_SKIP_INITIAL.value);
       commit('AI_MODULE_VISIBILITY_SET', getters.UI_MODULE_SELECTOR.values);
       for (const model of getters.UI_ADD_REMOVE_AI.defaultModels) {

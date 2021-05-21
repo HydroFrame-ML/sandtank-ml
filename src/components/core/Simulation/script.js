@@ -11,7 +11,7 @@ export default {
   components: { ImageWithOverlay, ComputedImage },
   computed: {
     ...mapGetters({
-      isPressure: 'TRAN_PRESS_USE_GRADIENT',
+      isPressure: 'TRAN_USE_PRESSURE',
       loading: 'SIM_IS_RUNNING',
       leftSlider: 'SIM_LEFT',
       rightSlider: 'SIM_RIGHT',
@@ -22,7 +22,7 @@ export default {
       normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
       toNormPress: 'TRAN_PRESS_TO_NORM',
       simulationTime: 'SIM_RUN_TIMESTEP',
-      useGradientConfig: 'UI_USE_GRADIENT',
+      usePressureConfig: 'UI_USE_PRESSURE',
       usePermeabilityLabels: 'UI_USE_PERMEABILITY_LABELS',
       useWaterLabels: 'UI_USE_WATER_LABELS',
       needRunSimulation: 'SIM_RUN_NEEDED',
@@ -39,7 +39,7 @@ export default {
     ...mapMutations({
       setLeftSlider: 'SIM_LEFT_SET',
       setRightSlider: 'SIM_RIGHT_SET',
-      setPressure: 'TRAN_PRESS_USE_GRADIENT_SET',
+      setPressure: 'TRAN_USE_PRESSURE_SET',
     }),
   },
 };
