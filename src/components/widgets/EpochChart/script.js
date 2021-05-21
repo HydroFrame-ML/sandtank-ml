@@ -47,8 +47,13 @@ export default {
       };
     },
     epochBySteps() {
-      // Pad both arrays so validation occurs after training
-      const idx = this.skipInitial ? this.epochIndex + 1 : this.epochIndex;
+      const epochCount = Object.keys(this.data.trainingByEpoch).length;
+      const idx =
+        this.skipInitial && epochCount > 1
+          ? this.epochIndex + 1
+          : this.epochIndex;
+
+      // Pad learning arrays so validation occurs after training
       const training = this.data.trainingByEpoch[idx];
       const validation = this.data.validationByEpoch[idx];
       const paddedTraining = training.concat(Array(validation.length).fill(0));
