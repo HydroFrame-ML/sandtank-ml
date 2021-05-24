@@ -5,8 +5,6 @@ import EpochChart from 'sandtank-ml/src/components/widgets/EpochChart';
 import DiffErrorChart from 'sandtank-ml/src/components/widgets/DiffErrorChart';
 import DiffErrorHistogram from 'sandtank-ml/src/components/widgets/DiffErrorHistogram';
 
-import { simplifyNumber } from 'sandtank-ml/src/utils/stats';
-
 // ----------------------------------------------------------------------------
 // Component API
 // ----------------------------------------------------------------------------
@@ -76,7 +74,6 @@ export default {
       setPressure: 'TRAN_USE_PRESSURE_SET',
       setSkipInitial: 'UI_SKIP_INITIAL_SET',
     }),
-    simplifyNumber,
     decorate(data) {
       return {
         labels: [...Array(data.length).keys()],

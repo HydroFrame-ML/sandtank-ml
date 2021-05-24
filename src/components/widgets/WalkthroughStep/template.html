@@ -1,0 +1,19 @@
+<div :class="{walkthroughHighlight: stepIs(stepName)}">
+  <slot />
+  <style>
+    .walkthroughHighlight {
+      position: relative;
+      z-index: 10; /* Vuetify overlay z-index: 5;*/
+      animation: glow 1s infinite alternate;
+    }
+
+    @keyframes glow {
+      from {
+        box-shadow: 0 0 5px -5px #79e9ed;
+      }
+      to {
+        box-shadow: 0 0 5px 5px #79e9ed;
+      }
+    }
+  </style>
+</div>

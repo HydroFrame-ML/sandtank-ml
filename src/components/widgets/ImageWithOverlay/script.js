@@ -1,5 +1,4 @@
 import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
-import { simplifyNumber } from 'sandtank-ml/src/utils/stats';
 
 export default {
   name: 'ImageWithOverlay',
@@ -59,9 +58,9 @@ export default {
 
           // Set text
           if (this.overlayKind === 'labels') {
-            this.overlayLabel = this.labels[value] || simplifyNumber(value);
+            this.overlayLabel = this.labels[value] || value.toPrecision(1);
           } else {
-            this.overlayLabel = simplifyNumber(value);
+            this.overlayLabel = value.toPrecision(1);
           }
 
           // Set position

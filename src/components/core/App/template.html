@@ -8,24 +8,55 @@
 
   <v-main :class="$style.appContent">
     <v-container fluid>
+      <v-overlay />
+      <v-col>
+        <v-row class="px-3" style="position: relative: z-index: 10;">
+          <img :src="sandy" style="position: relative: z-index: 10;" />
+          <div style="position: relative: z-index: 10;">
+            {{guidance}}
+          </div>
+          <v-btn
+            @click="forward"
+            color="primary"
+            class="mx-4"
+            style="position: relative; z-index: 10;"
+          >
+            &lt;
+          </v-btn>
+          <v-btn
+            @click="back"
+            color="primary"
+            class="mx-4"
+            style="position: relative; z-index: 10;"
+          >
+            &gt;
+          </v-btn>
+        </v-row>
+        <v-row class="pt-2"> <v-divider /> </v-row>
+      </v-col>
+
       <v-col>
         <v-row class="px-3">
           <v-icon class="mr-2" v-text="`$water`" />
           <div :class="$style.titleContainer">
             <span class="title">ParFlow:</span>
-            <span class="ml-2 subtitle-1">Physics based simulation</span>
+            <span class="ml-2 subtitle-1">Physically based simulation</span>
           </div>
-          <v-btn
-            @click="runSimulation"
-            :loading="simulationLoading"
-            color="primary"
-            :outlined="!needRunSimulation"
-            class="mx-4"
-            :disabled="!needRunSimulation"
-          >
-            Run Simulation
-          </v-btn>
+
+          <WalkthroughStep stepName="runSimulation">
+            <v-btn
+              @click="runSimulation"
+              :loading="simulationLoading"
+              color="primary"
+              :outlined="!needRunSimulation"
+              class="mx-4"
+              :disabled="!needRunSimulation"
+            >
+              Run Simulation
+            </v-btn>
+          </WalkthroughStep>
           <v-spacer />
+
           <v-slider
             v-show="timeRange[1] - timeRange[0] > 1"
             label="Timestep"
@@ -41,6 +72,7 @@
             style="max-width: 300px;"
           />
         </v-row>
+
         <v-row class="pt-2">
           <v-divider />
         </v-row>
@@ -57,16 +89,18 @@
             <span class="title">AI:</span>
             <span class="ml-2 subtitle-1">Machine Learning Models</span>
           </div>
-          <v-btn
-            @click="runAI"
-            :loading="aiLoading"
-            :disabled="!needRunAI || !aiModels.length"
-            color="primary"
-            :outlined="!needRunAI || !aiModels.length"
-            class="mx-4"
-          >
-            Run ML Models
-          </v-btn>
+          <WalkthroughStep stepName="runAI">
+            <v-btn
+              @click="runAI"
+              :loading="aiLoading"
+              :disabled="!needRunAI || !aiModels.length"
+              color="primary"
+              :outlined="!needRunAI || !aiModels.length"
+              class="mx-4"
+            >
+              Run ML Models
+            </v-btn>
+          </WalkthroughStep>
 
           <v-spacer />
 

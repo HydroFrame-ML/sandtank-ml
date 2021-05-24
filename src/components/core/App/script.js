@@ -1,8 +1,10 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 import logo from 'sandtank-ml/src/assets/logo.png';
+import sandy from 'sandtank-ml/src/assets/sandy.png';
 import Simulation from 'sandtank-ml/src/components/core/Simulation';
 import Comparison from 'sandtank-ml/src/components/core/Comparison';
 import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
+import WalkthroughStep from 'sandtank-ml/src/components/widgets/WalkthroughStep';
 
 // Process arguments from URL
 const userParams = vtkURLExtract.extractURLParameters();
@@ -16,9 +18,11 @@ export default {
   components: {
     Simulation,
     Comparison,
+    WalkthroughStep,
   },
   data() {
     return {
+      sandy,
       logo,
       gradientColor: true,
     };
@@ -52,6 +56,7 @@ export default {
       needRunAI: 'AI_RUN_NEEDED',
       aiLoading: 'AI_IS_RUNNING',
       addRemoveAI: 'UI_ADD_REMOVE_AI',
+      guidance: 'WT_GUIDANCE',
     }),
     visibleModules: {
       get() {
@@ -67,6 +72,8 @@ export default {
       setUseGradientColor: 'TRAN_USE_PRESSURE_SET',
       updateVisibility: 'AI_MODULE_VISIBILITY_SET',
       setDiffScale: 'TRAN_DIFF_SCALE_SET',
+      forward: 'WT_STEP_FORWARD',
+      back: 'WT_STEP_BACKWARD',
     }),
     ...mapActions({
       connect: 'WS_CONNECT',

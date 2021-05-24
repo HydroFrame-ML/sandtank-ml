@@ -58,7 +58,7 @@
         />
         <v-row class="justify-space-between text-center pa-2">
           <div />
-          <div class="text-h6">Physics vs AI</div>
+          <div class="text-h6">Simulation vs AI</div>
           <div />
         </v-row>
       </v-col>
@@ -107,7 +107,7 @@
         <v-text-field
           dense
           label="L1 error"
-          :value="simplifyNumber(model.stats.l1)"
+          :value="Math.round(model.stats.l1) || '>1'"
           hide-details
           filled
           readonly
@@ -115,7 +115,7 @@
         <v-text-field
           dense
           label="Lmax"
-          :value="simplifyNumber(model.stats.lmax)"
+          :value="model.stats.lmax.toPrecision(1)"
           hide-details
           filled
           readonly
@@ -123,7 +123,7 @@
         <v-text-field
           dense
           label="Standard deviation"
-          :value="simplifyNumber(model.stats.stdDev)"
+          :value="model.stats.stdDev.toPrecision(1)"
           hide-details
           filled
           readonly

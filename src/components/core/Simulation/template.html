@@ -1,16 +1,18 @@
 <v-row class="align-center ma-4 ">
-  <v-col class="flex-grow-0 pa-0">
-    <v-slider
-      vertical
-      :value="leftSlider"
-      class="px-4"
-      @input="setLeftSlider"
-      max="50"
-    />
+  <v-col v-if="permeability" class="flex-grow-0 pa-0">
+    <WalkthroughStep stepName="changeSlider">
+      <v-slider
+        vertical
+        :value="leftSlider"
+        class="px-4"
+        @input="setLeftSlider"
+        max="50"
+      />
 
-    <div class="text-h6 text-center">
-      {{leftSlider}}
-    </div>
+      <div class="text-h6 text-center">
+        {{leftSlider}}
+      </div>
+    </WalkthroughStep>
   </v-col>
 
   <v-col class="flex-grow-0">
@@ -35,17 +37,19 @@
     </v-row>
   </v-col>
 
-  <v-col class="flex-grow-0 pa-0">
-    <v-slider
-      vertical
-      :value="rightSlider"
-      class="px-4"
-      @input="setRightSlider"
-      max="50"
-    />
-    <div class="text-h6 text-center">
-      {{rightSlider}}
-    </div>
+  <v-col v-if="permeability" class="flex-grow-0 pa-0">
+    <WalkthroughStep stepName="changeSlider">
+      <v-slider
+        vertical
+        :value="rightSlider"
+        class="px-4"
+        @input="setRightSlider"
+        max="50"
+      />
+      <div class="text-h6 text-center">
+        {{rightSlider}}
+      </div>
+    </WalkthroughStep>
   </v-col>
 
   <v-spacer />

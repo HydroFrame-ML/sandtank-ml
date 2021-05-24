@@ -48,31 +48,6 @@ export const addErrorStats = (models, ref) => {
   }
 };
 
-export const simplifyNumber = (n) => {
-  // Removes all non-zero digits except one
-  if (n === 0) {
-    return 0;
-  }
-
-  if (n >= 10) {
-    return Math.round(n);
-  }
-
-  let decimalPlaces = 0 - Math.ceil(Math.log(n) / Math.log(10));
-  if (isNaN(decimalPlaces) || decimalPlaces < 1) {
-    decimalPlaces = 1;
-  }
-
-  const result = n.toFixed(decimalPlaces);
-
-  // Handle negative zero
-  if (Math.sign(result) === 0) {
-    return 0;
-  }
-
-  return result;
-};
-
 export class Histogram {
   constructor(values, labels) {
     this.values = values;

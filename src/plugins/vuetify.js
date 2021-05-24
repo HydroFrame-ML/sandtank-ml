@@ -19,6 +19,8 @@ export default new Vuetify({
       add: 'mdi-plus',
       trash: 'mdi-delete',
       ai: 'mdi-brain',
+      guide: 'mdi-head-question-outline',
+
       // toggles
       toggle: 'mdi-orbit-variant',
       toggleChartCompare: 'mdi-magnify',
@@ -32,6 +34,7 @@ export default new Vuetify({
       showLearnStats: 'mdi-school-outline',
       showHist: 'mdi-chart-histogram',
       showError: 'mdi-sigma',
+
       //
       diffContrast: 'mdi-contrast-box',
     },

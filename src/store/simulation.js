@@ -9,7 +9,7 @@ export default {
     pressure: null,
     saturation: null,
     size: null,
-    running: false,
+    running: true,
     runTimeStep: 1,
     busy: false,
     lastRun: { left: null, right: null },

@@ -1,6 +1,7 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import ImageWithOverlay from 'sandtank-ml/src/components/widgets/ImageWithOverlay';
 import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
+import WalkthroughStep from 'sandtank-ml/src/components/widgets/WalkthroughStep';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -8,7 +9,7 @@ import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
 
 export default {
   name: 'Simulation',
-  components: { ImageWithOverlay, ComputedImage },
+  components: { ImageWithOverlay, ComputedImage, WalkthroughStep },
   computed: {
     ...mapGetters({
       isPressure: 'TRAN_USE_PRESSURE',
@@ -22,6 +23,7 @@ export default {
       normPressureToColor: 'TRAN_NORM_PRESSURE_TO_COLOR',
       toNormPress: 'TRAN_PRESS_TO_NORM',
       simulationTime: 'SIM_RUN_TIMESTEP',
+      simulationLoading: 'SIM_IS_RUNNING',
       usePressureConfig: 'UI_USE_PRESSURE',
       usePermeabilityLabels: 'UI_USE_PERMEABILITY_LABELS',
       useWaterLabels: 'UI_USE_WATER_LABELS',

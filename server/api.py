@@ -8,7 +8,7 @@ from wslink.websocket import LinkProtocol
 from wslink import register as exportRpc
 from twisted.internet import reactor
 
-from engine import SandtankEngine
+from simulation import SandtankEngine
 from ml import load_ml_stats, load_ml_model, remove_b_conditions
 
 # -----------------------------------------------------------------------------
