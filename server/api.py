@@ -68,16 +68,12 @@ class AI(LinkProtocol):
         _model_type, model_path = model_uri.split("://")
         model_path, _extension = model_path.split(".")
         log_dir = "logs"
-        version_dir = "version_0"
-        log_name = "metrics.csv"
         stats = load_ml_stats(
             os.path.abspath(
                 os.path.join(
                     self.basepath,
                     log_dir,
-                    model_path,
-                    version_dir,
-                    log_name,
+                    model_path + ".csv",
                 )
             )
         )
