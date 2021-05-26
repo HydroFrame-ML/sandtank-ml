@@ -1,0 +1,13 @@
+.walkthroughHighlight > * {
+  animation: glow 0.8s ease-in-out infinite alternate;
+  will-change: glow;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px -5px #3f51b5;
+  }
+  to {
+    box-shadow: 0 0 5px 5px #3f51b5;
+  }
+}

@@ -1,41 +1,44 @@
 <v-app>
   <v-app-bar app dense>
-    <v-icon v-text="`$logo`" :class="$style.logo" />
+    <v-icon v-text="`$logo`" :class="$style.logo"/>
     <span class="title">Sandtank ML</span>
     <v-spacer />
-    <v-progress-linear :active="busy" :indeterminate="busy" absolute bottom />
-  </v-app-bar>
+    <TopBar />
+    <v-progress-linear :active="busy" :indeterminate="busy" absolute bottom
+  /></v-app-bar>
 
   <v-main :class="$style.appContent">
     <v-container fluid>
-      <v-overlay />
       <v-col>
-        <v-row class="px-3" style="position: relative: z-index: 10;">
-          <img :src="sandy" style="position: relative: z-index: 10;" />
-          <div style="position: relative: z-index: 10;">
-            {{guidance}}
+        <v-row class="px-3 justify-space-between align-center">
+          <img :src="sandy" height="175px" />
+          <div style="width: 25em;">{{guidance}}</div>
+          <div class="align-self-end">
+            <v-btn
+              icon
+              outlined
+              :disabled="!lastExists"
+              @click="back"
+              color="primary"
+              class="ma-4 "
+            >
+              <v-icon v-text="`$last`" />
+            </v-btn>
+            <v-btn
+              icon
+              outlined
+              :disabled="!nextExists"
+              @click="forward"
+              color="primary"
+              class="ma-4 "
+            >
+              <v-icon v-text="`$next`" />
+            </v-btn>
           </div>
-          <v-btn
-            @click="forward"
-            color="primary"
-            class="mx-4"
-            style="position: relative; z-index: 10;"
-          >
-            &lt;
-          </v-btn>
-          <v-btn
-            @click="back"
-            color="primary"
-            class="mx-4"
-            style="position: relative; z-index: 10;"
-          >
-            &gt;
-          </v-btn>
         </v-row>
-        <v-row class="pt-2"> <v-divider /> </v-row>
-      </v-col>
-
-      <v-col>
+        <v-row class="pb-2">
+          <v-divider />
+        </v-row>
         <v-row class="px-3">
           <v-icon class="mr-2" v-text="`$water`" />
           <div :class="$style.titleContainer">
@@ -43,13 +46,16 @@
             <span class="ml-2 subtitle-1">Physically based simulation</span>
           </div>
 
-          <WalkthroughStep stepName="runSimulation">
+          <WalkthroughStep
+            stepName="runSimulation"
+            :advanceOnClick="true"
+            class="mx-4"
+          >
             <v-btn
               @click="runSimulation"
               :loading="simulationLoading"
               color="primary"
               :outlined="!needRunSimulation"
-              class="mx-4"
               :disabled="!needRunSimulation"
             >
               Run Simulation
@@ -89,14 +95,13 @@
             <span class="title">AI:</span>
             <span class="ml-2 subtitle-1">Machine Learning Models</span>
           </div>
-          <WalkthroughStep stepName="runAI">
+          <WalkthroughStep stepName="runAI" :advanceOnClick="true" class="mx-4">
             <v-btn
               @click="runAI"
               :loading="aiLoading"
               :disabled="!needRunAI || !aiModels.length"
               color="primary"
               :outlined="!needRunAI || !aiModels.length"
-              class="mx-4"
             >
               Run ML Models
             </v-btn>

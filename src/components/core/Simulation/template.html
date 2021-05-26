@@ -8,24 +8,25 @@
         @input="setLeftSlider"
         max="50"
       />
-
-      <div class="text-h6 text-center">
-        {{leftSlider}}
-      </div>
     </WalkthroughStep>
+    <div class="text-h6 text-center">
+      {{leftSlider}}
+    </div>
   </v-col>
 
   <v-col class="flex-grow-0">
-    <ImageWithOverlay
-      v-if="permeability"
-      :scale="3"
-      :size="size"
-      :values="permeability"
-      :convert="permeabilityToColor"
-      :labels="usePermeabilityLabels.values"
-      :overlayKind="usePermeabilityLabels.show ? 'labels' : ''"
-      rgb
-    />
+    <WalkthroughStep stepName="simulationPermeability">
+      <ImageWithOverlay
+        v-if="permeability"
+        :scale="3"
+        :size="size"
+        :values="permeability"
+        :convert="permeabilityToColor"
+        :labels="usePermeabilityLabels.values"
+        :overlayKind="usePermeabilityLabels.show ? 'labels' : ''"
+        rgb
+      />
+    </WalkthroughStep>
     <v-skeleton-loader
       v-show="!permeability"
       type="image"
@@ -46,25 +47,27 @@
         @input="setRightSlider"
         max="50"
       />
-      <div class="text-h6 text-center">
-        {{rightSlider}}
-      </div>
     </WalkthroughStep>
+    <div class="text-h6 text-center">
+      {{rightSlider}}
+    </div>
   </v-col>
 
   <v-spacer />
 
   <v-col class="flex-grow-0">
-    <ImageWithOverlay
-      v-if="pressure"
-      :scale="3"
-      :size="size"
-      :values="normPressure"
-      :convert="normPressureToColor"
-      :overlayKind="useWaterLabels.show ? 'values' : ''"
-      :class="{ [$style.outdated]: needRunSimulation }"
-      rgb
-    />
+    <WalkthroughStep stepName="simulationWater">
+      <ImageWithOverlay
+        v-if="pressure"
+        :scale="3"
+        :size="size"
+        :values="normPressure"
+        :convert="normPressureToColor"
+        :overlayKind="useWaterLabels.show ? 'values' : ''"
+        :class="{ [$style.outdated]: needRunSimulation }"
+        rgb
+      />
+    </WalkthroughStep>
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />
     <v-row class="justify-space-between align-center pa-2">
       <v-btn

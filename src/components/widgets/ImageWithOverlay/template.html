@@ -9,7 +9,12 @@
     v-on:overlay="updateOverlay"
   />
 
-  <div :class="$style.overlay" :style="overlayStyle" class="py-1 rounded px-2 ">
+  <div
+    v-if="$style.overlayLabel"
+    :class="$style.overlay"
+    :style="overlayStyle"
+    class="py-1 rounded px-2"
+  >
     <div
       :class="$style.overlayColorBlock"
       :style="overlayColor"

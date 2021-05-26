@@ -19,7 +19,8 @@ export default new Vuetify({
       add: 'mdi-plus',
       trash: 'mdi-delete',
       ai: 'mdi-brain',
-      guide: 'mdi-head-question-outline',
+      next: 'mdi-chevron-right',
+      last: 'mdi-chevron-left',
 
       // toggles
       toggle: 'mdi-orbit-variant',

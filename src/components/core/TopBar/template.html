@@ -1,0 +1,15 @@
+<v-app-bar app dense>
+  <v-icon v-text="`$logo`" :class="$style.logo"/>
+  <span class="title">Sandtank ML</span>
+  <v-spacer />
+  <v-breadcrumbs divider="-" :items="links">
+    <template v-slot:item="{ item }">
+      <v-breadcrumbs-item>
+        <router-link :to="item.link">
+          {{item.name}}
+        </router-link>
+      </v-breadcrumbs-item>
+    </template>
+  </v-breadcrumbs>
+  <v-progress-linear :active="busy" :indeterminate="busy" absolute bottom
+/></v-app-bar>

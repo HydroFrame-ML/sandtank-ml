@@ -5,6 +5,7 @@ import Simulation from 'sandtank-ml/src/components/core/Simulation';
 import Comparison from 'sandtank-ml/src/components/core/Comparison';
 import vtkURLExtract from 'vtk.js/Sources/Common/Core/URLExtract';
 import WalkthroughStep from 'sandtank-ml/src/components/widgets/WalkthroughStep';
+import TopBar from 'sandtank-ml/src/components/core/TopBar';
 
 // Process arguments from URL
 const userParams = vtkURLExtract.extractURLParameters();
@@ -16,6 +17,7 @@ const userParams = vtkURLExtract.extractURLParameters();
 export default {
   name: 'App',
   components: {
+    TopBar,
     Simulation,
     Comparison,
     WalkthroughStep,
@@ -49,6 +51,7 @@ export default {
       visibility: 'AI_MODULE_VISIBILITY',
       diffScale: 'TRAN_DIFF_SCALE',
       isPressure: 'TRAN_USE_PRESSURE',
+      stepIs: 'WT_STEP_IS',
       moduleConfig: 'UI_MODULE_SELECTOR',
       isModuleAvailable: 'UI_MODULE_AVAILABLE',
       diffScalingConfig: 'UI_DIFF_SCALING',
@@ -57,6 +60,8 @@ export default {
       aiLoading: 'AI_IS_RUNNING',
       addRemoveAI: 'UI_ADD_REMOVE_AI',
       guidance: 'WT_GUIDANCE',
+      lastExists: 'WT_LAST_STEP_EXISTS',
+      nextExists: 'WT_NEXT_STEP_EXISTS',
     }),
     visibleModules: {
       get() {
