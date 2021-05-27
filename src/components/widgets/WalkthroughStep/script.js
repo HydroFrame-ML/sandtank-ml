@@ -16,7 +16,7 @@ export default {
       forward: 'WT_STEP_FORWARD',
     }),
     moveForwardIfAuto() {
-      if (this.advanceOnClick) {
+      if (this.advanceOnClick && this.stepIs(this.stepName)) {
         this.forward();
       }
     },

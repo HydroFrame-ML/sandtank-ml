@@ -86,9 +86,9 @@
           <v-btn
             @click="runAI"
             :loading="aiLoading"
-            :disabled="!needRunAI || !aiModels.length"
+            :disabled="!needRunAI || !aiModels.length || needRunSimulation"
             color="primary"
-            :outlined="!needRunAI || !aiModels.length"
+            :outlined="!needRunAI || !aiModels.length || needRunSimulation"
           >
             Run ML Models
           </v-btn>
