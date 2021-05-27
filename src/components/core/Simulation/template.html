@@ -23,7 +23,7 @@
         :values="permeability"
         :convert="permeabilityToColor"
         :labels="usePermeabilityLabels.values"
-        :overlayKind="usePermeabilityLabels.show ? 'labels' : ''"
+        :overlayKind="usePermeabilityLabels.showOverlay ? 'labels' : ''"
         rgb
       />
     </WalkthroughStep>
@@ -52,6 +52,20 @@
       {{rightSlider}}
     </div>
   </v-col>
+  <v-col
+    v-if="usePermeabilityLabels.showLegend && permeability"
+    class="align-self-start"
+  >
+    <ComputedLegend
+      v-if="permeability"
+      :scale="3"
+      :size="size"
+      :values="permeability"
+      :convert="permeabilityToColor"
+      rgb
+      :labels="usePermeabilityLabels.values"
+    />
+  </v-col>
 
   <v-spacer />
 
@@ -63,7 +77,8 @@
         :size="size"
         :values="normPressure"
         :convert="normPressureToColor"
-        :overlayKind="useWaterLabels.show ? 'values' : ''"
+        :overlayKind="useWaterLabels.showOverlay ? 'labels' : ''"
+        :labels="usePermeabilityLabels.values"
         :class="{ [$style.outdated]: needRunSimulation }"
         rgb
       />
@@ -82,5 +97,20 @@
       <div class="text-h6">{{ fieldName }}</div>
       <div class="body-2">t({{ simulationTime }})</div>
     </v-row>
+  </v-col>
+  <v-col
+    v-if="useWaterLabels.showLegend && permeability"
+    class="align-self-start"
+  >
+    <ComputedLegend
+      v-if="pressure"
+      :scale="3"
+      :size="size"
+      :values="normPressure"
+      :convert="normPressureToColor"
+      :labels="waterLabelValues"
+      :class="{ [$style.outdated]: needRunSimulation }"
+      rgb
+    />
   </v-col>
 </v-row>

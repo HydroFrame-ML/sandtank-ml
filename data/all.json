@@ -21,7 +21,8 @@
       "defaultModels": []
     },
     "usePermeabilityLabels": {
-      "show": true,
+      "showOverlay": true,
+      "showLegend": true,
       "values": {
         "0": "A River",
         "1": "Sand",
@@ -37,7 +38,18 @@
       }
     },
     "useWaterLabels": {
-      "show": true
+      "showOverlay": true,
+      "showLegend": true,
+      "saturationValues": {
+        "-1": "A River",
+        "[-0.3, -0.7]": "Unsaturated",
+        "[-0.00005, 0.5]": "Saturated"
+      },
+      "pressureValues": {
+        "-1": "A River",
+        "[-0.3, -0.7]": "Low Pressure",
+        "[0.3, 0.5]": "High Pressure"
+      }
     },
     "useSkipInitial" : {
       "show": true,

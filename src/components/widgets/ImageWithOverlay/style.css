@@ -7,7 +7,7 @@
   color: white;
 }
 
-.overlayColorBlock {
+:global(.overlayColorBlock) {
   display: inline-block;
   vertical-align: middle;
   width: 1em;

@@ -61,7 +61,8 @@ export default {
         return ui.usePermeabilityLabels;
       }
       return {
-        show: false,
+        showOverlay: true,
+        showLegend: true,
         values: {},
       };
     },
@@ -81,7 +82,8 @@ export default {
         return ui.useWaterLabels;
       }
       return {
-        show: true,
+        showOverlay: true,
+        showLegend: true,
       };
     },
     UI_USE_SKIP_INITIAL(state) {

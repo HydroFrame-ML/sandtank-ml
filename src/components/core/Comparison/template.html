@@ -13,7 +13,7 @@
             :scale="scale"
             :convert="currentColorConvert"
             :rgb="simulationTime !== -1"
-            :overlayKind="useWaterLabels.show ? 'values' : ''"
+            :overlayKind="useWaterLabels.showOverlay ? 'values' : ''"
             :class="{[$style.outdated] : needRunAI}"
           />
         </WalkthroughStep>
@@ -49,7 +49,7 @@
             :values="isPressure ? model.stats.presDelta : model.stats.satDelta"
             :convert="deltaToColor"
             :labels="useDiffLabels.values"
-            :overlayKind="useDiffLabels.show ? 'labels' : ''"
+            :overlayKind="useDiffLabels.showOverlay ? 'labels' : ''"
             :class="{[$style.outdated] : needRunAI || needRunSimulation}"
           />
         </WalkthroughStep>

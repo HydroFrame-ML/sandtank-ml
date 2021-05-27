@@ -35,7 +35,7 @@ export default new Vuetify({
       showLearnStats: 'mdi-school-outline',
       showHist: 'mdi-chart-histogram',
       showError: 'mdi-sigma',
-
+      showLegends: 'mdi-format-list-checkbox',
       //
       diffContrast: 'mdi-contrast-box',
     },

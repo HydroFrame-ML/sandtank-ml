@@ -1,6 +1,7 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex';
 import ImageWithOverlay from 'sandtank-ml/src/components/widgets/ImageWithOverlay';
 import ComputedImage from 'sandtank-ml/src/components/widgets/ComputedImage';
+import ComputedLegend from 'sandtank-ml/src/components/widgets/ComputedLegend';
 import WalkthroughStep from 'sandtank-ml/src/components/widgets/WalkthroughStep';
 
 // ----------------------------------------------------------------------------
@@ -9,7 +10,12 @@ import WalkthroughStep from 'sandtank-ml/src/components/widgets/WalkthroughStep'
 
 export default {
   name: 'Simulation',
-  components: { ImageWithOverlay, ComputedImage, WalkthroughStep },
+  components: {
+    ImageWithOverlay,
+    ComputedImage,
+    WalkthroughStep,
+    ComputedLegend,
+  },
   computed: {
     ...mapGetters({
       isPressure: 'TRAN_USE_PRESSURE',
@@ -32,6 +38,11 @@ export default {
     }),
     normPressure() {
       return this.pressure.map(this.toNormPress);
+    },
+    waterLabelValues() {
+      return this.isPressure
+        ? this.useWaterLabels.pressureValues
+        : this.useWaterLabels.saturationValues;
     },
   },
   methods: {

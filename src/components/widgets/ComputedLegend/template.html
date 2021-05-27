@@ -1,0 +1,6 @@
+<div :height="height * scale" class="flex-column">
+  <div v-for="entry in legend">
+    <div :style="entry.color" class="overlayColorBlock rounded"></div>
+    {{entry.label}}
+  </div>
+</div>
