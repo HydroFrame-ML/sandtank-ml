@@ -51,10 +51,12 @@
           "name": "start",
           "guidance": "If you like, I can guide you through using Sandtank ML."
         },
+        {"name": "sandtank", 
+        "guidance":"We will be simulating how water flows through the different soils in this sandtank. Think of an ant farm!"
+        },
         {
           "name": "simulationPermeability",
-          "guidance":
-          "We will be simulating how water flows through the different soils in this sandtank. Think of an ant farm! The different colors here are different kinds of soil."
+          "guidance": "The different colors here are different kinds of soil."
         },
         {
           "name": "simulationWater",
