@@ -116,6 +116,23 @@ Select whether to skip the first epoch in learning stats sets with more than one
       "value": true
     }
 ```
+Add guidance for Sandy Loam, our character, to give the user as they learn to use the application. Every step _must_ have a name, and some names are special. These names will highlight parts of the app, so Sandy can point to them as she explains:
+- runAI 
+- runSimulation
+- simulationPermeability
+- changeSlider
+- simulationWater
+- compareAIWater 
+- noticeAIDiff
+```
+    "walkthrough": {
+      "steps": [
+        {
+          "name": "start",
+          "guidance": "If you like, I can guide you through using Sandtank ML."
+        },
+    }
+```
 
 ### UI Features
 The application will look for files in your $DATA directory corresponding to the uri pattern. That pattern is filled by your parameters, which will be shown in your specified order. 

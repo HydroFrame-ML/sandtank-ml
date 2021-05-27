@@ -7,6 +7,7 @@ import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 
 import App from 'sandtank-ml/src/components/core/App';
+import Sandtank from 'sandtank-ml/src/components/core/Sandtank';
 import Glossary from 'sandtank-ml/src/components/core/Glossary';
 import Welcome from 'sandtank-ml/src/components/core/Welcome';
 import vuetify from 'sandtank-ml/src/plugins/vuetify.js';
@@ -22,7 +23,7 @@ Vue.use(VueRouter);
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/', component: App },
+    { path: '/', component: Sandtank },
     { path: '/glossary', component: Glossary },
     { path: '/welcome', component: Welcome },
   ],
@@ -32,4 +33,5 @@ window.Vue = new Vue({
   vuetify,
   store,
   router,
+  render: (h) => h(App),
 }).$mount('#app');

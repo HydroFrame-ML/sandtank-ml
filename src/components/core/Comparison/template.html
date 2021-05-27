@@ -5,16 +5,18 @@
     </div>
     <div v-if="showPrediction" class="d-flex align-items-center">
       <v-col class="flex-grow-0">
-        <ImageWithOverlay
-          v-if="model.values"
-          :values="pressure"
-          :size="model.size"
-          :scale="scale"
-          :convert="currentColorConvert"
-          :rgb="simulationTime !== -1"
-          :overlayKind="useWaterLabels.show ? 'values' : ''"
-          :class="{[$style.outdated] : needRunAI}"
-        />
+        <WalkthroughStep stepName="compareAIWater">
+          <ImageWithOverlay
+            v-if="model.values"
+            :values="pressure"
+            :size="model.size"
+            :scale="scale"
+            :convert="currentColorConvert"
+            :rgb="simulationTime !== -1"
+            :overlayKind="useWaterLabels.show ? 'values' : ''"
+            :class="{[$style.outdated] : needRunAI}"
+          />
+        </WalkthroughStep>
         <v-skeleton-loader
           v-show="!model.size"
           type="image"
@@ -39,16 +41,18 @@
     </div>
     <div v-if="showDiff" class="d-flex align-items-center">
       <v-col class="flex-grow-0">
-        <ImageWithOverlay
-          v-if="model.values"
-          :size="model.size"
-          :scale="scale"
-          :values="isPressure ? model.stats.presDelta : model.stats.satDelta"
-          :convert="deltaToColor"
-          :labels="useDiffLabels.values"
-          :overlayKind="useDiffLabels.show ? 'labels' : ''"
-          :class="{[$style.outdated] : needRunAI || needRunSimulation}"
-        />
+        <WalkthroughStep stepName="noticeAIDiff">
+          <ImageWithOverlay
+            v-if="model.values"
+            :size="model.size"
+            :scale="scale"
+            :values="isPressure ? model.stats.presDelta : model.stats.satDelta"
+            :convert="deltaToColor"
+            :labels="useDiffLabels.values"
+            :overlayKind="useDiffLabels.show ? 'labels' : ''"
+            :class="{[$style.outdated] : needRunAI || needRunSimulation}"
+          />
+        </WalkthroughStep>
         <v-skeleton-loader
           v-show="!model.size"
           type="image"
@@ -58,7 +62,7 @@
         />
         <v-row class="justify-space-between text-center pa-2">
           <div />
-          <div class="text-h6">Simulation vs AI</div>
+          <div class="text-h6">Simulation vs ML</div>
           <div />
         </v-row>
       </v-col>

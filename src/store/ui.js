@@ -28,6 +28,13 @@ export default {
         defaultModels: [],
       };
     },
+    UI_WALKTHROUGH_STEPS(state) {
+      const { ui } = state.config || {};
+      if (ui && ui.walkthrough && ui.walkthrough.steps) {
+        return ui.walkthrough.steps;
+      }
+      return {};
+    },
     UI_USE_PRESSURE(state) {
       const { ui } = state.config || {};
       if (ui && ui.usePressure) {
@@ -128,6 +135,7 @@ export default {
       commit('UI_CONFIG_SET', newConfig);
 
       //Set values from new config
+      commit('WT_SET_STEPS', getters.UI_WALKTHROUGH_STEPS);
       commit('TRAN_USE_PRESSURE_SET', getters.UI_USE_PRESSURE.value);
       commit('UI_SKIP_INITIAL_SET', getters.UI_USE_SKIP_INITIAL.value);
       commit('AI_MODULE_VISIBILITY_SET', getters.UI_MODULE_SELECTOR.values);

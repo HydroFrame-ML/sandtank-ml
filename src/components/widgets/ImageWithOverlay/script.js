@@ -72,4 +72,10 @@ export default {
       }
     },
   },
+  mounted() {
+    // Set div size to match canvas
+    const [width, height] = this.size;
+    this.$el.style.width = width * this.scale + 'px';
+    this.$el.style.height = height * this.scale + 'px';
+  },
 };

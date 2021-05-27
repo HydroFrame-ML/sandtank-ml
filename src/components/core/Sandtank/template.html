@@ -1,0 +1,179 @@
+<v-main :class="$style.appContent">
+  <v-container fluid>
+    <v-col>
+      <v-row class="px-3 justify-space-between align-center">
+        <img :src="sandy" height="175px" />
+        <div style="width: 25em;">{{guidance}}</div>
+        <div v-if="lastExists || nextExists" class="align-self-end">
+          <v-btn
+            icon
+            outlined
+            :disabled="!lastExists"
+            @click="back"
+            color="accent"
+            class="ma-4 "
+          >
+            <v-icon v-text="`$last`" />
+          </v-btn>
+          <v-btn
+            icon
+            outlined
+            :disabled="!nextExists"
+            @click="forward"
+            color="accent"
+            class="ma-4 "
+          >
+            <v-icon v-text="`$next`" />
+          </v-btn>
+        </div>
+      </v-row>
+      <v-row class="pb-2">
+        <v-divider />
+      </v-row>
+      <v-row class="px-3">
+        <v-icon class="mr-2" v-text="`$water`" />
+        <div :class="$style.titleContainer">
+          <span class="title">ParFlow:</span>
+          <span class="ml-2 subtitle-1">Physically based simulation</span>
+        </div>
+
+        <WalkthroughStep stepName="runSimulation" advanceOnClick class="mx-4">
+          <v-btn
+            @click="runSimulation"
+            :loading="simulationLoading"
+            color="primary"
+            :outlined="!needRunSimulation"
+            :disabled="!needRunSimulation"
+          >
+            Run Simulation
+          </v-btn>
+        </WalkthroughStep>
+        <v-spacer />
+
+        <v-slider
+          v-show="timeRange[1] - timeRange[0] > 1"
+          label="Timestep"
+          :value="simulationTime"
+          @change="updateSimulationTime"
+          dense
+          hide-details
+          :min="timeRange[0]"
+          :max="timeRange[1]"
+          step="1"
+          thumb-label
+          thumb-size="16"
+          style="max-width: 300px;"
+        />
+      </v-row>
+
+      <v-row class="pt-2">
+        <v-divider />
+      </v-row>
+
+      <simulation />
+
+      <v-row class="pb-2">
+        <v-divider />
+      </v-row>
+
+      <v-row class="align-center px-3">
+        <v-icon class="mr-2" v-text="`$ai`" />
+        <div :class="$style.titleContainer">
+          <span class="title">AI:</span>
+          <span class="ml-2 subtitle-1">Machine Learning Models</span>
+        </div>
+        <WalkthroughStep stepName="runAI" advanceOnClick class="mx-4">
+          <v-btn
+            @click="runAI"
+            :loading="aiLoading"
+            :disabled="!needRunAI || !aiModels.length"
+            color="primary"
+            :outlined="!needRunAI || !aiModels.length"
+          >
+            Run ML Models
+          </v-btn>
+        </WalkthroughStep>
+
+        <v-spacer />
+
+        <div
+          style="height: 36px; overflow: hidden;"
+          class="mr-8 rounded"
+          v-show="diffScalingConfig.show && isPressure"
+        >
+          <v-text-field
+            :prepend-inner-icon="`$diffContrast`"
+            :value="diffScale"
+            @input="setDiffScale"
+            type="number"
+            :step="diffScalingConfig.step"
+            :min="diffScalingConfig.min"
+            :max="diffScalingConfig.max"
+            dense
+            hide-details
+            style="max-width: 100px; position: relative; top: -3px;"
+            filled
+            background-color="grey lighten-2"
+            color="grey darken-3"
+          />
+        </div>
+
+        <v-btn-toggle
+          v-show="moduleConfig.show"
+          v-model="visibleModules"
+          dense
+          multiple
+          background-color="white"
+          color="grey darken-2"
+        >
+          <v-btn v-if="isModuleAvailable('selection')" value="selection">
+            <v-icon v-text="`$showSelection`" />
+          </v-btn>
+          <v-btn v-if="isModuleAvailable('prediction')" value="prediction">
+            <v-icon v-text="`$showPrediction`" />
+          </v-btn>
+          <v-btn v-if="isModuleAvailable('diff')" value="diff">
+            <v-icon v-text="`$showDiff`" />
+          </v-btn>
+          <v-btn v-if="isModuleAvailable('hist')" value="hist">
+            <v-icon v-text="`$showHist`" />
+          </v-btn>
+          <v-btn v-if="isModuleAvailable('error')" value="error">
+            <v-icon v-text="`$showError`" />
+          </v-btn>
+          <v-btn v-if="isModuleAvailable('stats')" value="stats">
+            <v-icon v-text="`$showLearnStats`" />
+          </v-btn>
+        </v-btn-toggle>
+      </v-row>
+
+      <v-row class="pt-2">
+        <v-divider />
+      </v-row>
+    </v-col>
+    <div
+      v-for="model, idx in aiModels"
+      :key="idx"
+      style="position: relative;"
+      class="pt-2"
+    >
+      <comparison :model="model" />
+      <v-btn
+        absolute
+        v-show="addRemoveAI.show"
+        elevation="2"
+        @click="removeAI(idx)"
+        style="left: 0; top: 6px;"
+        icon
+        x-small
+      >
+        <v-icon small v-text="`$close`" />
+      </v-btn>
+    </div>
+    <div v-show="addRemoveAI.show" class="text-center my-4">
+      <v-btn icon @click="addAI()" outlined>
+        <v-icon v-text="`$add`" />
+      </v-btn>
+    </div>
+  </v-container>
+</v-main>

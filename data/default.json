@@ -44,6 +44,50 @@
     },
     "useWaterLabels": {
       "show": false
+    },
+    "walkthrough": {
+      "steps": [
+        {
+          "name": "start",
+          "guidance": "If you like, I can guide you through using Sandtank ML."
+        },
+        {
+          "name": "simulationPermeability",
+          "guidance":
+          "We will be simulating how water flows through the different soils in this sandtank. Think of an ant farm! The different colors here are different kinds of soil."
+        },
+        {
+          "name": "simulationWater",
+          "guidance":
+          "This is our output. Our simulation thinks water will be in these places"
+        },
+        {
+          "name": "changeSlider",
+          "guidance":
+          "First, change the water coming into the simulation. These dials set how high the water starts out on each side of the sandtank."
+        },
+        { "name": "runSimulation", "guidance": "Next, run the simulation." },
+        {
+          "name": "wait",
+          "guidance": "The simulation will run. Continue when it's finished!"
+        },
+        {
+          "name": "runAI",
+          "guidance": "Now, click this to run the ai and notice the differences!"
+        },
+        {
+          "name": "compareAIWater",
+          "guidance": "These boxes are the what our Machine Learning Model thinks our water will look like. Notice any differences!"
+        },
+        {
+          "name": "noticeAIDiff",
+          "guidance": "These boxes are highlight the biggest differences between the our simulation and our machine learning outputs. Are they the same differences you noticed?"
+        },
+        {
+          "name": "done",
+          "guidance": "Play with the values and explore!"
+        }
+      ] 
     }
   },
   "order": ["model", "training", "learningRate", "dropOut", "epoch"],

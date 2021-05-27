@@ -4,6 +4,7 @@ import Selector from 'sandtank-ml/src/components/core/Selector';
 import EpochChart from 'sandtank-ml/src/components/widgets/EpochChart';
 import DiffErrorChart from 'sandtank-ml/src/components/widgets/DiffErrorChart';
 import DiffErrorHistogram from 'sandtank-ml/src/components/widgets/DiffErrorHistogram';
+import WalkthroughStep from 'sandtank-ml/src/components/widgets/WalkthroughStep';
 
 // ----------------------------------------------------------------------------
 // Component API
@@ -26,6 +27,7 @@ export default {
     ImageWithOverlay,
     Selector,
     EpochChart,
+    WalkthroughStep,
   },
   computed: {
     ...mapGetters({

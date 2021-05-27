@@ -1,26 +1,43 @@
-<v-app>
-  <TopBar />
-
-  <v-main :class="$style.appContent">
-    <v-container fluid>
-      <v-col>
-        <v-row class="px-3 justify-space-between align-center">
-          <img :src="sandy" height="175px" />
-          <div style="width: 25em;" class="mx-10">
-            Welcome! We are excited for you to discover machine learning
-            concepts using this module. My name is Dr. Sandy Loam and I’ll be
-            here to guide you through as we discover machine learning and how
-            it’s used in hydrology.
-          </div>
-        </v-row>
-        <v-row class="ma-15">
-          To get started, we’re going to introduce you to the ParFlow Sandtank,
-          which is an important piece of this learning module. Click on the
-          button below (1) to begin the short video. Ready for the next step?
-          Watch the short machine learning video below (2), then you’ll be ready
-          to start the module activities!
-        </v-row>
-      </v-col>
-    </v-container>
-  </v-main>
-</v-app>
+<v-main>
+  <v-container fluid>
+    <v-col>
+      <v-row class="px-3 justify-space-between align-center">
+        <img :src="sandy" height="175px" />
+        <div style="width: 30em;" class="mx-10">
+          Welcome! We are excited for you to discover machine learning concepts
+          using this module. My name is Dr. Sandy Loam and I’ll be here to guide
+          you through as we discover machine learning and how it’s used in
+          hydrology.
+        </div>
+      </v-row>
+      <v-row class="ma-15">
+        To get started, we’re going to introduce you to the ParFlow Sandtank,
+        which is an important piece of this learning module. Click on the button
+        below (1) to begin the short video. Ready for the next step? Watch the
+        short machine learning video below (2), then you’ll be ready to start
+        the module activities!
+      </v-row>
+      <v-row class="justify-space-around">
+        <v-skeleton-loader
+          boilerplate
+          type="image"
+          width="308"
+          height="152px"
+        />
+        <v-skeleton-loader
+          boilerplate
+          type="image"
+          width="308"
+          height="152px"
+        />
+      </v-row>
+      <v-row class="justify-end">
+        <router-link to="/">
+          <v-btn color="primary" text class="ma-10">
+            Continue
+          </v-btn>
+        </router-link>
+      </v-row>
+    </v-col>
+  </v-container>
+</v-main>
