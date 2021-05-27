@@ -56,11 +56,11 @@ export default {
             this.overlayColor = `backgroundColor: rgb(${color}, ${color}, ${color});`;
           }
 
+          this.overlayLabel = value >= 10 ? value : value.toPrecision(1);
+
           // Set text
-          if (this.overlayKind === 'labels') {
-            this.overlayLabel = this.labels[value] || value.toPrecision(1);
-          } else {
-            this.overlayLabel = value.toPrecision(1);
+          if (this.overlayKind === 'labels' && this.labels[this.overlayLabel]) {
+            this.overlayLabel = this.labels[this.overlayLabel];
           }
 
           // Set position

@@ -80,19 +80,37 @@ Select whether to let the user add/remove models to/from the comparison. Also, s
       ]
     }
 ```
-Select whether a label should follow the mouse along the permeability image. Also, set label values to show instead of numbers. 
+Configure labels for permeability image. Labels might be in a legend, or overlayed on the image following the mouse. `values` supplies text to overwrite default numeric labels.
 ```
     "usePermeabilityLabels": {
-      "show": true,
+      "showOverlay": true,
+      "showLegend": true,
       "values": {
         "0": "A River",
         "1": "Sand",
         "0.6": "Compacted Sand",
         "0.05": "Dense Clay"
       }
-    }
+    },
 ```
-Select whether a label should follow the mouse along the diff image. Also, set label values to show instead of numbers. 
+Configure labels for pressure or saturation images. Labels might be in a legend, or overlayed on the image following the mouse. `values` supplies text to overwrite default numeric labels.
+```
+    "useWaterLabels": {
+      "showOverlay": true,
+      "showLegend": true,
+      "saturationValues": {
+        "-1": "A River",
+        "[-0.3, -0.7]": "Unsaturated",
+        "[-0.00005, 0.5]": "Saturated"
+      },
+      "pressureValues": {
+        "-1": "A River",
+        "[-0.3, -0.7]": "Low Pressure",
+        "[0.3, 0.5]": "High Pressure"
+      }
+    },
+```
+Select whether a label should follow the mouse along the diff image. Also, set label values to show instead of numbers. `values` supplies text to overwrite default numeric labels.
 ```
     "useDiffLabels": {
       "show": true,
@@ -102,13 +120,7 @@ Select whether a label should follow the mouse along the diff image. Also, set l
       }
     }
 ```
-Select whether to a label should follow the mouse along the water images.
-```
-    "useWaterLabels": {
-      "show": true
-    }
 
-```
 Select whether to skip the first epoch in learning stats sets with more than one epoch. First epochs are often outliers, distoring the graph. A value can be set, or a button can be shown.
 ```
     "useSkipInitial" : {

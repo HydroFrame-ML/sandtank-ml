@@ -78,7 +78,7 @@
         :values="normPressure"
         :convert="normPressureToColor"
         :overlayKind="useWaterLabels.showOverlay ? 'labels' : ''"
-        :labels="usePermeabilityLabels.values"
+        :labels="waterLabelValues"
         :class="{ [$style.outdated]: needRunSimulation }"
         rgb
       />
