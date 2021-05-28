@@ -35,6 +35,7 @@ export default {
       useWaterLabels: 'UI_USE_WATER_LABELS',
       needRunSimulation: 'SIM_RUN_NEEDED',
       fieldName: 'TRAN_FIELD_NAME',
+      showLegend: 'UI_SHOW_LEGENDS',
     }),
     normPressure() {
       return this.pressure.map(this.toNormPress);

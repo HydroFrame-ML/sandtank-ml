@@ -120,7 +120,13 @@ Select whether a label should follow the mouse along the diff image. Also, set l
       }
     }
 ```
-
+Whether to show the button that toggles legend visibility, and the initial value for that button.
+```
+    "useLegend": {
+      "show": true,
+      "value": true
+    },
+```
 Select whether to skip the first epoch in learning stats sets with more than one epoch. First epochs are often outliers, distoring the graph. A value can be set, or a button can be shown.
 ```
     "useSkipInitial" : {

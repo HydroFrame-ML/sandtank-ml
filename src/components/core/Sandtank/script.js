@@ -56,6 +56,8 @@ export default {
       guidance: 'WT_GUIDANCE',
       lastExists: 'WT_LAST_STEP_EXISTS',
       nextExists: 'WT_NEXT_STEP_EXISTS',
+      useLegendButton: 'UI_USE_LEGEND',
+      showLegends: 'UI_SHOW_LEGENDS',
     }),
     visibleModules: {
       get() {
@@ -73,6 +75,7 @@ export default {
       setDiffScale: 'TRAN_DIFF_SCALE_SET',
       forward: 'WT_STEP_FORWARD',
       back: 'WT_STEP_BACKWARD',
+      setShowLegends: 'UI_SHOW_LEGEND_SET',
     }),
     ...mapActions({
       runSimulation: 'SIM_RUN_MODELS',

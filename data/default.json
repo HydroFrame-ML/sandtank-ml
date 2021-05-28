@@ -45,6 +45,10 @@
     "useWaterLabels": {
       "show": false
     },
+    "useLegend": {
+      "show": true,
+      "value": true
+    },
     "walkthrough": {
       "steps": [
         {

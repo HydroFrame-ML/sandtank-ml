@@ -5,6 +5,7 @@ export default {
     config: {},
     trainingLoss: true,
     skipInitial: true,
+    showLegend: true,
   },
   getters: {
     UI_CONFIG(state) {
@@ -106,6 +107,16 @@ export default {
         values: ['selection', 'prediction', 'diff', 'hist', 'error', 'stats'],
       };
     },
+    UI_USE_LEGEND(state) {
+      const { ui } = state.config || {};
+      if (ui && ui.useLegend) {
+        return ui.useLegend;
+      }
+      return {
+        show: true,
+        value: true,
+      };
+    },
     UI_DIFF_SCALING(state) {
       const { ui } = state.config || {};
       if (ui && ui.diffScaling) {
@@ -122,6 +133,9 @@ export default {
     UI_SKIP_INITIAL(state) {
       return state.skipInitial;
     },
+    UI_SHOW_LEGENDS(state) {
+      return state.showLegend;
+    },
   },
   mutations: {
     UI_CONFIG_SET(state, value) {
@@ -129,6 +143,9 @@ export default {
     },
     UI_SKIP_INITIAL_SET(state, value) {
       state.skipInitial = value;
+    },
+    UI_SHOW_LEGEND_SET(state, value) {
+      state.showLegend = value;
     },
   },
   actions: {
@@ -141,6 +158,7 @@ export default {
       commit('TRAN_USE_PRESSURE_SET', getters.UI_USE_PRESSURE.value);
       commit('UI_SKIP_INITIAL_SET', getters.UI_USE_SKIP_INITIAL.value);
       commit('AI_MODULE_VISIBILITY_SET', getters.UI_MODULE_SELECTOR.values);
+      commit('UI_SHOW_LEGEND_SET', getters.UI_USE_LEGEND.value);
       for (const model of getters.UI_ADD_REMOVE_AI.defaultModels) {
         const modelSelector = new ModelSelector(newConfig);
         modelSelector.values = Object.assign(modelSelector.values, model);

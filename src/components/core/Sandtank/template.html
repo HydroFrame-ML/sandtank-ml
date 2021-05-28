@@ -64,6 +64,16 @@
           thumb-size="16"
           style="max-width: 300px;"
         />
+        <v-btn-toggle
+          v-if="useLegendButton.show"
+          dense
+          background-color="white"
+          color="grey darken-2"
+        >
+          <v-btn @change="setShowLegends(!showLegends)">
+            <v-icon v-text="`$showLegends`" />
+          </v-btn>
+        </v-btn-toggle>
       </v-row>
 
       <v-row class="pt-2">

@@ -55,6 +55,10 @@
       "show": true,
       "value": true
     },
+    "useLegend": {
+      "show": true,
+      "value": false
+    },
     "walkthrough": {
       "steps": [
         {
