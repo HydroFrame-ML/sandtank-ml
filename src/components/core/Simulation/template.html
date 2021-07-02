@@ -9,7 +9,7 @@
         max="50"
       />
     </WalkthroughStep>
-    <div class="text-h6 text-center">
+    <div class="subtitle-1 text-center">
       {{leftSlider}}
     </div>
   </v-col>
@@ -33,7 +33,7 @@
       width="308"
       height="152px"
     />
-    <v-row class="text-h6 justify-center pa-2">
+    <v-row class="subtitle-1 justify-center pa-4">
       Permeability
     </v-row>
   </v-col>
@@ -48,7 +48,7 @@
         max="50"
       />
     </WalkthroughStep>
-    <div class="text-h6 text-center">
+    <div class="subtitle-1 text-center">
       {{rightSlider}}
     </div>
   </v-col>
@@ -84,7 +84,7 @@
       />
     </WalkthroughStep>
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />
-    <v-row class="justify-space-between align-center pa-2">
+    <v-row class="justify-space-between align-center pa-4">
       <v-btn
         small
         icon
@@ -94,7 +94,7 @@
       >
         <v-icon v-show="usePressureConfig.show" v-text="`$toggle`" />
       </v-btn>
-      <div class="text-h6">{{ fieldName }}</div>
+      <div class="subtitle-1">Simulation Output: {{ fieldName }}</div>
       <div class="body-2">t({{ simulationTime }})</div>
     </v-row>
   </v-col>

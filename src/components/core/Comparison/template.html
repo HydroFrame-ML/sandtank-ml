@@ -34,7 +34,7 @@
           >
             <v-icon v-show="usePressureConfig.show" v-text="`$toggle`" />
           </v-btn>
-          <div class="text-h6">{{fieldName}}</div>
+          <div class="subtitle-1">ML Output: {{fieldName}}</div>
           <div class="body-2">t({{aiTime}})</div>
         </v-row>
       </v-col>
@@ -62,7 +62,7 @@
         />
         <v-row class="justify-space-between text-center pa-2">
           <div />
-          <div class="text-h6">Simulation vs ML</div>
+          <div class="subtitle-1 pa-2">Simulation vs ML</div>
           <div />
         </v-row>
       </v-col>
@@ -97,7 +97,7 @@
         />
         <v-row class="justify-space-between pa-2 align-center">
           <div />
-          <div class="text-h6 pt-2">Distribution of errors</div>
+          <div class="subtitle-1 pt-2">Distribution of errors</div>
           <div />
         </v-row>
       </v-col>
@@ -132,7 +132,7 @@
           filled
           readonly
         />
-        <div class="text-h6 pt-1">Prediction error</div>
+        <div class="subtitle-1 pt-1">Prediction error</div>
       </div>
       <v-col v-show="!model.size" class="flex-grow-0 text-center align-center ">
         <v-skeleton-loader
@@ -143,7 +143,7 @@
         />
         <v-row class="pa-2 text-center justify-space-between">
           <div />
-          <div class="text-h6 pt-1">Prediction error</div>
+          <div class="subtitle-1 pt-1">Prediction error</div>
           <div />
         </v-row>
       </v-col>
