@@ -96,9 +96,9 @@
           <v-btn
             @click="runAI"
             :loading="aiLoading"
-            :disabled="!needRunAI || !aiModels.length || needRunSimulation"
+            :disabled="!needRunAI || !aiModels.length || needRunSimulation || justStarted"
             color="primary"
-            :outlined="!needRunAI || !aiModels.length || needRunSimulation"
+            :outlined="!needRunAI || !aiModels.length || needRunSimulation || justStarted"
           >
             Run ML Models
           </v-btn>
