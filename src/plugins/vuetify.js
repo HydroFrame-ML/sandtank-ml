@@ -26,6 +26,7 @@ export default new Vuetify({
       toggle: 'mdi-orbit-variant',
       toggleChartCompare: 'mdi-magnify',
       toggleSkipInitial: 'mdi-blur-linear',
+      toggleShowSandy: 'account-question',
 
       // comparison icons
       close: 'mdi-close',
