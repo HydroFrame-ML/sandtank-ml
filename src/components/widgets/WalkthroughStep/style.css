@@ -1,5 +1,5 @@
 .walkthroughHighlight > * {
-  animation: glow 0.8s ease-in-out infinite alternate;
+  animation: glow 0.8s ease-in-out 8 alternate;
   will-change: glow;
 }
 
