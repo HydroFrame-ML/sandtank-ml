@@ -6,6 +6,7 @@ export default {
     trainingLoss: true,
     skipInitial: true,
     showLegend: true,
+    showGuidance: true,
   },
   getters: {
     UI_CONFIG(state) {
@@ -136,6 +137,9 @@ export default {
     UI_SHOW_LEGENDS(state) {
       return state.showLegend;
     },
+    UI_SHOW_GUIDANCE(state) {
+      return state.showGuidance;
+    },
   },
   mutations: {
     UI_CONFIG_SET(state, value) {
@@ -146,6 +150,9 @@ export default {
     },
     UI_SHOW_LEGEND_SET(state, value) {
       state.showLegend = value;
+    },
+    UI_SHOW_GUIDANCE_SET(state, value) {
+      state.showGuidance = value;
     },
   },
   actions: {

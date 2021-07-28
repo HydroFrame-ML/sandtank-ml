@@ -1,5 +1,6 @@
 <v-main :class="$style.appContent">
   <v-row
+    v-if="guidanceVisible"
     class="px-3 justify-space-between align-center flex-nowrap"
     style="position: fixed; width:100%; background:white; z-index:10; margin: 0px;"
   >
@@ -31,9 +32,15 @@
   <v-row class="pb-2">
     <v-divider />
   </v-row>
-
-  <v-container fluid style="margin-top: 180px;">
+  <!--
+  <v-container fluid style="margin-top: 175px;">
+-->
+  <v-container fluid :style="guidanceVisible ? 'margin-top: 175px;': ''">
     <v-col>
+      <v-row class="pb-2">
+        <v-divider />
+      </v-row>
+
       <v-row class="px-3">
         <v-icon class="mr-2" v-text="`$water`" />
         <div :class="$style.titleContainer">

@@ -1,4 +1,4 @@
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'TopBar',
@@ -12,6 +12,17 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({ busy: 'WS_BUSY' }),
+    ...mapGetters({
+      busy: 'WS_BUSY',
+      guidanceVisible: 'UI_SHOW_GUIDANCE',
+    }),
+  },
+  methods: {
+    ...mapMutations({
+      setGuidanceVisibility: 'UI_SHOW_GUIDANCE_SET',
+    }),
+    toggleGuidance() {
+      this.setGuidanceVisibility(!this.guidanceVisible);
+    },
   },
 };

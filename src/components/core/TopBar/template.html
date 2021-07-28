@@ -11,5 +11,21 @@
       </v-breadcrumbs-item>
     </template>
   </v-breadcrumbs>
+  <v-spacer />
+  <v-tooltip left v-if="$route.path === '/'">
+    <template v-slot:activator="{on, attrs}">
+      <v-btn
+        fab
+        x-small
+        color="primary"
+        @click="toggleGuidance"
+        v-bind="attrs"
+        v-on="on"
+      >
+        <v-icon small v-text="`$toggleShowSandy`" />
+      </v-btn>
+    </template>
+    <span> {{guidanceVisible ? "Hide": "Show"}} guidance </span>
+  </v-tooltip>
   <v-progress-linear :active="busy" :indeterminate="busy" absolute bottom
 /></v-app-bar>

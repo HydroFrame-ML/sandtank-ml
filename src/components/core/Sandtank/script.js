@@ -58,6 +58,7 @@ export default {
       nextExists: 'WT_NEXT_STEP_EXISTS',
       useLegendButton: 'UI_USE_LEGEND',
       showLegends: 'UI_SHOW_LEGENDS',
+      guidanceVisible: 'UI_SHOW_GUIDANCE',
     }),
     visibleModules: {
       get() {
