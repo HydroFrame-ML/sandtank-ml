@@ -1,11 +1,11 @@
 <v-main :class="$style.appContent">
   <v-row
-    class="px-3 justify-space-between align-center"
+    class="px-3 justify-space-between align-center flex-nowrap"
     style="position: fixed; width:100%; background:white; z-index:10; margin: 0px;"
   >
     <img :src="sandy" height="175px" />
-    <div style="width: 25em;">{{guidance}}</div>
-    <div v-if="lastExists || nextExists" class="align-self-end">
+    <div style="max-height: 175px; overflow: scroll;">{{guidance}}</div>
+    <div v-if="lastExists || nextExists" class="align-self-end d-flex ">
       <v-btn
         icon
         outlined
