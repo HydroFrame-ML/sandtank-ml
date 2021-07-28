@@ -2,6 +2,9 @@ import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'WalkthroughStep',
+  data: () => ({
+    untouched: true,
+  }),
   props: {
     stepName: { type: String, required: true },
     advanceOnClick: { type: Boolean, default: false },
@@ -10,6 +13,9 @@ export default {
     ...mapGetters({
       stepIs: 'WT_STEP_IS',
     }),
+    currentStep() {
+      return this.stepIs(this.stepName);
+    },
   },
   methods: {
     ...mapMutations({
@@ -19,6 +25,14 @@ export default {
       if (this.advanceOnClick && this.stepIs(this.stepName)) {
         this.forward();
       }
+    },
+    endAnimation() {
+      this.untouched = false;
+    },
+  },
+  watch: {
+    currentStep() {
+      this.untouched = true;
     },
   },
 };

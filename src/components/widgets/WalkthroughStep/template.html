@@ -1,6 +1,7 @@
 <div
-  :class="{[$style.walkthroughHighlight]: stepIs(stepName)}"
+  :class="{[$style.walkthroughHighlight]: currentStep && untouched}"
   @mouseup="moveForwardIfAuto"
+  @mouseover="endAnimation"
 >
   <slot />
 </div>
