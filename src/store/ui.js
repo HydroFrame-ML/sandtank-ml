@@ -164,6 +164,8 @@ export default {
         modelSelector.values = Object.assign(modelSelector.values, model);
         dispatch('AI_ADD_ENTRY', modelSelector);
       }
+
+      dispatch('AI_RUN');
     },
   },
 };
