@@ -20,7 +20,6 @@ export default {
   data() {
     return {
       sandy,
-      justStarted: true,
       gradientColor: true,
     };
   },
@@ -33,11 +32,6 @@ export default {
     },
     diffScalingConfig({ value }) {
       this.setDiffScale(value);
-    },
-    needRunSimulation(needRun) {
-      // Don't let users run ml models before moving the sliders
-      // FIXME A better, longer fix is to run the models at the start if we have any
-      if (needRun) this.justStarted = false;
     },
   },
   computed: {
