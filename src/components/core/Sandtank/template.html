@@ -2,10 +2,10 @@
   <v-row
     v-if="guidanceVisible"
     class="px-3 justify-space-between align-center flex-nowrap"
-    style="position: fixed; width:100%; background:white; z-index:10; margin: 0px;"
+    style="position: fixed; width:100%; background:white; z-index:10; padding: 24px 0 0 0;"
   >
-    <img :src="sandy" height="175px" />
-    <div style="max-height: 175px; overflow: scroll;">{{guidance}}</div>
+    <img :src="sandy" height="175px" style="margin-left: 24px;" />
+    <div style="max-height: 175px; overflow: auto;">{{guidance}}</div>
     <div v-if="lastExists || nextExists" class="align-self-end d-flex ">
       <v-btn
         icon
@@ -28,9 +28,6 @@
         <v-icon v-text="`$next`" />
       </v-btn>
     </div>
-  </v-row>
-  <v-row class="pb-2">
-    <v-divider />
   </v-row>
   <!--
   <v-container fluid style="margin-top: 175px;">
