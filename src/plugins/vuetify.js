@@ -12,13 +12,10 @@ export default new Vuetify({
     iconfont: 'mdi',
     values: {
       logo: 'mdi-head-snowflake-outline',
-      parflow: 'mdi-water',
       run: 'mdi-run',
       results: 'mdi-arrow-right-bold',
-      water: 'mdi-water',
       add: 'mdi-plus',
       trash: 'mdi-delete',
-      ai: 'mdi-brain',
       next: 'mdi-chevron-right',
       last: 'mdi-chevron-left',
 

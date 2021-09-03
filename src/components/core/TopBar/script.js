@@ -8,6 +8,7 @@ export default {
         { name: 'Welcome', link: '/welcome' },
         { name: 'Sandtank ML', link: '/' },
         { name: 'Glossary', link: '/glossary' },
+        { name: 'Resources', link: '/resources' },
       ],
     };
   },
