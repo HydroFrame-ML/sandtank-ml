@@ -59,6 +59,7 @@ export default {
       for (var key in entries) {
         const { min, max, pixel } = entries[key];
         let label = min !== max ? `[${min}, ${max}]` : max;
+        if (this.labels[label] === null) continue;
         label = this.labels[label] || label;
         let color;
         if (this.rgb) {
