@@ -17,12 +17,12 @@
       <v-btn
         fab
         x-small
-        color="primary"
+        color="grey"
         @click="toggleGuidance"
         v-bind="attrs"
         v-on="on"
       >
-        <v-icon small v-text="`$toggleShowSandy`" />
+        <img src="sandy-icon.svg" />
       </v-btn>
     </template>
     <span> {{guidanceVisible ? "Hide": "Show"}} guidance </span>
