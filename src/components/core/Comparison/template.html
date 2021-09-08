@@ -1,7 +1,9 @@
 <v-card style="min-height: 175px;">
   <v-row class="my-2 mx-1 pa-2 justify-space-between d-flex">
     <div v-if="showSelection">
-      <Selector :definition="model.modelSelector" style="max-width: 300px;" />
+      <WalkthroughStep stepName="selectModel">
+        <Selector :definition="model.modelSelector" style="max-width: 300px;" />
+      </WalkthroughStep>
     </div>
     <div v-if="showPrediction" class="d-flex align-items-center">
       <v-col class="flex-grow-0">
@@ -25,15 +27,17 @@
           :boilerplate="!aiLoading"
         />
         <v-row class="justify-space-between align-center pa-2">
-          <v-btn
-            small
-            icon
-            class="mr-2"
-            @click="setPressure(!isPressure)"
-            :disabled="needRunAI"
-          >
-            <v-icon v-show="usePressureConfig.show" v-text="`$toggle`" />
-          </v-btn>
+          <WalkthroughStep advanceOnClick :stepName="toggleSteps">
+            <v-btn
+              small
+              icon
+              class="mr-2"
+              @click="setPressure(!isPressure)"
+              :disabled="needRunAI"
+            >
+              <v-icon v-show="usePressureConfig.show" v-text="`$toggle`" />
+            </v-btn>
+          </WalkthroughStep>
           <div class="subtitle-1">ML Output: {{fieldName}}</div>
           <div class="body-2">t({{aiTime}})</div>
         </v-row>
@@ -69,32 +73,40 @@
     </div>
     <div v-if="showHist" class="d-flex align-items-center">
       <v-col class="flex-grow-0">
-        <div style="border: 1px solid grey;" v-if="model.values && isPressure">
-          <DiffErrorHistogram
-            :data="model.stats.histData"
-            :labels="model.stats.histLabels"
-            :size="model.size"
-            :scale="scale"
-            :yMax=" model.stats.histGlobalMax "
-            :xMax="diffScale"
-            :class="{[$style.outdated] : needRunAI || needRunSimulation}"
+        <WalkthroughStep stepName="noticeErrorDist">
+          <div
+            style="border: 1px solid grey;"
+            v-if="model.values && isPressure"
+          >
+            <DiffErrorHistogram
+              :data="model.stats.histData"
+              :labels="model.stats.histLabels"
+              :size="model.size"
+              :scale="scale"
+              :yMax=" model.stats.histGlobalMax "
+              :xMax="diffScale"
+              :class="{[$style.outdated] : needRunAI || needRunSimulation}"
+            />
+          </div>
+          <div
+            style="border: 1px solid grey;"
+            v-if="model.values && !isPressure"
+          >
+            <DiffErrorChart
+              :data="model.stats.pieData"
+              :size="model.size"
+              :scale="scale"
+              :class="{[$style.outdated] : needRunAI || needRunSimulation}"
+            />
+          </div>
+          <v-skeleton-loader
+            v-show="!model.size"
+            type="image"
+            :width="100 * scale"
+            :height="50 * scale"
+            :boilerplate="!aiLoading"
           />
-        </div>
-        <div style="border: 1px solid grey;" v-if="model.values && !isPressure">
-          <DiffErrorChart
-            :data="model.stats.pieData"
-            :size="model.size"
-            :scale="scale"
-            :class="{[$style.outdated] : needRunAI || needRunSimulation}"
-          />
-        </div>
-        <v-skeleton-loader
-          v-show="!model.size"
-          type="image"
-          :width="100 * scale"
-          :height="50 * scale"
-          :boilerplate="!aiLoading"
-        />
+        </WalkthroughStep>
         <v-row class="justify-space-between pa-2 align-center">
           <div />
           <div class="subtitle-1 pt-2">Distribution of errors</div>

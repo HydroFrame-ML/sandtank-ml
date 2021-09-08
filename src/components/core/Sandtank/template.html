@@ -17,16 +17,18 @@
       >
         <v-icon v-text="`$last`" />
       </v-btn>
-      <v-btn
-        icon
-        outlined
-        :disabled="!nextExists"
-        @click="forward"
-        color="accent"
-        class="ma-4 "
-      >
-        <v-icon v-text="`$next`" />
-      </v-btn>
+      <WalkthroughStep :stepName="steps">
+        <v-btn
+          icon
+          outlined
+          :disabled="!nextExists"
+          @click="forward"
+          color="accent"
+          class="ma-4 "
+        >
+          <v-icon v-text="`$next`" />
+        </v-btn>
+      </WalkthroughStep>
     </div>
   </v-row>
   <!--
@@ -44,7 +46,12 @@
           <span class="ml-2 subtitle-1">Physically based simulation</span>
         </div>
 
-        <WalkthroughStep stepName="runSimulation" advanceOnClick class="mx-4">
+        <WalkthroughStep
+          stepName="changeSlider"
+          advanceOnClick
+          hideHighlight
+          class="mx-4"
+        >
           <v-btn
             @click="runSimulation"
             :loading="simulationLoading"
@@ -87,7 +94,9 @@
         <v-divider />
       </v-row>
 
-      <simulation />
+      <WalkthroughStep stepName="parflowSandtank">
+        <simulation />
+      </WalkthroughStep>
 
       <v-row class="pb-2">
         <v-divider />
@@ -98,7 +107,12 @@
           <span class="title">AI:</span>
           <span class="ml-2 subtitle-1">Machine Learning Models</span>
         </div>
-        <WalkthroughStep stepName="runAI" advanceOnClick class="mx-4">
+        <WalkthroughStep
+          stepName="selectModel"
+          hideHighlight
+          advanceOnClick
+          class="mx-4"
+        >
           <v-btn
             @click="runAI"
             :loading="aiLoading"
@@ -187,9 +201,11 @@
       </v-btn>
     </div>
     <div v-show="addRemoveAI.show" class="text-center my-4">
-      <v-btn icon @click="addAI()" outlined>
-        <v-icon v-text="`$add`" />
-      </v-btn>
+      <WalkthroughStep stepName="addAI" advanceOnClick>
+        <v-btn icon @click="addAI()" outlined>
+          <v-icon v-text="`$add`" />
+        </v-btn>
+      </WalkthroughStep>
     </div>
   </v-container>
 </v-main>

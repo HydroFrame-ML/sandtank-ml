@@ -85,15 +85,17 @@
     </WalkthroughStep>
     <v-skeleton-loader v-show="!size" type="image" width="308" height="152px" />
     <v-row class="justify-space-between align-center pa-4">
-      <v-btn
-        small
-        icon
-        class="mr-2"
-        @click="setPressure(!isPressure)"
-        :disabled="!usePressureConfig.show"
-      >
-        <v-icon v-show="usePressureConfig.show" v-text="`$toggle`" />
-      </v-btn>
+      <WalkthroughStep stepName="simulationWater" advanceOnClick>
+        <v-btn
+          small
+          icon
+          class="mr-2"
+          @click="setPressure(!isPressure)"
+          :disabled="!usePressureConfig.show"
+        >
+          <v-icon v-show="usePressureConfig.show" v-text="`$toggle`" />
+        </v-btn>
+      </WalkthroughStep>
       <div class="subtitle-1">Simulation Output: {{ fieldName }}</div>
       <div class="body-2">t({{ simulationTime }})</div>
     </v-row>

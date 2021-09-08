@@ -6,7 +6,7 @@ export const DEFAULT_MODEL = {
       items: [{ text: 'Pressure', value: 'RegressionPressure' }],
     },
     training: {
-      label: 'Learning set',
+      label: 'Training set',
       items: [
         { text: 'Dry', value: 'dry' },
         { text: 'Wet', value: 'wet' },

@@ -1,5 +1,5 @@
 <div
-  :class="{[$style.walkthroughHighlight]: currentStep && untouched}"
+  :class="{[$style.walkthroughHighlight]: !hideHighlight && currentStep && untouched}"
   @mouseup="moveForwardIfAuto"
   @mouseover="endAnimation"
 >

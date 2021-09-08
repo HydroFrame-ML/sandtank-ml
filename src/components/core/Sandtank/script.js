@@ -21,6 +21,11 @@ export default {
     return {
       sandy,
       gradientColor: true,
+      steps: [
+        'advanceAfterCompareAIWater',
+        'advanceAfterNoticeAIDiff',
+        'advanceAfterSimulationWater',
+      ],
     };
   },
   watch: {
@@ -45,7 +50,6 @@ export default {
       visibility: 'AI_MODULE_VISIBILITY',
       diffScale: 'TRAN_DIFF_SCALE',
       isPressure: 'TRAN_USE_PRESSURE',
-      stepIs: 'WT_STEP_IS',
       moduleConfig: 'UI_MODULE_SELECTOR',
       isModuleAvailable: 'UI_MODULE_AVAILABLE',
       diffScalingConfig: 'UI_DIFF_SCALING',

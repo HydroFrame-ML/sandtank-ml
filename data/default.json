@@ -3,7 +3,7 @@
     "time": [1, 1],
     "moduleSelector": {
       "show": false,
-      "values": [ "selection", "prediction", "diff" ]
+      "values": ["selection", "prediction", "diff", "hist" ]
     },
     "diffScaling": {
       "show": false,
@@ -17,30 +17,8 @@
       "value": true
     },
     "addRemoveAI": {
-      "show": false,
-      "defaultModels": [ 
-        { 
-          "model": "RegressionPressure",
-          "training":"full",
-          "learningRate": "lr4",
-          "dropOut":"ndp",
-          "epoch":"e1"
-        },
-        { 
-          "model": "RegressionPressure",
-          "training":"wet",
-          "learningRate": "lr4",
-          "dropOut":"ndp",
-          "epoch":"e1"
-        },
-        { 
-          "model": "RegressionPressure",
-          "training":"dry",
-          "learningRate": "lr4",
-          "dropOut":"ndp",
-          "epoch":"e1"
-        }
-      ]
+      "show": true,
+      "defaultModels": []
     },
     "usePermeabilityLabels": {
       "showOverlay": true,
@@ -82,47 +60,47 @@
     },
     "walkthrough": {
       "steps": [
-        {
-          "name": "start",
-          "guidance": "If you like, I can guide you through using Sandtank ML."
-        },
-        {"name": "sandtank", 
-        "guidance":"We will be simulating how water flows through the different soils in this sandtank. Think of an ant farm!"
-        },
-        {
-          "name": "simulationPermeability",
-          "guidance": "The different colors here are different kinds of soil."
-        },
-        {
-          "name": "simulationWater",
-          "guidance":
-          "This is our output. Our simulation thinks water will be in these places"
+        {"name": "parflowSandtank", 
+        "guidance": "As we learned in the first video, the ParFlow Sandtank runs a physically based model that incorporates characteristics, like permeability, to model an environment. In the section below, we will run a physically based simulation and generate an output."
         },
         {
           "name": "changeSlider",
           "guidance":
-          "First, change the water coming into the simulation. These dials set how high the water starts out on each side of the sandtank."
-        },
-        { "name": "runSimulation", "guidance": "Next, run the simulation." },
-        {
-          "name": "wait",
-          "guidance": "The simulation will run. Continue when it's finished!"
+          "Set the boundary conditions by dragging the sliders up or down to change the values. Notice the scale for permeability on the right; you can see it goes from low permeability to high permeability. When you’ve set the boundary sliders where you’d like them to be, click on the \"Run Simulation\" button."
         },
         {
-          "name": "runAI",
-          "guidance": "Now, click this to run the ai and notice the differences!"
+          "name": "simulationWater",
+          "guidance": "After a few moments, you can see the simulation generated a pressure (purple) output and a saturation (blue) output, which you can toggle between using the icon in the lower left corner of the image."
+        },
+        {
+          "name": "advanceAfterSimulationWater",
+          "guidance": "After a few moments, you can see the simulation generated a pressure (purple) output and a saturation (blue) output, which you can toggle between using the icon in the lower left corner of the image."
+        },
+        { "name": "addAI", "guidance": "Now that we have our goal output, we can get into machine learning! You can click on the \"+\" button to add rows for machine learning models. " },
+        {
+          "name": "selectModel",
+          "guidance": "Now let's select how we want our ML models to be trained using the \"Training Set\" dropdown. You can select between three options: all, wet, or dry. All has been trained on the complete data set, including both dry and wet conditions. Wet has been trained only using boundary conditions that represent wet conditions (larger numbers). Dry has been trained only using dry boundary conditions (smaller numbers). Make your choices then click on the \"Run ML Models\" button to begin."
         },
         {
           "name": "compareAIWater",
-          "guidance": "These boxes are the what our Machine Learning Model thinks our water will look like. Notice any differences!"
+          "guidance": "Now let’s look at some outputs. The ML Output lets you visually compare the outputs from the ML models to the physically based (“goal”) simulation. Do these outputs look similar? Do they look different? If so, how are they different? Don't forget to toggle between the pressure (purple) and saturation (blue) outputs using the icon in the lower left corner!"
+        },
+        {
+          "name": "advanceAfterCompareAIWater",
+          "guidance": "Now let’s look at some outputs. The ML Output lets you visually compare the outputs from the ML models to the physically based (“goal”) simulation. Do these outputs look similar? Do they look different? If so, how are they different? Don't forget to toggle between the pressure (purple) and saturation (blue) outputs using the icon in the lower left corner!"
         },
         {
           "name": "noticeAIDiff",
-          "guidance": "These boxes are highlight the biggest differences between the our simulation and our machine learning outputs. Are they the same differences you noticed?"
+          "guidance": "The next output below is Simulation vs. ML, where you can see the amount and location of difference between the outputs from the ML models and the physically based simulation. The darker shade indicates a greater difference and a lighter shade indicates a smaller difference. Where do you see the most difference between the simulation and ML? If you’d like to learn more about this, check out our lessons that dive deeper into these topics. Again, don’t forget to toggle between pressure and saturation outputs."
         },
         {
-          "name": "done",
-          "guidance": "Play with the values and explore!"
+          "name": "advanceAfterNoticeAIDiff",
+          "guidance": "The next output below is Simulation vs. ML, where you can see the amount and location of difference between the outputs from the ML models and the physically based simulation. The darker shade indicates a greater difference and a lighter shade indicates a smaller difference. Where do you see the most difference between the simulation and ML? If you’d like to learn more about this, check out our lessons that dive deeper into these topics. Again, don’t forget to toggle between pressure and saturation outputs."
+        },
+        { "name": "noticeErrorDist",
+          "guidance": "The last output allows us to see how many errors were encountered and how these errors are distributed. First, make sure you have the ML Output toggled to saturation (blue). The distribution of errors should be a pie chart, where you can see the number of correctly predicted pixels (\"accuracies\") and the number of incorrectly predicted pixels, or \"errors\". This can give you an idea of how well your ML model predicted the same outcome as your goal simulation. When you toggle your ML Output to pressure (purple), you can see the distribution of errors is now displayed as a bar graph, which shows the value of the error and how many pixels had that same error value. If you’re curious about pixels and errors, check out our resources page to learn more!"
+        },
+        { "guidance": "Now that you know the basics of the Sandtank-ML app, explore different inputs and variables to see how they impact machine learning predictions. Also, please check out more lessons and content on our Resources page. "
         }
       ] 
     }
@@ -134,7 +112,7 @@
       "items": [{ "text": "Pressure", "value": "RegressionPressure" }]
     },
     "training": {
-      "label": "Learning set",
+      "label": "Training set",
       "items": [
         { "text": "All", "value": "full" },
         { "text": "Wet", "value": "wet" },

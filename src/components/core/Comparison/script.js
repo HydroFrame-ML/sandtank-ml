@@ -14,6 +14,7 @@ export default {
   name: 'Comparison',
   data: () => ({
     scale: 3,
+    toggleSteps: ['compareAIWater', 'noticeAIDiff', 'noticeErrorDist'],
   }),
   props: {
     model: {

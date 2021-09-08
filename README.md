@@ -163,7 +163,7 @@ The application will look for files in your $DATA directory corresponding to the
       "items": [{ "text": "Pressure", "value": "RegressionPressure" }]
     },
     "training": {
-      "label": "Learning set",
+      "label": "Training set",
       "items": [
         { "text": "All", "value": "full" },
         { "text": "Wet", "value": "wet" },

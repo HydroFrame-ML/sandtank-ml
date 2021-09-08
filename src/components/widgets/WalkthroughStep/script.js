@@ -6,15 +6,19 @@ export default {
     untouched: true,
   }),
   props: {
-    stepName: { type: String, required: true },
+    stepName: { required: true },
     advanceOnClick: { type: Boolean, default: false },
+    hideHighlight: { type: Boolean, default: false },
   },
   computed: {
     ...mapGetters({
-      stepIs: 'WT_STEP_IS',
+      currentStepMatches: 'WT_STEP_IS',
     }),
     currentStep() {
-      return this.stepIs(this.stepName);
+      if (Array.isArray(this.stepName)) {
+        return this.stepName.some(this.currentStepMatches);
+      }
+      return this.currentStepMatches(this.stepName);
     },
   },
   methods: {
@@ -22,7 +26,7 @@ export default {
       forward: 'WT_STEP_FORWARD',
     }),
     moveForwardIfAuto() {
-      if (this.advanceOnClick && this.stepIs(this.stepName)) {
+      if (this.advanceOnClick && this.currentStepMatches(this.stepName)) {
         this.forward();
       }
     },

@@ -106,7 +106,7 @@
       "items": [{ "text": "Pressure", "value": "RegressionPressure" }]
     },
     "training": {
-      "label": "Learning set",
+      "label": "Training set",
       "items": [
         { "text": "All", "value": "full" },
         { "text": "Wet", "value": "wet" },
