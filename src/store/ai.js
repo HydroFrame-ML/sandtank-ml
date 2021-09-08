@@ -133,8 +133,10 @@ export default {
       commit('AI_IS_RUNNING_SET', false);
     },
     AI_ADD_STATS({ state, getters }) {
-      const ref = getters.SIM_PRESSURE.map(getters.TRAN_PRESS_TO_NORM);
-      addErrorStats(state.models, ref);
+      if (getters.SIM_PRESSURE) {
+        const ref = getters.SIM_PRESSURE.map(getters.TRAN_PRESS_TO_NORM);
+        addErrorStats(state.models, ref);
+      }
     },
   },
 };
