@@ -1,5 +1,9 @@
 .walkthroughHighlight > * {
-  animation: glow 0.8s ease-in-out 8 alternate;
+  animation-name: glow;
+  animation-duration: 0.8s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: 8;
+  animation-direction: alternate;
   will-change: glow;
 }
 
