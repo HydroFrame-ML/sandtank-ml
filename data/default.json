@@ -39,7 +39,7 @@
       }
     },
     "useWaterLabels": {
-      "showOverlay": true,
+      "showOverlay": false,
       "showLegend": true,
       "saturationValues": {
         "-1": null,
