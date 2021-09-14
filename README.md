@@ -80,7 +80,7 @@ Select whether to let the user add/remove models to/from the comparison. Also, s
       ]
     }
 ```
-Configure labels for permeability image. Labels might be in a legend, or overlayed on the image following the mouse. `values` supplies text to overwrite default numeric labels.
+Configure labels for permeability image. Labels might be in a legend, or overlayed on the image following the mouse. `values` supplies text to overwrite default numeric labels. Setting a value to `null` will hide that value in the legend.
 ```
     "usePermeabilityLabels": {
       "showOverlay": true,
@@ -93,24 +93,56 @@ Configure labels for permeability image. Labels might be in a legend, or overlay
       }
     },
 ```
-Configure labels for pressure or saturation images. Labels might be in a legend, or overlayed on the image following the mouse. `values` supplies text to overwrite default numeric labels.
+If you prefer to only label the minimum and maximum values, you may instead use rangeLabels. 
+```
+    "usePermeabilityLabels": {
+      "showOverlay": true,
+      "showLegend": true,
+      "values": {
+        "0": null,
+        "rangeLabels": {
+          "low": "Low permeability",
+          "high": "High permeability"
+        }
+      }
+    },
+```
+Configure labels for pressure or saturation images. Labels might be in a legend, or overlayed on the image following the mouse. `values` supplies text to overwrite default numeric labels. Setting a value to `null` will hide that value in the legend.
 ```
     "useWaterLabels": {
       "showOverlay": true,
       "showLegend": true,
       "saturationValues": {
-        "-1": "A River",
-        "[-0.3, -0.7]": "Unsaturated",
-        "[-0.00005, 0.5]": "Saturated"
+        "-1": null,
+        "rangeLabels": {
+          "low": "Unsaturated",
+          "high" : "Saturated"
+        }
       },
       "pressureValues": {
-        "-1": "A River",
-        "[-0.3, -0.7]": "Low Pressure",
-        "[0.3, 0.5]": "High Pressure"
+        "-1": null,
+        "rangeLabels": {
+          "low": "Low pressure",
+          "high" : "High pressure"
+        }
       }
     },
 ```
-Select whether a label should follow the mouse along the diff image. Also, set label values to show instead of numbers. `values` supplies text to overwrite default numeric labels.
+If you prefer to only label the minimum and maximum values, you may instead use rangeLabels. 
+```
+    "usePermeabilityLabels": {
+      "showOverlay": true,
+      "showLegend": true,
+      "values": {
+        "0": null,
+        "rangeLabels": {
+          "low": "Low permeability",
+          "high": "High permeability"
+        }
+      }
+    },
+```
+Select whether a label should follow the mouse along the diff image. Also, set label values to show instead of numbers. `values` supplies text to overwrite default numeric labels. Setting a value to `null` will hide that value in the legend.
 ```
     "useDiffLabels": {
       "show": true,
@@ -120,6 +152,8 @@ Select whether a label should follow the mouse along the diff image. Also, set l
       }
     }
 ```
+
+
 Whether to show the button that toggles legend visibility, and the initial value for that button.
 ```
     "useLegend": {
