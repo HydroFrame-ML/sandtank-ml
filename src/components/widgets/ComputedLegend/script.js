@@ -71,6 +71,21 @@ export default {
       }
 
       legend.sort((first, second) => first.max - second.max);
+
+      if (this.labels.rangeLabels) {
+        legend.forEach((entry, idx) => {
+          if (idx === 0) {
+            entry.label = this.labels.rangeLabels.low;
+            return;
+          }
+          if (idx === legend.length - 1) {
+            entry.label = this.labels.rangeLabels.high;
+            return;
+          }
+          entry.label = '';
+        });
+      }
+
       return legend;
     },
   },

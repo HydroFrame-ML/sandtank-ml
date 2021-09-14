@@ -25,10 +25,10 @@
       "showLegend": true,
       "values": {
         "0": null,
-        "0.3": " ",
-        "0.05": "Low permeability",
-        "0.6": " ",
-        "1": "High permeability"
+        "rangeLabels": {
+          "low": "Low permeability",
+          "high": "High permeability"
+        }
       }
     },
     "useDiffLabels": {
@@ -43,15 +43,17 @@
       "showLegend": true,
       "saturationValues": {
         "-1": null,
-        "[-0.3, -0.7]": "Low saturation",
-        "[-0.00005, 0.5]": "High saturation"
+        "rangeLabels": {
+          "low": "Unsaturated",
+          "high" : "Saturated"
+        }
       },
       "pressureValues": {
         "-1": null,
-        "[-0.3, -0.7]": "Low pressure",
-        "[-0.00005, -0.2]": " ",
-        "[0.00004, 0.2]": " ",
-        "[0.3, 0.5]": "High pressure"
+        "rangeLabels": {
+          "low": "Low pressure",
+          "high" : "High pressure"
+        }
       }
     },
     "useLegend": {
