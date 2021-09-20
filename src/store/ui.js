@@ -7,6 +7,7 @@ export default {
     skipInitial: true,
     showLegend: true,
     showGuidance: true,
+    glossaryURL: '/glossary/glossary.html',
   },
   getters: {
     UI_CONFIG(state) {
@@ -140,6 +141,9 @@ export default {
     UI_SHOW_GUIDANCE(state) {
       return state.showGuidance;
     },
+    UI_GLOSSARY_URL(state) {
+      return state.glossaryURL;
+    },
   },
   mutations: {
     UI_CONFIG_SET(state, value) {
@@ -153,6 +157,9 @@ export default {
     },
     UI_SHOW_GUIDANCE_SET(state, value) {
       state.showGuidance = value;
+    },
+    UI_GLOSSARY_URL_SET(state, value) {
+      state.glossaryURL = value;
     },
   },
   actions: {
