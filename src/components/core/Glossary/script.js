@@ -13,9 +13,13 @@ export default {
   },
   mounted() {
     const frame = this.$refs.glossaryFrame;
-    frame.onload = function() {
+
+    function resizeFrame() {
       frame.style.height =
         frame.contentWindow.document.body.scrollHeight + 5 + 'px';
-    };
+    }
+
+    frame.onload = resizeFrame;
+    window.onresize = resizeFrame;
   },
 };
