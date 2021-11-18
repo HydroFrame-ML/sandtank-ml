@@ -10,7 +10,6 @@ import App from 'sandtank-ml/src/components/core/App';
 import Sandtank from 'sandtank-ml/src/components/core/Sandtank';
 import Glossary from 'sandtank-ml/src/components/core/Glossary';
 import Welcome from 'sandtank-ml/src/components/core/Welcome';
-import Resources from 'sandtank-ml/src/components/core/Resources';
 import vuetify from 'sandtank-ml/src/plugins/vuetify.js';
 import store from 'sandtank-ml/src/store';
 
@@ -27,7 +26,6 @@ const router = new VueRouter({
     { path: '/', component: Sandtank },
     { path: '/glossary', component: Glossary },
     { path: '/welcome', component: Welcome },
-    { path: '/resources', component: Resources },
   ],
 });
 
