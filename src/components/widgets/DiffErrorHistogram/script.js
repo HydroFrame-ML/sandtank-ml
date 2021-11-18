@@ -30,7 +30,6 @@ export default {
           datasets: [
             {
               data: hist.calculateBins(),
-              label: false,
               backgroundColor: 'rgb(20,20,20)',
               barPercentage: 1.0,
               categoryPercentage: 1.0,
@@ -47,9 +46,9 @@ var options = {
   legend: { display: false },
   layout: {
     padding: {
-      left: 8,
-      right: 8,
-      top: 10,
+      left: 0,
+      right: 16,
+      top: 16,
     },
   },
   scales: {
@@ -61,6 +60,10 @@ var options = {
         ticks: {
           maxTicksLimit: 2,
         },
+        scaleLabel: {
+          labelString: 'Error magnitude',
+          display: true,
+        },
       },
     ],
     yAxes: [
@@ -70,6 +73,10 @@ var options = {
           callback: function hideZero(x) {
             return Math.round(x) || '';
           },
+        },
+        scaleLabel: {
+          labelString: 'Error count',
+          display: true,
         },
       },
     ],
