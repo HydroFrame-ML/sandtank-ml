@@ -74,10 +74,6 @@
           "name": "simulationWater",
           "guidance": "After a few moments, you can see the simulation generated a pressure (purple) output and a saturation (blue) output, which you can toggle between using the icon in the lower left corner of the image."
         },
-        {
-          "name": "advanceAfterSimulationWater",
-          "guidance": "After a few moments, you can see the simulation generated a pressure (purple) output and a saturation (blue) output, which you can toggle between using the icon in the lower left corner of the image."
-        },
         { "name": "addAI", "guidance": "Now that we have our goal output, we can get into machine learning! You can click on the \"+\" button to add rows for machine learning models. " },
         {
           "name": "selectModel",
@@ -88,15 +84,7 @@
           "guidance": "Now let’s look at some outputs. The ML Output lets you visually compare the outputs from the ML models to the physically based (“goal”) simulation. Do these outputs look similar? Do they look different? If so, how are they different? Don't forget to toggle between the pressure (purple) and saturation (blue) outputs using the icon in the lower left corner!"
         },
         {
-          "name": "advanceAfterCompareAIWater",
-          "guidance": "Now let’s look at some outputs. The ML Output lets you visually compare the outputs from the ML models to the physically based (“goal”) simulation. Do these outputs look similar? Do they look different? If so, how are they different? Don't forget to toggle between the pressure (purple) and saturation (blue) outputs using the icon in the lower left corner!"
-        },
-        {
           "name": "noticeAIDiff",
-          "guidance": "The next output below is Simulation minus ML, where you can see the amount and location of difference between the outputs from the ML models and the physically based simulation. The darker shade indicates a greater difference and a lighter shade indicates a smaller difference. Where do you see the most difference between the simulation and ML? If you’d like to learn more about this, check out our lessons that dive deeper into these topics. Again, don’t forget to toggle between pressure and saturation outputs."
-        },
-        {
-          "name": "advanceAfterNoticeAIDiff",
           "guidance": "The next output below is Simulation minus ML, where you can see the amount and location of difference between the outputs from the ML models and the physically based simulation. The darker shade indicates a greater difference and a lighter shade indicates a smaller difference. Where do you see the most difference between the simulation and ML? If you’d like to learn more about this, check out our lessons that dive deeper into these topics. Again, don’t forget to toggle between pressure and saturation outputs."
         },
         { "name": "noticeErrorDist",
