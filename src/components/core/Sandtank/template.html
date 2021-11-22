@@ -2,33 +2,36 @@
   <v-row
     v-if="guidanceVisible"
     class="px-3 justify-space-between align-center flex-nowrap"
-    style="position: fixed; width:100%; background:white; z-index:10; padding: 24px 0 0 0;"
+    style="position: fixed; width:100%; background:white; z-index:10; padding: 24px 0 0 0; border-bottom: 1px solid grey;"
   >
     <img :src="sandy" height="175px" style="margin-left: 24px;" />
     <div style="max-height: 175px; overflow: auto;">{{guidance}}</div>
-    <div v-if="lastExists || nextExists" class="align-self-end d-flex ">
+    <div
+      v-if="lastExists || nextExists"
+      class="align-self-end d-flex flex-column"
+    >
+      <WalkthroughStep :stepName="steps">
+        <v-btn
+          outlined
+          :disabled="!nextExists"
+          @click="forward"
+          color="primary"
+          class="ma-2 "
+        >
+          Continue
+          <!--<v-icon v-text="`$next`" /> -->
+        </v-btn>
+      </WalkthroughStep>
       <v-btn
-        icon
         outlined
         :disabled="!lastExists"
         @click="back"
         color="accent"
-        class="ma-4 "
+        class="ma-2 "
       >
-        <v-icon v-text="`$last`" />
+        Back
+        <!--<v-icon v-text="`$last`" />-->
       </v-btn>
-      <WalkthroughStep :stepName="steps">
-        <v-btn
-          icon
-          outlined
-          :disabled="!nextExists"
-          @click="forward"
-          color="accent"
-          class="ma-4 "
-        >
-          <v-icon v-text="`$next`" />
-        </v-btn>
-      </WalkthroughStep>
     </div>
   </v-row>
   <!--
