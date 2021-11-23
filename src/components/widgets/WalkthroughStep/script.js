@@ -13,6 +13,7 @@ export default {
   computed: {
     ...mapGetters({
       currentStepMatches: 'WT_STEP_IS',
+      guidanceVisible: 'UI_SHOW_GUIDANCE',
     }),
     currentStep() {
       if (Array.isArray(this.stepName)) {
@@ -26,7 +27,7 @@ export default {
       forward: 'WT_STEP_FORWARD',
     }),
     moveForwardIfAuto() {
-      if (this.advanceOnClick && this.currentStep) {
+      if (this.advanceOnClick && this.currentStep && this.guidanceVisible) {
         this.forward();
       }
     },
