@@ -24,16 +24,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install sandtank-ml dependencies
 RUN python3 -m pip install --system --no-cache-dir \
-        wslink \
-        captum \
-        torchsummary \
-        pyyaml \
-        pytorch_lightning \
+        wslink==0.2.0 \
+        pftools[all]==1.2.0 \
         torch==1.7.0 \
-        torchvision==0.5.0 \
-        nibabel==3.1.1 \
-        tabulate==0.8.7 \
-        pftools[all]
+        torchvision==0.8.0 \
+        captum==0.3.1
+
+# Install lib with conflicting pyyaml dependency
+# This should overwrite pftools pyyaml preference, which is fine.
+RUN python3 -m pip install --system --no-cache-dir \
+        pytorch-lightning==1.2.10
 
 # Copy the apache configuration file into place
 COPY ./deploy/config/apache/001-pvw.conf /etc/apache2/sites-available/001-pvw.conf

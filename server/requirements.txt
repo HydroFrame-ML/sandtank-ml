@@ -1,10 +1,6 @@
-wslink
-captum
-torchsummary
-pyyaml
-pytorch_lightning
+wslink==0.2.0
+pftools[all]==1.2.0
 torch==1.7.0
-torchvision==0.5.0
-nibabel==3.1.1
-tabulate==0.8.7
-pftools[all]
+torchvision==0.8.0
+pytorch-lightning==1.2.10
+captum==0.3.1
