@@ -224,14 +224,3 @@ The application will look for files in your $DATA directory corresponding to the
     }
 ```
 
-# Developer gotchas
-## Use ?dev query param
-When running a development environment (eg with `npm run serve` and `python server/server.py ...`), you will have to add ?dev to the URL (eg `http://localhost:8080/?dev&name=dropout`). This configures the client to look for ports differently than with the docker setup. The client will not connect otherwise
-
-## Dependency Conflict
-Installing the server dependencies with `pip install -r server/requirements.txt` will result in this error:
-```
-ERROR: pytorch-lightning 1.2.10 has requirement PyYAML!=5.4.*,>=5.1, but you'll have pyyaml 5.4 which is incompatible.
-pftools 1.2.0 requires pyyaml==5.4.
-```
-The solution is to remove pytorch-lightning from the file, `pip install -r server/requirements.txt`, then manually `pip install pytorch-lightning==1.2.10`. This will make pftools use pyyaml==6.0, which should be fine.
