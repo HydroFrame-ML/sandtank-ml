@@ -6,6 +6,7 @@ This is a [ParaviewWeb](https://kitware.github.io/paraviewweb/index.html) applic
 - Web framework, templates, and components - [vuejs](https://vuejs.org/v2/guide/)
 - Organizational approach for client etc - [vuex](https://vuex.vuejs.org/)
 - Design framework and component library - [vuetify](https://vuetifyjs.com/en/https://vuetifyjs.com/en/)
+- Debugging tools for vue/vuex state - [vue dev tools](https://devtools.vuejs.org/guide/installation.html)
 
 ## Client
 This setup lets us take advantage of Vue's nice developer tools, including a server that will reload the client as files change.
