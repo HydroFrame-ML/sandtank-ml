@@ -21,7 +21,7 @@ Vue.use(Vuex);
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   routes: [
     { path: '/', component: Sandtank },
     { path: '/glossary', component: Glossary },
