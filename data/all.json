@@ -21,8 +21,7 @@
       "defaultModels": []
     },
     "usePermeabilityLabels": {
-      "showOverlay": true,
-      "showLegend": true,
+      "show": true,
       "values": {
         "0": "A River",
         "1": "Sand",
@@ -38,65 +37,47 @@
       }
     },
     "useWaterLabels": {
-      "showOverlay": true,
-      "showLegend": true,
-      "saturationValues": {
-        "-1": "A River",
-        "[-0.3, -0.7]": "Unsaturated",
-        "[-0.00005, 0.5]": "Saturated"
-      },
-      "pressureValues": {
-        "-1": "A River",
-        "[-0.3, -0.7]": "Low Pressure",
-        "[0.3, 0.5]": "High Pressure"
-      }
+      "show": true
     },
     "useSkipInitial" : {
       "show": true,
       "value": true
     },
-    "useLegend": {
-      "show": true,
-      "value": false
-    },
     "walkthrough": {
       "steps": [
         {
-          "name": "start",
-          "guidance": "If you like, I can guide you through using Sandtank ML."
-        },
-        {
           "name": "simulationPermeability",
-          "guidance":
-          "We will be simulating how water flows through the different soils in this sandtank. Think of an ant farm! The different colors here are different kinds of soil."
+          "guidance": "As we learned in the first video, the ParFlow Sandtank runs a physically based model that incorporates characteristics, like permeability, to model an environment. In the section below, we will run a physically based simulation and generate an output."
         },
         {
-          "name": "simulationWater",
-          "guidance":
-          "This is our output. Our simulation thinks water will be in these places"
+	  "name": "changeSlider",
+          "guidance": "Set the boundary conditions by dragging the sliders up or down then click on the \"Run Simulation\" button."
+        },
+	{
+	  "name": "sandtank",
+          "guidance": "As you can see, the simulation generated a pressure output and a saturation output, which you can toggle between using the icon in the lower left corner of the image."
         },
         {
-          "name": "changeSlider",
-          "guidance":
-          "First, change the water coming into the simulation. These dials set how high the water starts out on each side of the sandtank."
-        },{
-        "name": "testLongEntry",
-        "guidance": "This is meant to be a very long entry which has enough text to stress the system. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-        },
-        { "name": "runSimulation", "guidance": "Next, run the simulation." },
-        {
-          "name": "wait",
-          "guidance": "The simulation will run. Continue when it's finished!"
+          "name": "sandtank",
+          "guidance": "Now that we have our goal output, we can get into machine learning! You can click on the \"+\" button to add rows for machine learning models."
         },
         {
-          "name": "runAI",
-          "guidance": "Now, click this to run the ai and notice the differences!"
+          "name": "sandtank",
+          "guidance": "Now let's select how we want our ML models to be trained. You can select between three options: all, wet, or dry. All has been trained on the complete data set, including both dry and wet conditions. Wet has been trained only using boundary conditions that represent wet conditions (larger numbers). Dry has been trained only using dry boundary conditions (smaller numbers). Make your choices then click on the \"Run ML Models\" button to begin."
         },
+        {
+          "name": "sandtank",
+          "guidance": "In the left column below, you can visually compare the outputs from the ML models to the output from the physically based simulation. Don't forget to toggle between the pressure and saturation outputs!"
+        },
+        { 
+	  "name": "sandtank", 
+	  "guidance": "In the right column below, you can see the difference between the output from the ML models and the output from the physically based simulation. The darker shade indicates a greater difference and a light shade indicates a smaller difference." 
+	},
         {
           "name": "done",
-          "guidance": "What did you notice? Play with the values and explore!"
-        } 
-      ] 
+          "guidance": "Play with the values and explore!"
+        }
+      ]
     }
   },
   "order": ["model", "training", "learningRate", "dropOut", "epoch"],
@@ -106,7 +87,7 @@
       "items": [{ "text": "Pressure", "value": "RegressionPressure" }]
     },
     "training": {
-      "label": "Training set",
+      "label": "Learning set",
       "items": [
         { "text": "All", "value": "full" },
         { "text": "Wet", "value": "wet" },

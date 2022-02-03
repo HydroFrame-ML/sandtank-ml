@@ -24,7 +24,7 @@
         "items": [{ "text": "Pressure", "value": "RegressionPressure" }]
       },
       "training": {
-        "label": "Training set",
+        "label": "Learning set",
         "items": [
             { "text": "All", "value": "full" }
         ]
