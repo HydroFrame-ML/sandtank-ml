@@ -48,9 +48,6 @@ export default {
         state.initialRun
       );
     },
-    SIM_INITIAL_RUN(state) {
-      return state.initialRun;
-    },
   },
   mutations: {
     SIM_LEFT_SET(state, left) {
