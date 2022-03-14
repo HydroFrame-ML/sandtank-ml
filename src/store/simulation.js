@@ -13,6 +13,7 @@ export default {
     runTimeStep: 1,
     busy: false,
     lastRun: { left: null, right: null },
+    initialRun: true,
   },
   getters: {
     SIM_LEFT(state) {
@@ -43,7 +44,8 @@ export default {
       return (
         state.running ||
         state.left !== state.lastRun.left ||
-        state.right !== state.lastRun.right
+        state.right !== state.lastRun.right ||
+        state.initialRun
       );
     },
   },
@@ -79,6 +81,7 @@ export default {
   },
   actions: {
     SIM_RUN_MODELS({ state, dispatch }) {
+      state.initialRun = false;
       state.running = true;
       const run = {
         left: state.left,
