@@ -59,6 +59,8 @@
             @click="runSimulation"
             :loading="simulationLoading"
             color="primary"
+            :outlined="!needRunSimulation"
+            :disabled="!needRunSimulation"
           >
             Run Simulation
           </v-btn>
